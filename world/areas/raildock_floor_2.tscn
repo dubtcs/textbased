@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://d05xyy8elkuo"]
+
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="1_cdedh"]
+[ext_resource type="PackedScene" uid="uid://oag20evon74k" path="res://world/GameRoomLarge.tscn" id="2_cbtm7"]
+[ext_resource type="PackedScene" uid="uid://ca638r35ipolj" path="res://world/Bridge.tscn" id="3_rm5mr"]
+
+[node name="RaildockFloor2" type="Node2D"]
+
+[node name="GameRoom" parent="." instance=ExtResource("1_cdedh")]
+roomIcon = 3
+
+[node name="GameRoom2" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(128, 0)
+
+[node name="GameRoom3" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(128, -128)
+
+[node name="GameRoom4" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(256, -128)
+
+[node name="GameRoom5" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(384, -128)
+
+[node name="GameRoom9" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(512, -128)
+
+[node name="GameRoom10" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(512, 0)
+
+[node name="GameRoom11" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(512, 128)
+
+[node name="GameRoom6" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(384, 128)
+
+[node name="GameRoom7" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(256, 128)
+
+[node name="GameRoom8" parent="." instance=ExtResource("1_cdedh")]
+position = Vector2(128, 128)
+
+[node name="GameRoomLarge" parent="." instance=ExtResource("2_cbtm7")]
+position = Vector2(256, 0)
+roomIcon = 9
+
+[node name="GameRoomLarge2" parent="." instance=ExtResource("2_cbtm7")]
+position = Vector2(384, 0)
+roomIcon = 9
+
+[node name="Bridge" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(128, 64)
+
+[node name="Bridge2" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(128, -64)
+
+[node name="Bridge3" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(512, -64)
+
+[node name="Bridge4" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(512, 64)
+
+[node name="Bridge5" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(64, 0)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge6" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(192, -128)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge7" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(320, -128)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge8" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(448, -128)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge9" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(448, 128)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge10" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(320, 128)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge11" parent="." instance=ExtResource("3_rm5mr")]
+position = Vector2(192, 128)
+rotation = 1.5708
+isLateral = true

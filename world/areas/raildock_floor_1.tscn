@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://icvg41suqgjp"]
+
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="1_0fpdm"]
+[ext_resource type="PackedScene" uid="uid://oag20evon74k" path="res://world/GameRoomLarge.tscn" id="2_228ek"]
+
+[node name="RaildockFloor1" type="Node2D"]
+
+[node name="GameRoom" parent="." instance=ExtResource("1_0fpdm")]
+roomName = "elevator"
+roomIcon = 3
+
+[node name="GameRoom2" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-128, 0)
+roomName = "elevator"
+
+[node name="GameRoom12" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(128, 0)
+roomName = "elevator"
+
+[node name="GameRoom13" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(256, 0)
+roomName = "elevator"
+
+[node name="GameRoom14" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(384, 0)
+roomName = "elevator"
+
+[node name="GameRoom15" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(512, 0)
+roomName = "elevator"
+
+[node name="GameRoom16" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(128, -128)
+roomName = "elevator"
+
+[node name="GameRoom17" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(384, -128)
+roomName = "elevator"
+
+[node name="GameRoom18" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(384, -256)
+roomName = "elevator"
+
+[node name="GameRoom3" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-128, -128)
+roomName = "elevator"
+
+[node name="GameRoom4" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-128, 128)
+roomName = "elevator"
+
+[node name="GameRoom5" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-384, 128)
+roomName = "elevator"
+
+[node name="GameRoom6" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-384, 0)
+roomName = "elevator"
+
+[node name="GameRoom7" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-384, -128)
+roomName = "elevator"
+
+[node name="GameRoom8" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-256, -128)
+roomName = "elevator"
+
+[node name="GameRoom9" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-256, 0)
+roomName = "elevator"
+
+[node name="GameRoom11" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-512, 0)
+roomName = "elevator"
+roomIcon = 6
+
+[node name="GameRoom10" parent="." instance=ExtResource("1_0fpdm")]
+position = Vector2(-256, 128)
+roomName = "elevator"
+
+[node name="GameRoomLarge" parent="." instance=ExtResource("2_228ek")]
+position = Vector2(128, -256)
+roomIcon = 9

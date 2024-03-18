@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgvyelmlxclx3"]
+
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="1_vckis"]
+
+[node name="Raildock" type="Node2D"]
+position = Vector2(384, -128)
+
+[node name="GameRoom" parent="." instance=ExtResource("1_vckis")]
+roomIcon = 10
+
+[node name="GameRoom2" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(0, 128)
+
+[node name="GameRoom3" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(128, 128)
+
+[node name="GameRoom4" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(256, 128)
+roomName = "dockoutlook"
+roomDescription = "The end of the raildock platform. The vast emptiness of space everywhere you look."
+
+[node name="GameRoom5" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(-128, 128)
+
+[node name="GameRoom6" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(-256, 128)
+
+[node name="GameRoom7" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(-256, 0)
+
+[node name="GameRoom8" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(-256, -128)
+roomName = "railTerminal"
+roomDescription = "The terminal used to designate ship coordinates"
+roomIcon = 7
+
+[node name="GameRoom9" parent="." instance=ExtResource("1_vckis")]
+position = Vector2(-384, 128)
+roomIcon = 3

@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://dey8v6g2u6bmt"]
+
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="1_p7oo1"]
+[ext_resource type="PackedScene" uid="uid://ca638r35ipolj" path="res://world/Bridge.tscn" id="2_knug5"]
+
+[node name="Ship" type="Node2D"]
+
+[node name="GameRoom" parent="." instance=ExtResource("1_p7oo1")]
+
+[node name="GameRoom2" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(-128, 0)
+
+[node name="GameRoom3" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(-128, -128)
+
+[node name="GameRoom4" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(-128, -256)
+
+[node name="GameRoom5" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(128, 0)
+
+[node name="GameRoom6" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(128, -128)
+
+[node name="GameRoom7" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(128, -256)
+
+[node name="GameRoom8" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(256, 0)
+roomIcon = 7
+
+[node name="GameRoom9" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(0, 128)
+roomName = "exit"
+roomIcon = 5
+
+[node name="GameRoom10" parent="." instance=ExtResource("1_p7oo1")]
+position = Vector2(-256, 0)
+roomIcon = 1
+
+[node name="Bridge" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(-128, -64)
+
+[node name="Bridge2" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(-128, -192)
+
+[node name="Bridge3" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(128, -192)
+
+[node name="Bridge4" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(128, -64)
+
+[node name="Bridge5" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(0, 64)
+
+[node name="Bridge6" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(-64, 0)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge7" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(64, 0)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge8" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(192, 0)
+rotation = 1.5708
+isLateral = true
+
+[node name="Bridge9" parent="." instance=ExtResource("2_knug5")]
+position = Vector2(-192, 0)
+rotation = 1.5708
+isLateral = true
