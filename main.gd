@@ -14,7 +14,7 @@ var floorRoot: Node = null;
 func _ready() -> void:
 	PushMessage("Welcome to game. Play game. Game is simple. Type responses. Move places. Simple as.");
 	roomController.ProcessAreas();
-
+	
 func CreateHistoryBlock(playerText: String, response: String) -> void:
 	var block: Node = HistoryNode.instantiate();
 	block.SetPlayerInput(playerText, response);
@@ -24,8 +24,17 @@ func CreateHistoryBlock(playerText: String, response: String) -> void:
 
 func PushMessage(msg: String) -> void:
 	CreateHistoryBlock("Narration", msg);
+	
+func AttemptMovement(cmds: PackedStringArray) -> bool:
+	if(cmds.size() >= 1):
+		return true;
+	return false;
 
 func ProcessPlayerInput(msg: String) -> void:
 	if (not msg.is_empty()):
+		var cmds: PackedStringArray = logic.DeconstructCommand(msg);
+		var inputType: Enums.ActionType = logic.ProcessInputType(cmds[0]);
+		if(inputType == Enums.ActionType.movement):
+			AttemptMovement(cmds);
 		var response: String = logic.ProcessInput(msg);
 		CreateHistoryBlock(msg, response);

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://f2estcs07jan"]
+
+[ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_bo74o"]
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="2_kpsuv"]
+
+[node name="GameArea" instance=ExtResource("1_bo74o")]
+
+[node name="GameRoom" parent="." index="0" instance=ExtResource("2_kpsuv")]
+
+[node name="GameRoom2" parent="." index="1" instance=ExtResource("2_kpsuv")]
+position = Vector2(128, 0)

@@ -3,17 +3,24 @@ extends Node2D
 
 class_name GameRoom;
 
-@onready var mIconBox: TextureRect = $"Container/Panel/MarginContainer/Icon";
-@onready var mColorPanel: Panel = $"Container/Panel/MarginContainer/Panel";
+@onready var _mIconBox: TextureRect = $"Container/Panel/MarginContainer/Icon";
+@onready var _mColorPanel: Panel = $"Container/Panel/MarginContainer/Panel";
 
-@export var roomName: String = "";
-@export_multiline var roomDescription: String = "";
-@export var roomIcon: Enums.RoomIcon = Enums.RoomIcon.empty : set = SetRoomIcon;
-@export var roomColor: Enums.RoomColor = Enums.RoomColor.none : set = SetRoomColor;
+@export var _roomName: String = "";
+@export_multiline var _roomDescription: String = "";
+@export var _roomIcon: Enums.RoomIcon = Enums.RoomIcon.empty 	: set = _SetRoomIcon;
+@export var _roomColor: Enums.RoomColor = Enums.RoomColor.none 	: set = _SetRoomColor;
+
 @export var canGoNorth: bool = true;
 @export var canGoEast: bool = true;
 @export var canGoSouth: bool = true;
 @export var canGoWest: bool = true;
+
+func GetDescription() -> String:
+	return _roomDescription;
+	
+func GetRoomName() -> String:
+	return _roomName;
 
 # the "canGo" variables are an effort to not require the bridge class.
 # might still want to use bridges, as they allow for keyed entrances and whatnot?
@@ -38,22 +45,24 @@ const gIconEnumMap: Dictionary = {
 	Enums.RoomIcon.home 	: preload("res://images/player.png"),
 };
 
-func FetchIcon(ico: Enums.RoomIcon) -> CompressedTexture2D:
+## PRIVATE FUNCTIONS
+
+func _FetchIcon(ico: Enums.RoomIcon) -> CompressedTexture2D:
 	if (gIconEnumMap.has(ico)):
 		return gIconEnumMap[ico];
 	return null;
 	
-func FetchStylebox(clr: Enums.RoomColor) -> StyleBox:
+func _FetchStylebox(clr: Enums.RoomColor) -> StyleBox:
 	if(gColorEnumMap.has(clr)):
 		return gColorEnumMap[clr];
 	return gColorEnumMap[Enums.RoomColor.none];
 
-func SetRoomIcon(newIcon: Enums.RoomIcon) -> void:
-	roomIcon = newIcon;
+func _SetRoomIcon(newIcon: Enums.RoomIcon) -> void:
+	_roomIcon = newIcon;
 	var iconLabel: TextureRect = $"Container/Panel/MarginContainer/Icon";
-	iconLabel.texture = FetchIcon(roomIcon);
+	iconLabel.texture = _FetchIcon(_roomIcon);
 	
-func SetRoomColor(newColor: Enums.RoomColor) -> void:
-	roomColor = newColor;
+func _SetRoomColor(newColor: Enums.RoomColor) -> void:
+	_roomColor = newColor;
 	var colorPanel: Panel = $"Container/Panel/MarginContainer/Panel";
-	colorPanel.add_theme_stylebox_override("panel", FetchStylebox(roomColor));
+	colorPanel.add_theme_stylebox_override("panel", _FetchStylebox(_roomColor));

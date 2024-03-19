@@ -2,14 +2,26 @@ extends Node
 
 const MAX_SPLITS: int = 1;
 
+const _commandKeywords: Dictionary = {
+	"enter" : Enums.ActionType.movement,
+	"use"	: Enums.ActionType.interaction,
+};
+
+func DeconstructCommand(cmd: String) -> PackedStringArray:
+	return cmd.split(" ", false, MAX_SPLITS);
+
+func ProcessInputType(cmd: String) -> Enums.ActionType:
+	if(_commandKeywords.has(cmd)):
+		return _commandKeywords[cmd];
+	return Enums.ActionType.invalid;
+
 func ProcessInput(cmd: String) -> String:
 	var rv: String = "";
-	var commands: PackedStringArray = cmd.split(" ", false, MAX_SPLITS);
-	match(commands[0].to_lower()):
-		"use":
-			rv = "Used!";
+	var cmds: PackedStringArray = DeconstructCommand(cmd);
+	match(cmds[0]):
 		"enter":
-			rv = "Entering <area>";
+			return "You enter";
+		"use":
+			return "You use";
 		_:
-			rv = "You can't do that in this context.";
-	return rv;
+			return "You stupid.";
