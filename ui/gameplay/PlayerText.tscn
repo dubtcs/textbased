@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://w8lji5w6p80f"]
+
+[ext_resource type="Script" path="res://ui/gameplay/ResponseElement.gd" id="1_60853"]
+
+[node name="Label" type="Label"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.866667, 0.858824, 0.815686, 1)
+theme_override_font_sizes/font_size = 20
+text = "This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response."
+autowrap_mode = 2
+script = ExtResource("1_60853")

@@ -34,10 +34,8 @@ maxHistoryLength = 50
 [node name="GameLogic" type="Node" parent="."]
 script = ExtResource("3_vorft")
 
-[node name="RoomControl" type="Node" parent="."]
+[node name="AreaControl" type="Node" parent="."]
 script = ExtResource("4_24r7d")
-
-[node name="Areas" type="Node" parent="RoomControl"]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

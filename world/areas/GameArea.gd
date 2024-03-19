@@ -13,13 +13,16 @@ func GetCurrentRoom() -> GameRoom:
 	
 func GetCurrentPosition() -> Vector2:
 	return _currentPos;
-	
+
 func GetRoom(x: int, y: int) -> GameRoom:
 	var pos: Vector2 = Vector2(x, y);
+	return GetRoomVec(pos);
+
+func GetRoomVec(pos: Vector2) -> GameRoom:
 	if(_mapInfo.has(pos)):
 		return _mapInfo[pos].instance;	
 	return null;
-	
+
 func CanMove(dir: Enums.MoveDirection) -> bool:
 	var pos: Vector2 = _currentPos + _movementMapping[dir];
 	if(_mapInfo.has(pos)):

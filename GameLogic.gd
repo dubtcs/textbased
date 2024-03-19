@@ -1,10 +1,13 @@
 extends Node
+class_name GameLogicController;
 
 const MAX_SPLITS: int = 1;
 
 const _commandKeywords: Dictionary = {
 	"enter" : Enums.ActionType.movement,
+	"go" 	: Enums.ActionType.movement,
 	"use"	: Enums.ActionType.interaction,
+	"@"		: Enums.ActionType.meta
 };
 
 func DeconstructCommand(cmd: String) -> PackedStringArray:
