@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://f2estcs07jan"]
+
+[ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_7htw7"]
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="2_4v8nm"]
+
+[node name="GameArea" instance=ExtResource("1_7htw7")]
+
+[node name="GameRoom" parent="." index="0" instance=ExtResource("2_4v8nm")]
+_roomDescription = "Center room!"
+
+[node name="GameRoom2" parent="." index="1" instance=ExtResource("2_4v8nm")]
+position = Vector2(128, 0)
+_roomDescription = "offset to the right room"
