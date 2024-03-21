@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://f2estcs07jan"]
+[gd_scene load_steps=4 format=3 uid="uid://f2estcs07jan"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_7htw7"]
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="2_4v8nm"]
+[ext_resource type="Resource" uid="uid://jmf410cd84j" path="res://world/resources/roomexit/Closed.tres" id="3_taa55"]
 
 [node name="GameArea" instance=ExtResource("1_7htw7")]
 
@@ -9,7 +10,18 @@
 _roomName = "room 1"
 _roomDescription = "Center room!"
 
-[node name="GameRoom2" parent="." index="1" instance=ExtResource("2_4v8nm")]
+[node name="GameRoom3" parent="." index="1" instance=ExtResource("2_4v8nm")]
+position = Vector2(0, 128)
+_roomName = "room 4"
+_roomDescription = "bottom left, locked north"
+_exitNorth = ExtResource("3_taa55")
+
+[node name="GameRoom4" parent="." index="2" instance=ExtResource("2_4v8nm")]
+position = Vector2(128, 128)
+_roomName = "room 3"
+_roomDescription = "bottom right"
+
+[node name="GameRoom2" parent="." index="3" instance=ExtResource("2_4v8nm")]
 position = Vector2(128, 0)
 _roomName = "room 2"
 _roomDescription = "There is a guy screaming \"I LIVE IN BANDLADESH\" non stop in the northwest corner."

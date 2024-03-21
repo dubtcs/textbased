@@ -6,6 +6,11 @@ const areaFolder: String = "res://world/areas/_use";
 var _areaInfo: Dictionary = {};
 var _currentArea: GameArea = null;
 
+func AttemptMove(dir: Enums.MoveDirection) -> bool:
+	if(_currentArea.CanMove(dir)):
+		return _currentArea.MoveInDirection(dir);
+	return false;
+
 func GetCurrentArea() -> GameArea:
 	return _currentArea;
 

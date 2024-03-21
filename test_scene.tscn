@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl4oq4flfw6cw"]
+
+[ext_resource type="Script" path="res://RoomControl.gd" id="1_0f7ck"]
+[ext_resource type="Script" path="res://test_scene.gd" id="1_whfi0"]
+
+[node name="TestScene" type="Node2D"]
+script = ExtResource("1_whfi0")
+
+[node name="AreaControl" type="Node" parent="."]
+script = ExtResource("1_0f7ck")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

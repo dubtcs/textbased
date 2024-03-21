@@ -65,6 +65,7 @@ func HandleMeta() -> void:
 	_areas.ChangeArea("test_room");
 
 func ProcessPlayerInput(msg: String) -> void:
+	print(_areas.GetCurrentArea().GetCurrentPosition());
 	if (not msg.is_empty()):
 		PushPlayerInput(msg);
 		var cmds: PackedStringArray = _logic.DeconstructCommand(msg);

@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 class_name GameArea;
 
@@ -8,6 +7,10 @@ var _map: AStar2D = AStar2D.new();
 var _mapInfo: Dictionary = {};
 var _currentRoom: GameRoom = null;
 var _currentPos: Vector2 = Vector2.ZERO;
+
+class RoomInfo:
+	var id: int;
+	var instance: GameRoom;
 
 func GetCurrentRoom() -> GameRoom:
 	return _currentRoom;
@@ -22,13 +25,6 @@ func GetRoom(x: int, y: int) -> GameRoom:
 func GetRoomNamed(str: String) -> GameRoom:
 	return get_node(str);
 	# could check to make sure its a GameRoom
-	
-	#why tf did I do this??
-	#var room: GameRoom = get_node(str);
-	#if(room):
-		#var pos: Vector2 = Vector2(room.position.x / CELL_SIZE, room.position.y / CELL_SIZE);
-		#return GetRoomVec(pos);
-	#return null;
 
 func GetRoomVec(pos: Vector2) -> GameRoom:
 	if(_mapInfo.has(pos)):
@@ -38,7 +34,7 @@ func GetRoomVec(pos: Vector2) -> GameRoom:
 func CanMove(dir: Enums.MoveDirection) -> bool:
 	var pos: Vector2 = _currentPos + _movementMapping[dir];
 	if(_mapInfo.has(pos)):
-		return _map.are_points_connected(_mapInfo[_currentPos].id, _mapInfo[pos].id);
+		return _map.are_points_connected(_mapInfo[_currentPos].id, _mapInfo[pos].id, false);
 	return false;
 	
 func MoveInDirection(dir: Enums.MoveDirection) -> bool:
@@ -64,23 +60,34 @@ func MoveToPos(pos: Vector2) -> bool:
 
 ## offset of 2 for 64 pixel padding
 const _movementMapping: Dictionary = {
-	Enums.MoveDirection.north 	: Vector2( 0, 2),
+	Enums.MoveDirection.north 	: Vector2( 0,-2),
 	Enums.MoveDirection.east 	: Vector2( 2, 0),
-	Enums.MoveDirection.south 	: Vector2( 0,-2),
+	Enums.MoveDirection.south 	: Vector2( 0, 2),
 	Enums.MoveDirection.west 	: Vector2(-2, 0),
 };
 
-func _ProcessExits(room: GameRoom, pos: Vector2) -> void:
-	var pos2: Vector2 = Vector2.ZERO;
-	for iter in Enums.MoveDirection.values():
-		var dir: RoomExit = room.GetExit(iter);
-		pos2 = pos + _movementMapping[iter];
-		if(_mapInfo.has(pos2)):
-			if(dir): # override, like closed or keyed
-				print("Bruh.");
-			else: # open path
-				_map.connect_points(_mapInfo[pos].id, _mapInfo[pos2].id);
-	return;
+func _ProcessExits() -> void:
+	for pos: Vector2 in _mapInfo:
+		var id: int = _mapInfo[pos].id;
+		var room: GameRoom = _mapInfo[pos].instance;
+		for dir in Enums.MoveDirection.values():
+			var override: RoomExit = room.GetExit(dir);
+			var pos2: Vector2 = pos + _movementMapping[dir];
+			if(_mapInfo.has(pos2)):
+				var id2: int = _mapInfo[pos2].id;
+				if(override):
+					if(override.GetType() == Enums.ExitType.closed):
+						# remove 2 way if one has been made
+						if(_map.are_points_connected(id, id2)):
+							_map.disconnect_points(id, id2);
+						_map.connect_points(id2, id, false);
+					else:
+						print("Keyed Door.");
+				else:
+					# not used to prevent one way overwrite
+					if(not _map.are_points_connected(id, id2, false)):
+						print("Shit")
+						_map.connect_points(id, id2);
 
 func _ProcessRooms() -> void:
 	var rid: int = 0;
@@ -89,15 +96,10 @@ func _ProcessRooms() -> void:
 			var pos: Vector2 = Vector2(item.position.x / CELL_SIZE, item.position.y / CELL_SIZE);
 			_mapInfo[pos] = { id = rid, instance = item };
 			_map.add_point(rid, pos);
-			_ProcessExits(item, pos);
 			rid += 1;
 		#
 	return;
-				
+
 func _ready() -> void:
 	_ProcessRooms();
-
-func _VerifyConnection(pos: Vector2, pos2: Vector2) -> void:
-	if(_mapInfo.has(pos2)):
-		_map.connect_points(_mapInfo[pos].id, _mapInfo[pos2].id, true);
-	return;
+	_ProcessExits();
