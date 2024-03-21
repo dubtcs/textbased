@@ -17,7 +17,7 @@ func _ready() -> void:
 	#PushMessage("Welcome to game. Use the '@' character to access meta commands such as save/load ans start new game.");
 	PushGameResponse("Welcome to game.");
 	_areas.ChangeArea("test_room");
-	_areas.GetArea().MoveTo(0,0);
+	_areas.GetCurrentArea().MoveTo(0,0);
 	
 func CreateHistoryBlock(playerText: String, response: String) -> void:
 	var block: Node = HistoryNode.instantiate();
@@ -58,7 +58,7 @@ func AttemptMovement(cmds: PackedStringArray) -> bool:
 			dir = Enums.MoveDirection.west;
 		else:
 			return false;
-		return _areas.GetArea().MoveInDirection(dir);
+		return _areas.GetCurrentArea().MoveInDirection(dir);
 	return false;
 
 func HandleMeta() -> void:
@@ -71,9 +71,9 @@ func ProcessPlayerInput(msg: String) -> void:
 		var inputType: Enums.ActionType = _logic.ProcessInputType(cmds[0]);
 		if(inputType == Enums.ActionType.movement):
 			if(AttemptMovement(cmds)):
-				PushGameResponse("You " + cmds[0].to_lower() + " " + cmds[1]);
+				var r: GameRoom = _areas.GetCurrentArea().GetCurrentRoom();
+				PushGameResponse("You are now in: " + r.GetName() + ". " + r.GetDescription());
 			else:
 				PushGameResponse("You can't do that.");
 		elif(inputType == Enums.ActionType.meta):
 			HandleMeta();
-		#CreateHistoryBlock(msg, response);

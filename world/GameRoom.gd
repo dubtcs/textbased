@@ -3,24 +3,31 @@ extends Node2D
 
 class_name GameRoom;
 
-@onready var _mIconBox: TextureRect = $"Container/Panel/MarginContainer/Icon";
-@onready var _mColorPanel: Panel = $"Container/Panel/MarginContainer/Panel";
-
 @export var _roomName: String = "";
 @export_multiline var _roomDescription: String = "";
 @export var _roomIcon: Enums.RoomIcon = Enums.RoomIcon.empty 	: set = _SetRoomIcon;
 @export var _roomColor: Enums.RoomColor = Enums.RoomColor.none 	: set = _SetRoomColor;
 
-@export var canGoNorth: bool = true;
-@export var canGoEast: bool = true;
-@export var canGoSouth: bool = true;
-@export var canGoWest: bool = true;
+@export var _exitNorth: RoomExit = null;
+@export var _exitEast: RoomExit = null;
+@export var _exitSouth: RoomExit = null;
+@export var _exitWest: RoomExit = null;
+
+#@export var _exitOverrides: Array[RoomExit] = [];
 
 func GetDescription() -> String:
 	return _roomDescription;
 	
-func GetRoomName() -> String:
+func GetName() -> String:
 	return _roomName;
+	
+func GetExit(dir: Enums.MoveDirection) -> RoomExit:
+	match(dir):
+		Enums.MoveDirection.north: return _exitNorth;
+		Enums.MoveDirection.east: return _exitEast;
+		Enums.MoveDirection.south: return _exitSouth;
+		Enums.MoveDirection.west: return _exitWest;
+	return null;
 
 # the "canGo" variables are an effort to not require the bridge class.
 # might still want to use bridges, as they allow for keyed entrances and whatnot?

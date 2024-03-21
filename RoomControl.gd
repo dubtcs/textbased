@@ -6,10 +6,10 @@ const areaFolder: String = "res://world/areas/_use";
 var _areaInfo: Dictionary = {};
 var _currentArea: GameArea = null;
 
-func GetArea() -> GameArea:
+func GetCurrentArea() -> GameArea:
 	return _currentArea;
 
-func FetchArea(name: String) -> GameArea:
+func GetArea(name: String) -> GameArea:
 	if(_areaInfo.has(name)):
 		return _areaInfo[name].instance;
 	return null;

@@ -6,8 +6,10 @@
 [node name="GameArea" instance=ExtResource("1_7htw7")]
 
 [node name="GameRoom" parent="." index="0" instance=ExtResource("2_4v8nm")]
+_roomName = "room 1"
 _roomDescription = "Center room!"
 
 [node name="GameRoom2" parent="." index="1" instance=ExtResource("2_4v8nm")]
 position = Vector2(128, 0)
-_roomDescription = "offset to the right room"
+_roomName = "room 2"
+_roomDescription = "There is a guy screaming \"I LIVE IN BANDLADESH\" non stop in the northwest corner."

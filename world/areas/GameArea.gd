@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 class_name GameArea;
 
@@ -17,6 +18,17 @@ func GetCurrentPosition() -> Vector2:
 func GetRoom(x: int, y: int) -> GameRoom:
 	var pos: Vector2 = Vector2(x, y);
 	return GetRoomVec(pos);
+	
+func GetRoomNamed(str: String) -> GameRoom:
+	return get_node(str);
+	# could check to make sure its a GameRoom
+	
+	#why tf did I do this??
+	#var room: GameRoom = get_node(str);
+	#if(room):
+		#var pos: Vector2 = Vector2(room.position.x / CELL_SIZE, room.position.y / CELL_SIZE);
+		#return GetRoomVec(pos);
+	#return null;
 
 func GetRoomVec(pos: Vector2) -> GameRoom:
 	if(_mapInfo.has(pos)):
@@ -58,29 +70,32 @@ const _movementMapping: Dictionary = {
 	Enums.MoveDirection.west 	: Vector2(-2, 0),
 };
 
-func _ready() -> void:
+func _ProcessExits(room: GameRoom, pos: Vector2) -> void:
+	var pos2: Vector2 = Vector2.ZERO;
+	for iter in Enums.MoveDirection.values():
+		var dir: RoomExit = room.GetExit(iter);
+		pos2 = pos + _movementMapping[iter];
+		if(_mapInfo.has(pos2)):
+			if(dir): # override, like closed or keyed
+				print("Bruh.");
+			else: # open path
+				_map.connect_points(_mapInfo[pos].id, _mapInfo[pos2].id);
+	return;
+
+func _ProcessRooms() -> void:
 	var rid: int = 0;
 	for item in get_children():
 		if(item is GameRoom):
 			var pos: Vector2 = Vector2(item.position.x / CELL_SIZE, item.position.y / CELL_SIZE);
 			_mapInfo[pos] = { id = rid, instance = item };
 			_map.add_point(rid, pos);
+			_ProcessExits(item, pos);
 			rid += 1;
-			var pos2: Vector2 = Vector2.ZERO;
-			if(item.canGoNorth):
-				pos2 = pos + _movementMapping[Enums.MoveDirection.north];
-				_VerifyConnection(pos, pos2);
-			if(item.canGoEast):
-				pos2 = pos + _movementMapping[Enums.MoveDirection.east];
-				_VerifyConnection(pos, pos2);
-			if(item.canGoSouth):
-				pos2 = pos + _movementMapping[Enums.MoveDirection.south];
-				_VerifyConnection(pos, pos2);
-			if(item.canGoWest):
-				pos2 = pos + _movementMapping[Enums.MoveDirection.west];
-				_VerifyConnection(pos, pos2);
 		#
 	return;
+				
+func _ready() -> void:
+	_ProcessRooms();
 
 func _VerifyConnection(pos: Vector2, pos2: Vector2) -> void:
 	if(_mapInfo.has(pos2)):
