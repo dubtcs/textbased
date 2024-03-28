@@ -1,0 +1,60 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://nswl1l5aumr"]
+
+[ext_resource type="FontFile" uid="uid://b03ci11nix572" path="res://ui/font/Mulish-Regular.ttf" id="1_2k7i5"]
+[ext_resource type="StyleBox" uid="uid://b35di6bufnp40" path="res://ui/ptheme/stylebox/700.tres" id="1_jvbu6"]
+[ext_resource type="StyleBox" uid="uid://c4wmbxhmu1tg8" path="res://ui/ptheme/stylebox/600.tres" id="2_0k7s0"]
+[ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="2_2nl4d"]
+[ext_resource type="StyleBox" uid="uid://heeuauuj41ki" path="res://ui/ptheme/stylebox/500.tres" id="3_ppjfk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3mcw"]
+bg_color = Color(0.952941, 0.913725, 0.996078, 0.0980392)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nuqmr"]
+bg_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+
+[resource]
+default_font = ExtResource("1_2k7i5")
+/colors/050 = Color(0.980392, 0.960784, 1, 1)
+/colors/100 = Color(0.952941, 0.913725, 0.996078, 1)
+/colors/200 = Color(0.913725, 0.839216, 0.996078, 1)
+/colors/300 = Color(0.85098, 0.717647, 0.984314, 1)
+/colors/400 = Color(0.756863, 0.533333, 0.972549, 1)
+/colors/500 = Color(0.666667, 0.356863, 0.945098, 1)
+/colors/600 = Color(0.556863, 0.176471, 0.886275, 1)
+/colors/700 = Color(0.501961, 0.156863, 0.784314, 1)
+/colors/800 = Color(0.423529, 0.14902, 0.639216, 1)
+/colors/900 = Color(0.34902, 0.12549, 0.513726, 1)
+/colors/950 = Color(0.235294, 0.0392157, 0.380392, 1)
+/fonts/Font = ExtResource("1_2k7i5")
+Button/colors/font_color = Color(0.980392, 0.960784, 1, 1)
+Button/colors/font_disabled_color = Color(0.85098, 0.717647, 0.984314, 0.392157)
+Button/colors/font_focus_color = Color(0.952941, 0.913725, 0.996078, 1)
+Button/colors/font_hover_color = Color(0.952941, 0.913725, 0.996078, 1)
+Button/colors/font_hover_pressed_color = Color(0.913725, 0.839216, 0.996078, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 0)
+Button/colors/font_pressed_color = Color(0.913725, 0.839216, 0.996078, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("2_2nl4d")
+Button/styles/disabled = SubResource("StyleBoxFlat_a3mcw")
+Button/styles/focus = ExtResource("1_jvbu6")
+Button/styles/hover = ExtResource("2_0k7s0")
+Button/styles/normal = ExtResource("3_ppjfk")
+Button/styles/pressed = ExtResource("2_0k7s0")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+Panel/styles/panel = SubResource("StyleBoxFlat_nuqmr")

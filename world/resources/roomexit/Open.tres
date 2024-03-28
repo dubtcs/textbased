@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RoomExit" load_steps=2 format=3 uid="uid://cjhsxj5b7ll1s"]
 
-[ext_resource type="Script" path="res://world/RoomExit.gd" id="1_l0tuc"]
+[ext_resource type="Script" path="res://world/areas/RoomExit.gd" id="1_l0tuc"]
 
 [resource]
 script = ExtResource("1_l0tuc")

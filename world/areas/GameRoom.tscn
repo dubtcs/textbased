@@ -1,13 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://oag20evon74k"]
+[gd_scene load_steps=3 format=3 uid="uid://dnmjg2onrur4u"]
 
-[ext_resource type="Script" path="res://world/GameRoom.gd" id="1_ttbna"]
-[ext_resource type="StyleBox" uid="uid://bulp181oswg7c" path="res://world/resources/roomcolors/GameRoomColor.tres" id="2_cbtaw"]
+[ext_resource type="Script" path="res://world/areas/GameRoom.gd" id="1_rsrlg"]
+[ext_resource type="StyleBox" uid="uid://bulp181oswg7c" path="res://world/resources/roomcolors/GameRoomColor.tres" id="3_awauv"]
 
-[node name="GameRoomLarge" type="Node2D"]
-script = ExtResource("1_ttbna")
+[node name="GameRoom" type="Node2D"]
+script = ExtResource("1_rsrlg")
+canGoNorth = true
+canGoEast = true
+canGoSouth = true
+canGoWest = true
+exitNorth = null
+exitEast = null
+exitSouth = null
+exitWest = null
 
 [node name="Container" type="Control" parent="."]
-custom_minimum_size = Vector2(96, 96)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,7 +51,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Panel" type="Panel" parent="Container/Panel/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_cbtaw")
+theme_override_styles/panel = ExtResource("3_awauv")
 
 [node name="Icon" type="TextureRect" parent="Container/Panel/MarginContainer"]
 layout_mode = 2

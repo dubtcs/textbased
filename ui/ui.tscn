@@ -1,0 +1,281 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1eovoj2f2iih"]
+
+[ext_resource type="Script" path="res://RoomControl.gd" id="1_gvlbr"]
+[ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
+[ext_resource type="Theme" uid="uid://nswl1l5aumr" path="res://ui/ptheme/ptheme.tres" id="1_n7kpt"]
+[ext_resource type="Script" path="res://GameLogic.gd" id="3_f07ok"]
+[ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
+[ext_resource type="Script" path="res://ui/gameplay/ScrollContainer.gd" id="5_v15us"]
+[ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
+bg_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_n7kpt")
+script = ExtResource("1_hxgrb")
+
+[node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_areaDropTo", "_camera")]
+script = ExtResource("1_gvlbr")
+_areaDropTo = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport")
+_camera = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport/Camera2D")
+
+[node name="GameControl" type="Node" parent="."]
+script = ExtResource("3_f07ok")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s8bl2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Left" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="LocalInfo" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameInfo" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_yjsi6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_yjsi6")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(306, 306)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport"]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="RoomTitle" type="Label" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("6_cgwi5")
+theme_override_font_sizes/font_size = 25
+text = "ROOM NAME"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Panel2" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Middle" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 10
+
+[node name="History" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("5_v15us")
+
+[node name="HistoryContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+theme_override_styles/panel = ExtResource("3_yjsi6")
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "OPTION"
+
+[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "OPTION"
+
+[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button4" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button5" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button6" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button7" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button8" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button9" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button10" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button11" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Button12" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "OPTION"
+
+[node name="Right" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Right"]
+layout_mode = 2
+size_flags_vertical = 3

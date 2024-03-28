@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://f2estcs07jan"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_7htw7"]
-[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="2_4v8nm"]
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_4v8nm"]
 [ext_resource type="Resource" uid="uid://jmf410cd84j" path="res://world/resources/roomexit/Closed.tres" id="3_taa55"]
 
 [node name="GameArea" instance=ExtResource("1_7htw7")]

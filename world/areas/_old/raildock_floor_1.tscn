@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://icvg41suqgjp"]
 
-[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/GameRoom.tscn" id="1_0fpdm"]
-[ext_resource type="PackedScene" uid="uid://oag20evon74k" path="res://world/GameRoomLarge.tscn" id="2_228ek"]
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="1_0fpdm"]
+[ext_resource type="PackedScene" uid="uid://oag20evon74k" path="res://world/areas/GameRoomLarge.tscn" id="2_228ek"]
 
 [node name="RaildockFloor1" type="Node2D"]
 

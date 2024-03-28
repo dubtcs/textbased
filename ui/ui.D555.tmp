@@ -1,0 +1,298 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1eovoj2f2iih"]
+
+[ext_resource type="Script" path="res://RoomControl.gd" id="1_gvlbr"]
+[ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_p3e5d"]
+action = &"moveNorth"
+
+[sub_resource type="Shortcut" id="Shortcut_kp71t"]
+events = [SubResource("InputEventAction_p3e5d")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_2c1w3"]
+action = &"moveWest"
+
+[sub_resource type="Shortcut" id="Shortcut_ljojp"]
+events = [SubResource("InputEventAction_2c1w3")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_qq6m1"]
+action = &"moveEast"
+
+[sub_resource type="Shortcut" id="Shortcut_13rvc"]
+events = [SubResource("InputEventAction_qq6m1")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_3u10f"]
+action = &"moveSouth"
+
+[sub_resource type="Shortcut" id="Shortcut_32lo4"]
+events = [SubResource("InputEventAction_3u10f")]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxgrb")
+
+[node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_areaDropTo", "_camera")]
+script = ExtResource("1_gvlbr")
+_areaDropTo = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/SubViewportContainer/SubViewport")
+_camera = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/SubViewportContainer/SubViewport/Camera2D")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Left" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="LocalInfo" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameInfo" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(430, 485)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/SubViewportContainer/SubViewport"]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_horizontal = 2
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/AspectRatioContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_kp71t")
+text = "W"
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+grow_vertical = 2
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/AspectRatioContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_ljojp")
+text = "A
+"
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/AspectRatioContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_13rvc")
+text = "D
+"
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/AspectRatioContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_32lo4")
+text = "S"
+
+[node name="Middle" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button4" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button5" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button6" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button7" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button8" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button9" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button10" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button11" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Button12" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+text = "opt 1"
+
+[node name="Right" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

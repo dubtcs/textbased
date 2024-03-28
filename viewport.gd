@@ -1,13 +1,23 @@
-extends Node2D
+extends Control
 
-@onready var _areaControl: GameAreaController = $"AreaControl";
-@onready var _camera: Camera2D = $"Camera2D";
+@onready var _areaControl: GameAreaController = $"Panel/MarginContainer/VBoxContainer/PlayerInfo/Panel/AreaControl";
+@onready var _camera: Camera2D = $"Panel/MarginContainer/VBoxContainer/PlayerInfo/Panel/SubViewportContainer/SubViewport/Camera2D";
+@onready var _buttons: GridContainer = $"Panel/MarginContainer/VBoxContainer/PlayerInfo/Options/MarginContainer/GridContainer";
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_areaControl.ChangeArea("test_room");
 	_areaControl.GetCurrentArea().MoveTo(0,0);
 	MoveCamera();
+	for item in _buttons.get_children():
+		if (item is Button):
+			item.pressed.connect(OnMoveToScenePress.bind(item));
+	
+func OnMoveToScenePress(but: Button) -> void:
+	_areaControl.ChangeArea(but.text);
+	_areaControl.GetCurrentArea().MoveTo(0,0);
+	MoveCamera();
+	return;
 	
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("moveNorth")):
