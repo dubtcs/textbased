@@ -13,13 +13,19 @@ class_name GameRoom;
 @export var _exitSouth: RoomExit = null;
 @export var _exitWest: RoomExit = null;
 
-#@export var _exitOverrides: Array[RoomExit] = [];
+@onready var _highlight: Panel = $"Container/Panel2";
 
 func GetDescription() -> String:
 	return _roomDescription;
 	
 func GetName() -> String:
 	return _roomName;
+	
+func SetAsActive() -> void:
+	_highlight.visible = true;
+	
+func SetAsInactive() -> void:
+	_highlight.visible = false;
 	
 func GetExit(dir: Enums.MoveDirection) -> RoomExit:
 	match(dir):

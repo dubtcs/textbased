@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctohjgi0fgtvf"]
+
+[ext_resource type="Script" path="res://ui/gameplay/option_hint.gd" id="1_h58h5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4jm0"]
+bg_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="OptionHint" type="CanvasLayer"]
+script = ExtResource("1_h58h5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -108.0
+offset_right = 270.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e4jm0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85098, 0.717647, 0.984314, 1)
+theme_override_font_sizes/font_size = 25
+text = "Option Name"
+
+[node name="Desc" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 25)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.952941, 0.913725, 0.996078, 1)
+text = "This is a short description of the options consequences."
+autowrap_mode = 2

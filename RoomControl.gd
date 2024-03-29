@@ -10,9 +10,11 @@ var _currentArea: GameArea = null;
 
 func AttemptMove(dir: Enums.MoveDirection) -> bool:
 	if(_currentArea.CanMove(dir)):
+		_currentArea.GetCurrentRoom().SetAsInactive();
 		if(_currentArea.MoveInDirection(dir)):
 			_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
-			return true;
+		_currentArea.GetCurrentRoom().SetAsActive();
+		return true;
 	return false;
 
 func GetCurrentArea() -> GameArea:

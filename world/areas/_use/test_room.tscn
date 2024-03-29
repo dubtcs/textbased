@@ -14,6 +14,8 @@ _roomDescription = "Center room!"
 position = Vector2(0, 128)
 _roomName = "room 4"
 _roomDescription = "bottom left, locked north"
+_roomIcon = 3
+_roomColor = 2
 _exitNorth = ExtResource("3_taa55")
 
 [node name="GameRoom4" parent="." index="2" instance=ExtResource("2_4v8nm")]
@@ -25,3 +27,4 @@ _roomDescription = "bottom right"
 position = Vector2(128, 0)
 _roomName = "room 2"
 _roomDescription = "There is a guy screaming \"I LIVE IN BANDLADESH\" non stop in the northwest corner."
+_roomIcon = 1

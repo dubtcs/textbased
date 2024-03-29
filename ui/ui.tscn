@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1eovoj2f2iih"]
+[gd_scene load_steps=12 format=3 uid="uid://c1eovoj2f2iih"]
 
 [ext_resource type="Script" path="res://RoomControl.gd" id="1_gvlbr"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
 [ext_resource type="Theme" uid="uid://nswl1l5aumr" path="res://ui/ptheme/ptheme.tres" id="1_n7kpt"]
 [ext_resource type="Script" path="res://GameLogic.gd" id="3_f07ok"]
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
+[ext_resource type="PackedScene" uid="uid://ctohjgi0fgtvf" path="res://ui/gameplay/option_hint.tscn" id="5_6y3vo"]
 [ext_resource type="Script" path="res://ui/gameplay/ScrollContainer.gd" id="5_v15us"]
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
 [ext_resource type="PackedScene" uid="uid://chg33hrumapn2" path="res://ui/gameplay/viewport.tscn" id="6_nrxca"]
-[ext_resource type="PackedScene" uid="uid://bpu0kl4hgmv5g" path="res://ui/gameplay/OptionButton.tscn" id="9_724xe"]
+[ext_resource type="PackedScene" uid="uid://bg65p2hnx1rod" path="res://ui/gameplay/game_option_grid.tscn" id="10_yt6tb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
 bg_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
@@ -23,12 +24,18 @@ grow_vertical = 2
 theme = ExtResource("1_n7kpt")
 script = ExtResource("1_hxgrb")
 
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_viewport")]
 script = ExtResource("1_gvlbr")
-_viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/WorldViewport")
+_viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/MarginContainer/WorldViewport")
 
 [node name="GameControl" type="Node" parent="."]
 script = ExtResource("3_f07ok")
+
+[node name="OptionHint" parent="." instance=ExtResource("5_6y3vo")]
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -95,8 +102,20 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_yjsi6")
 
-[node name="WorldViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel" instance=ExtResource("6_nrxca")]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel"]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="WorldViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/MarginContainer" instance=ExtResource("6_nrxca")]
+layout_mode = 2
 
 [node name="RoomTitle" type="Label" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -150,74 +169,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 theme_override_styles/panel = ExtResource("3_yjsi6")
 
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel"]
+[node name="GameOptionGrid" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel" instance=ExtResource("10_yt6tb")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 4
-
-[node name="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-_userInputEventName = "moveEast"
-
-[node name="Button2" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-_userInputEventName = "moveEast"
-
-[node name="Button3" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button4" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button5" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button6" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button7" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button8" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button9" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button10" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button11" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
-
-[node name="Button12" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
-layout_mode = 2
-disabled = true
-_userInputEventName = "moveEast"
 
 [node name="Right" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -226,3 +179,6 @@ size_flags_horizontal = 3
 [node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Right"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[connection signal="button_entered" from="Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid" to="." method="_onGameOptionHovered"]
+[connection signal="button_exited" from="Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid" to="." method="_onGameOptionExited"]
