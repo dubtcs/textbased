@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1eovoj2f2iih"]
+[gd_scene load_steps=11 format=3 uid="uid://c1eovoj2f2iih"]
 
 [ext_resource type="Script" path="res://RoomControl.gd" id="1_gvlbr"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
 [ext_resource type="Script" path="res://ui/gameplay/ScrollContainer.gd" id="5_v15us"]
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
+[ext_resource type="PackedScene" uid="uid://chg33hrumapn2" path="res://ui/gameplay/viewport.tscn" id="6_nrxca"]
+[ext_resource type="PackedScene" uid="uid://bpu0kl4hgmv5g" path="res://ui/gameplay/OptionButton.tscn" id="9_724xe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
 bg_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
@@ -21,10 +23,9 @@ grow_vertical = 2
 theme = ExtResource("1_n7kpt")
 script = ExtResource("1_hxgrb")
 
-[node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_areaDropTo", "_camera")]
+[node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_viewport")]
 script = ExtResource("1_gvlbr")
-_areaDropTo = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport")
-_camera = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport/Camera2D")
+_viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/WorldViewport")
 
 [node name="GameControl" type="Node" parent="."]
 script = ExtResource("3_f07ok")
@@ -94,26 +95,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_yjsi6")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel"]
+[node name="WorldViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel" instance=ExtResource("6_nrxca")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer"]
-layout_mode = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(306, 306)
-render_target_update_mode = 4
-
-[node name="Camera2D" type="Camera2D" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/AspectRatioContainer/SubViewportContainer/SubViewport"]
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
 
 [node name="RoomTitle" type="Label" parent="Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -178,99 +161,63 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button2" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button2" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button3" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button3" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button4" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button4" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button5" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button5" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button6" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button6" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button7" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button7" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button8" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button8" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button9" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button9" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button10" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button10" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button11" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button11" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
-[node name="Button12" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer"]
+[node name="Button12" parent="Panel/MarginContainer/HBoxContainer/Middle/Panel/GridContainer" instance=ExtResource("9_724xe")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
 disabled = true
-text = "OPTION"
+_userInputEventName = "moveEast"
 
 [node name="Right" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2

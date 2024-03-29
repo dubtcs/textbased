@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpu0kl4hgmv5g"]
+
+[ext_resource type="Theme" uid="uid://nswl1l5aumr" path="res://ui/ptheme/ptheme.tres" id="1_xk2rf"]
+[ext_resource type="StyleBox" uid="uid://ck2yvigxlxmh3" path="res://ui/ptheme/stylebox/500_border.tres" id="2_fv3np"]
+[ext_resource type="Script" path="res://ui/gameplay/OptionButton.gd" id="2_mhhqr"]
+
+[sub_resource type="Shortcut" id="Shortcut_m754s"]
+
+[node name="Button" type="Button"]
+offset_right = 228.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme = ExtResource("1_xk2rf")
+theme_override_font_sizes/font_size = 30
+text = "OPTION"
+script = ExtResource("2_mhhqr")
+
+[node name="Hotkey" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -25.0
+offset_right = -5.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/normal = ExtResource("2_fv3np")
+disabled = true
+action_mode = 0
+shortcut = SubResource("Shortcut_m754s")
+text = "1"

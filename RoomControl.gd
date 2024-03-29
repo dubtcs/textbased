@@ -1,8 +1,7 @@
 extends Node;
 class_name GameAreaController;
 
-@export var _areaDropTo: Node = self;
-@export var _camera: Camera2D = null;
+@export var _viewport: GameWorldViewport = null;
 
 const areaFolder: String = "res://world/areas/_use";
 
@@ -12,7 +11,7 @@ var _currentArea: GameArea = null;
 func AttemptMove(dir: Enums.MoveDirection) -> bool:
 	if(_currentArea.CanMove(dir)):
 		if(_currentArea.MoveInDirection(dir)):
-			_camera.position = _currentArea.GetCurrentRoom().position;
+			_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
 			return true;
 	return false;
 
@@ -53,5 +52,5 @@ func _ProcessAreas() -> void:
 				_areaInfo[id].instance = sceneInstance;
 				_currentArea = sceneInstance;
 				sceneInstance.name = id;
-				_areaDropTo.add_child(sceneInstance);
+				_viewport.AddAreaInstance(sceneInstance);
 				_currentArea.visible = false; # hide it
