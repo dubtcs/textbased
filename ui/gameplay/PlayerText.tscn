@@ -12,7 +12,6 @@ offset_bottom = 28.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.866667, 0.858824, 0.815686, 1)
-theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_t1mqy")
 text = "This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response.This is a player response."
 autowrap_mode = 2

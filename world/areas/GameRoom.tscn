@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://world/areas/GameRoom.gd" id="1_rsrlg"]
 [ext_resource type="StyleBox" uid="uid://heeuauuj41ki" path="res://ui/ptheme/stylebox/500.tres" id="2_lotc1"]
-[ext_resource type="StyleBox" uid="uid://bulp181oswg7c" path="res://world/resources/roomcolors/GameRoomColor.tres" id="3_awauv"]
+[ext_resource type="StyleBox" uid="uid://bulp181oswg7c" path="res://world/resources/rooms/roomcolors/GameRoomColor.tres" id="3_awauv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x87yv"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)

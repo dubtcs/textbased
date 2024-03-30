@@ -1,14 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://f2estcs07jan"]
+[gd_scene load_steps=7 format=3 uid="uid://f2estcs07jan"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_7htw7"]
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_4v8nm"]
-[ext_resource type="Resource" uid="uid://jmf410cd84j" path="res://world/resources/roomexit/Closed.tres" id="3_taa55"]
+[ext_resource type="Resource" uid="uid://jmf410cd84j" path="res://world/resources/rooms/roomexit/Closed.tres" id="3_taa55"]
+[ext_resource type="Script" path="res://world/resources/rooms/game_room_option.gd" id="4_jh13b"]
+
+[sub_resource type="Resource" id="Resource_gaixa"]
+script = ExtResource("4_jh13b")
+name = "Staircase"
+description = "Go downstairs to the main hallway."
+buttonIndex = 0
+callback = ""
+
+[sub_resource type="Resource" id="Resource_k67wq"]
+script = ExtResource("4_jh13b")
+name = "Strange Man"
+description = "Talk the the man currently screaming."
+buttonIndex = 0
+callback = ""
 
 [node name="GameArea" instance=ExtResource("1_7htw7")]
 
 [node name="GameRoom" parent="." index="0" instance=ExtResource("2_4v8nm")]
 _roomName = "room 1"
-_roomDescription = "Center room!"
+_roomDescription = "This is your bedroom."
 
 [node name="GameRoom3" parent="." index="1" instance=ExtResource("2_4v8nm")]
 position = Vector2(0, 128)
@@ -16,6 +31,7 @@ _roomName = "room 4"
 _roomDescription = "bottom left, locked north"
 _roomIcon = 3
 _roomColor = 2
+_roomOptions = Array[ExtResource("4_jh13b")]([SubResource("Resource_gaixa")])
 _exitNorth = ExtResource("3_taa55")
 
 [node name="GameRoom4" parent="." index="2" instance=ExtResource("2_4v8nm")]
@@ -28,3 +44,4 @@ position = Vector2(128, 0)
 _roomName = "room 2"
 _roomDescription = "There is a guy screaming \"I LIVE IN BANDLADESH\" non stop in the northwest corner."
 _roomIcon = 1
+_roomOptions = Array[ExtResource("4_jh13b")]([SubResource("Resource_k67wq")])

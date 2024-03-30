@@ -10,6 +10,7 @@ var _playerText: PackedScene 	= preload("res://ui/gameplay/PlayerText.tscn");
 @onready var _gameLogic: GameLogicController = $"GameControl";
 @onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/RoomTitle";
 @onready var _uiHistoryContainer: VBoxContainer = $"Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer/HistoryContainer";
+@onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: CanvasLayer = $"OptionHint";
 
@@ -46,6 +47,15 @@ func OnMoveToScenePress(but: Button) -> void:
 	_areaControl.GetCurrentArea().MoveTo(0,0);
 	return;
 	
+func FillRoomOptions() -> void:
+	_uiOptionContainer.ClearButtons();
+	var room: GameRoom = _areaControl.GetCurrentArea().GetCurrentRoom();
+	var index: int = 0;
+	for option: GameRoomOption in room.GetOptions():
+		_uiOptionContainer.AddButton(option, index);
+		index += 1;
+	return;
+	
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
 	if(not _moveTimer.time_left):
@@ -59,17 +69,19 @@ func _input(event: InputEvent) -> void:
 			didMove = _areaControl.AttemptMove(Enums.MoveDirection.west);
 		if(didMove):
 			_moveTimer.start(MOVE_TIME_SEC);
-			ClearResponseHistory(); # This might be stupid
 			_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
-			PushGameResponse("You enter: " + _areaControl.GetCurrentArea().GetCurrentRoom().GetName());
+			_onGameOptionExited(null); # what the fuck
+			ClearResponseHistory(); # This might be stupid
 			PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
+			FillRoomOptions();
 	return;
 
 
-func _onGameOptionHovered(_button: Button) -> void:
+func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);
 	_optionHint.visible = true;
+	_optionHint.SetOption(_areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[_button.rawOptionIndex]);
 	
-func _onGameOptionExited(_button: Button) -> void:
+func _onGameOptionExited(_button: GameOptionButton) -> void:
 	_optionHint.visible = false;
 	_optionHint.set_process(false);

@@ -23,10 +23,17 @@ Enums="*res://Enums.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
 project/assembly_name="TextBased"
+
+[gui]
+
+theme/custom="res://ui/ptheme/ptheme.tres"
+theme/custom_font="res://ui/font/Mulish-Regular.ttf"
 
 [input]
 

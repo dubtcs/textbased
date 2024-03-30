@@ -18,6 +18,7 @@ bg_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [resource]
 default_font = ExtResource("1_2k7i5")
+default_font_size = 25
 /colors/050 = Color(0.980392, 0.960784, 1, 1)
 /colors/100 = Color(0.952941, 0.913725, 0.996078, 1)
 /colors/200 = Color(0.913725, 0.839216, 0.996078, 1)

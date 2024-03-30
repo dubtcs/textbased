@@ -10,31 +10,37 @@ var _buttonScene: PackedScene = preload("res://ui/gameplay/OptionButton.tscn");
 
 const BUTTON_AMOUNT: int = 12;
 
-func AddButton(index: int, desc: String) -> bool:
-	var b: Button = get_child(index);
+func AddButton(option: GameRoomOption, optionIndex: int) -> bool:
+	var b: GameOptionButton = _container.get_child(option.buttonIndex);
 	if(b):
-		b.text = desc;
+		b.text = option.name;
 		b.disabled = false;
+		b.rawOptionIndex = optionIndex;
 	return false;
 
 func RemoveButton(index: int) -> void:
-	var b: Button = get_child(index);
+	var b: GameOptionButton = _container.get_child(index);
 	if(b):
 		b.disabled = true;
 
-func _onMouseEnterButton(but: Button) -> void:
+func ClearButtons() -> void:
+	for b in _container.get_children():
+		if(b is GameOptionButton):
+			b.disabled = true;
+
+func _onMouseEnterButton(but: GameOptionButton) -> void:
 	if(not but.disabled):
 		button_entered.emit(but);
 	return;
 	
-func _onMouseExitButton(but: Button) -> void:
+func _onMouseExitButton(but: GameOptionButton) -> void:
 	if(not but.disabled):
 		button_exited.emit(but);
 	return;
 
 func _ready() -> void:
 	for i in range(BUTTON_AMOUNT):
-		var inst: Button = _buttonScene.instantiate();
+		var inst: GameOptionButton = _buttonScene.instantiate();
 		inst.disabled = (i % 2);
 		inst.mouse_entered.connect(_onMouseEnterButton.bind(inst));
 		inst.mouse_exited.connect(_onMouseExitButton.bind(inst));

@@ -7,7 +7,6 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
 text = "This is a game response."
 autowrap_mode = 2
 script = ExtResource("1_4kjhe")

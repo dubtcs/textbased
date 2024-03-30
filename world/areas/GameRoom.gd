@@ -8,6 +8,8 @@ class_name GameRoom;
 @export var _roomIcon: Enums.RoomIcon = Enums.RoomIcon.empty 	: set = _SetRoomIcon;
 @export var _roomColor: Enums.RoomColor = Enums.RoomColor.none 	: set = _SetRoomColor;
 
+@export var _roomOptions: Array[GameRoomOption] = [];
+
 @export var _exitNorth: RoomExit = null;
 @export var _exitEast: RoomExit = null;
 @export var _exitSouth: RoomExit = null;
@@ -20,6 +22,9 @@ func GetDescription() -> String:
 	
 func GetName() -> String:
 	return _roomName;
+	
+func GetOptions() -> Array[GameRoomOption]:
+	return _roomOptions;
 	
 func SetAsActive() -> void:
 	_highlight.visible = true;
@@ -39,11 +44,11 @@ func GetExit(dir: Enums.MoveDirection) -> RoomExit:
 # might still want to use bridges, as they allow for keyed entrances and whatnot?
 
 const gColorEnumMap: Dictionary = {
-	Enums.RoomColor.none 	: preload("res://world/resources/roomcolors/GameRoomColor.tres") 		as StyleBoxFlat,
-	Enums.RoomColor.red 	: preload("res://world/resources/roomcolors/GameRoomColorRed.tres") 	as StyleBoxFlat,
-	Enums.RoomColor.blue 	: preload("res://world/resources/roomcolors/GameRoomColorBlue.tres") 	as StyleBoxFlat,
-	Enums.RoomColor.yellow 	: preload("res://world/resources/roomcolors/GameRoomColorYellow.tres") 	as StyleBoxFlat,
-	Enums.RoomColor.green 	: preload("res://world/resources/roomcolors/GameRoomColorGreen.tres") 	as StyleBoxFlat,
+	Enums.RoomColor.none 	: preload("res://world/resources/rooms/roomcolors/GameRoomColor.tres") 		as StyleBoxFlat,
+	Enums.RoomColor.red 	: preload("res://world/resources/rooms/roomcolors/GameRoomColorRed.tres") 	as StyleBoxFlat,
+	Enums.RoomColor.blue 	: preload("res://world/resources/rooms/roomcolors/GameRoomColorBlue.tres") 	as StyleBoxFlat,
+	Enums.RoomColor.yellow 	: preload("res://world/resources/rooms/roomcolors/GameRoomColorYellow.tres")as StyleBoxFlat,
+	Enums.RoomColor.green 	: preload("res://world/resources/rooms/roomcolors/GameRoomColorGreen.tres") as StyleBoxFlat,
 };
 const gIconEnumMap: Dictionary = {
 	Enums.RoomIcon.bed 		: preload("res://images/bed.png"),

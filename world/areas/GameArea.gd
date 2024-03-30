@@ -86,7 +86,6 @@ func _ProcessExits() -> void:
 				else:
 					# not used to prevent one way overwrite
 					if(not _map.are_points_connected(id, id2, false)):
-						print("Shit")
 						_map.connect_points(id, id2);
 
 func _ProcessRooms() -> void:
