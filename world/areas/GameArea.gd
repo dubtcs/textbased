@@ -8,6 +8,9 @@ var _mapInfo: Dictionary = {};
 var _currentRoom: GameRoom = null;
 var _currentPos: Vector2 = Vector2.ZERO;
 
+var _bridgeScene: PackedScene = preload("res://world/areas/GameRoomBridge.tscn");
+var _bridgeOnewayScene: PackedScene = preload("res://world/areas/GameRoomBridgeOneWay.tscn");
+
 class RoomInfo:
 	var id: int;
 	var instance: GameRoom;
@@ -66,6 +69,19 @@ const _movementMapping: Dictionary = {
 	Enums.MoveDirection.west 	: Vector2(-2, 0),
 };
 
+func _CreateBridge(from: Vector2, to: Vector2, oneway: bool) -> void:
+	var bridge: Node2D = null;
+	if(oneway):
+		bridge = _bridgeOnewayScene.instantiate();
+	else:
+		bridge = _bridgeScene.instantiate();
+	var toraw: Vector2 = to * CELL_SIZE;
+	var fromraw: Vector2 = from * CELL_SIZE
+	add_child(bridge);
+	bridge.position = fromraw + ((toraw - fromraw) / 2.0);
+	bridge.look_at(fromraw);
+	return;
+
 func _ProcessExits() -> void:
 	for pos: Vector2 in _mapInfo:
 		var id: int = _mapInfo[pos].id;
@@ -80,6 +96,7 @@ func _ProcessExits() -> void:
 						# remove 2 way if one has been made
 						if(_map.are_points_connected(id, id2)):
 							_map.disconnect_points(id, id2);
+						_CreateBridge(pos, pos2, true); # otherwise make the bridge instance
 						_map.connect_points(id2, id, false);
 					else:
 						print("Keyed Door.");
@@ -87,6 +104,7 @@ func _ProcessExits() -> void:
 					# not used to prevent one way overwrite
 					if(not _map.are_points_connected(id, id2, false)):
 						_map.connect_points(id, id2);
+						_CreateBridge(pos, pos2, false);
 
 func _ProcessRooms() -> void:
 	var rid: int = 0;

@@ -41,7 +41,7 @@ func _onMouseExitButton(but: GameOptionButton) -> void:
 func _ready() -> void:
 	for i in range(BUTTON_AMOUNT):
 		var inst: GameOptionButton = _buttonScene.instantiate();
-		inst.disabled = (i % 2);
+		inst.disabled = true;
 		inst.mouse_entered.connect(_onMouseEnterButton.bind(inst));
 		inst.mouse_exited.connect(_onMouseExitButton.bind(inst));
 		_container.add_child(inst);

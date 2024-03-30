@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvm0ca2fkusgm"]
+[gd_scene load_steps=3 format=3 uid="uid://btth65m8octb2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qedkn"]
 bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c83nm"]
+bg_color = Color(0.780392, 0.356863, 0.372549, 1)
 
 [node name="Bridge" type="Node2D"]
 
@@ -34,3 +37,18 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qedkn")
+
+[node name="oneway" type="AspectRatioContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+stretch_mode = 1
+alignment_horizontal = 2
+
+[node name="Panel" type="Panel" parent="Control/Panel/oneway"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c83nm")
