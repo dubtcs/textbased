@@ -49,6 +49,13 @@ func MoveInDirection(dir: Enums.MoveDirection) -> bool:
 func MoveTo(x: int, y: int) -> bool:
 	return MoveToPos(Vector2(x,y));
 	
+func MoveToNamed(roomName: String) -> bool:
+	var room: GameRoom = get_node(roomName);
+	if(room):
+		var pos: Vector2 = Vector2(room.position / CELL_SIZE);
+		return MoveToPos(pos);
+	return false;
+	
 func MoveToPos(pos: Vector2) -> bool:
 	if(_mapInfo.has(pos)):
 		_currentRoom = _mapInfo[pos].instance;
@@ -67,6 +74,13 @@ const _movementMapping: Dictionary = {
 	Enums.MoveDirection.east 	: Vector2( 2, 0),
 	Enums.MoveDirection.south 	: Vector2( 0, 2),
 	Enums.MoveDirection.west 	: Vector2(-2, 0),
+};
+
+const _exitOpposites: Dictionary = {
+	Enums.MoveDirection.north	: Enums.MoveDirection.south,
+	Enums.MoveDirection.south	: Enums.MoveDirection.north,
+	Enums.MoveDirection.west	: Enums.MoveDirection.east,
+	Enums.MoveDirection.east	: Enums.MoveDirection.west,
 };
 
 func _CreateBridge(from: Vector2, to: Vector2, oneway: bool) -> void:
@@ -90,9 +104,16 @@ func _ProcessExits() -> void:
 			var override: RoomExit = room.GetExit(dir);
 			var pos2: Vector2 = pos + _movementMapping[dir];
 			if(_mapInfo.has(pos2)):
+				var room2: GameRoom = _mapInfo[pos2].instance;
 				var id2: int = _mapInfo[pos2].id;
 				if(override):
 					if(override.GetType() == Enums.ExitType.closed):
+						# Make sure the other connection is valid
+						var opposite: Enums.MoveDirection = _exitOpposites[dir];
+						var otherExit: RoomExit = room2.GetExit(opposite);
+						if(otherExit): # other room has an override
+							if(otherExit.GetType() == Enums.ExitType.closed): # it's closed, too so don't create an exit
+								continue;
 						# remove 2 way if one has been made
 						if(_map.are_points_connected(id, id2)):
 							_map.disconnect_points(id, id2);

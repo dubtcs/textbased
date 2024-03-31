@@ -17,6 +17,20 @@ func AttemptMove(dir: Enums.MoveDirection) -> bool:
 		return true;
 	return false;
 
+func MoveTo(x: int, y: int) -> void:
+	if(_currentArea.GetCurrentRoom()):
+		_currentArea.GetCurrentRoom().SetAsInactive();	
+	_currentArea.MoveTo(x,y);
+	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
+	_currentArea.GetCurrentRoom().SetAsActive();
+	
+func MoveToNamed(roomName: String) -> void:
+	if(_currentArea.GetCurrentRoom()):
+		_currentArea.GetCurrentRoom().SetAsInactive();
+	_currentArea.MoveToNamed(roomName);
+	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
+	_currentArea.GetCurrentRoom().SetAsActive();
+	
 func GetCurrentArea() -> GameArea:
 	return _currentArea;
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dey8v6g2u6bmt"]
 
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="1_p7oo1"]
-[ext_resource type="PackedScene" path="res://world/Bridge.tscn" id="2_knug5"]
+[ext_resource type="PackedScene" uid="uid://cvm0ca2fkusgm" path="res://world/areas/GameRoomBridge.tscn" id="2_knug5"]
 
 [node name="Ship" type="Node2D"]
 
@@ -52,19 +52,15 @@ position = Vector2(0, 64)
 [node name="Bridge6" parent="." instance=ExtResource("2_knug5")]
 position = Vector2(-64, 0)
 rotation = 1.5708
-isLateral = true
 
 [node name="Bridge7" parent="." instance=ExtResource("2_knug5")]
 position = Vector2(64, 0)
 rotation = 1.5708
-isLateral = true
 
 [node name="Bridge8" parent="." instance=ExtResource("2_knug5")]
 position = Vector2(192, 0)
 rotation = 1.5708
-isLateral = true
 
 [node name="Bridge9" parent="." instance=ExtResource("2_knug5")]
 position = Vector2(-192, 0)
 rotation = 1.5708
-isLateral = true

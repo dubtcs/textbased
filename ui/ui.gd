@@ -17,11 +17,10 @@ var _playerText: PackedScene 	= preload("res://ui/gameplay/PlayerText.tscn");
 const MOVE_TIME_SEC: float = 0.15;
 
 func _ready() -> void:
-	_optionHint.set_process(false); # hide this sh
-	_areaControl.ChangeArea("test_room");
-	_areaControl.GetCurrentArea().MoveTo(0,0);
-	PushGameResponse("Hello asshole c:");
-	PushPlayerInput("Damn, okay");
+	_optionHint.set_process(false);
+	_areaControl.ChangeArea("ship");
+	_areaControl.MoveToNamed("main_hallway");
+	RoomEntered();
 	
 func ClearResponseHistory() -> void:
 	for child in _uiHistoryContainer.get_children():
@@ -42,9 +41,13 @@ func PushGameResponse(gameText: String) -> void:
 	res.SetText(gameText);
 	PushResponseElement(res);
 	
-func OnMoveToScenePress(but: Button) -> void:
-	_areaControl.ChangeArea(but.text);
-	_areaControl.GetCurrentArea().MoveTo(0,0);
+func ChangeArea(args: PackedStringArray) -> void:
+	var nextName: String = args[0];
+	if(_areaControl.ChangeArea(nextName)):
+		var roomName: String = args[1];
+		_areaControl.MoveToNamed(roomName);
+		RoomEntered();
+		return;
 	return;
 	
 func FillRoomOptions() -> void:
@@ -55,6 +58,11 @@ func FillRoomOptions() -> void:
 		_uiOptionContainer.AddButton(option, index);
 		index += 1;
 	return;
+	
+func RoomEntered() -> void:
+	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
+	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
+	FillRoomOptions();
 	
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
@@ -69,13 +77,18 @@ func _input(event: InputEvent) -> void:
 			didMove = _areaControl.AttemptMove(Enums.MoveDirection.west);
 		if(didMove):
 			_moveTimer.start(MOVE_TIME_SEC);
-			_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 			_onGameOptionExited(null); # what the fuck
 			ClearResponseHistory(); # This might be stupid
-			PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
-			FillRoomOptions();
+			RoomEntered();
 	return;
 
+func _onGameOptionActivated(index: int) -> void:
+	var option: GameRoomOption = _areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[index];
+	if(option):
+		if(not option.callback.is_empty()):
+			var call: Callable = Callable(self, option.callback);
+			call.call(option.callbackParams);
+	pass;
 
 func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);

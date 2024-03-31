@@ -3,8 +3,9 @@ class_name GameOptionGrid;
 
 @onready var _container: GridContainer = $"GridContainer";
 
-signal button_entered(button: Button);
-signal button_exited(button: Button);
+signal button_activated(optionIndex: int);
+signal button_entered(button: GameOptionButton);
+signal button_exited(button: GameOptionButton);
 
 var _buttonScene: PackedScene = preload("res://ui/gameplay/OptionButton.tscn");
 
@@ -28,6 +29,10 @@ func ClearButtons() -> void:
 		if(b is GameOptionButton):
 			b.disabled = true;
 
+func _onButtonActivated(but: GameOptionButton) -> void:
+	button_activated.emit(but.rawOptionIndex);
+	return;
+
 func _onMouseEnterButton(but: GameOptionButton) -> void:
 	if(not but.disabled):
 		button_entered.emit(but);
@@ -44,4 +49,5 @@ func _ready() -> void:
 		inst.disabled = true;
 		inst.mouse_entered.connect(_onMouseEnterButton.bind(inst));
 		inst.mouse_exited.connect(_onMouseExitButton.bind(inst));
+		inst.pressed.connect(_onButtonActivated.bind(inst));
 		_container.add_child(inst);
