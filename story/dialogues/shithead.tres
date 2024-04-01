@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CharacterDialogue" load_steps=5 format=3 uid="uid://cdoxrd6gfjfn4"]
+
+[ext_resource type="Script" path="res://story/dialogues/dialogue.gd" id="1_4r7im"]
+[ext_resource type="Resource" uid="uid://upchsad81l41" path="res://story/characters/shithead.tres" id="1_kwf87"]
+[ext_resource type="Script" path="res://story/dialogues/dialogue_option.gd" id="2_cxbps"]
+
+[sub_resource type="Resource" id="Resource_s61mc"]
+script = ExtResource("2_cxbps")
+buttonText = "About them"
+buttonHint = "Ask them who they are"
+playerText = "Who are you?"
+characterResponse = "I LIVE IN BANGLADESH I LIVE IN BANGLADESH"
+responseOptions = Array[int]([1])
+
+[resource]
+script = ExtResource("1_4r7im")
+character = ExtResource("1_kwf87")
+dialogues = Array[ExtResource("2_cxbps")]([SubResource("Resource_s61mc")])

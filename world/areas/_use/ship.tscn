@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmk0qh8agjblg"]
+[gd_scene load_steps=9 format=3 uid="uid://dmk0qh8agjblg"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_dxgjq"]
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_w4wla"]
@@ -11,6 +11,14 @@ description = "Exit your ship"
 buttonIndex = 0
 callback = "ChangeArea"
 callbackParams = ["test_room", "mainroom"]
+
+[sub_resource type="Resource" id="Resource_5r80p"]
+script = ExtResource("3_p4uyo")
+name = "What"
+description = "What does this do"
+buttonIndex = 0
+callback = "Dialogue"
+callbackParams = []
 
 [sub_resource type="Resource" id="Resource_6wrag"]
 script = ExtResource("3_p4uyo")
@@ -47,6 +55,7 @@ _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_26m3f")])
 [node name="main_hallway" parent="." index="1" instance=ExtResource("2_w4wla")]
 position = Vector2(0, -128)
 _roomName = "Hallway"
+_roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_5r80p")])
 
 [node name="GameRoom3" parent="." index="2" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -128)
@@ -63,9 +72,10 @@ _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_6wrag"), Sub
 position = Vector2(-128, -128)
 _roomName = "Hallway"
 
-[node name="GameRoom6" parent="." index="5" instance=ExtResource("2_w4wla")]
+[node name="lounge" parent="." index="5" instance=ExtResource("2_w4wla")]
 position = Vector2(-256, -128)
-_roomName = "Hallway"
+_roomName = "Lounge"
+_roomDescription = "The ships lounge. It's filled with chairs and benches to leisurely watch the tvs."
 
 [node name="GameRoom7" parent="." index="6" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -256)

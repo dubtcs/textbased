@@ -4,7 +4,7 @@ const CHAR_FOLDER: String = "res://story/characters";
 
 var Characters: Dictionary = {};
 
-func _ready() -> void:
+func FillCharacters() -> void:
 	var dir: DirAccess = DirAccess.open(CHAR_FOLDER);
 	if (dir):
 		for filename: String in dir.get_files():
@@ -16,3 +16,12 @@ func _ready() -> void:
 				var ch: GameCharacter = load(CHAR_FOLDER + "/" + filename);
 				ch.index = id;
 				Characters[id] = ch;
+				var opt: GameRoomOption = GameRoomOption.new();
+				opt.name = ch.name;
+				opt.description = "Approach the " + ch.descriptionShort;
+				opt.callback = "Dialogue";
+				opt.callbackParams = [id, "0"];
+				ch.dialogueOption = opt;
+
+func _ready() -> void:
+	FillCharacters();

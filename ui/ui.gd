@@ -23,9 +23,12 @@ func _ready() -> void:
 	_areaControl.ChangeArea("ship");
 	_areaControl.MoveToNamed("main_hallway");
 	
-	var t: GameCharacter = Game.Characters.get("test_character");
+	var t: GameCharacter = Game.Characters.get("shithead");
 	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get(t.index), "Inspector node ui tcsn refcounted hello.."));
-	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get("test_character2"), "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power."));
+	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get("meatball"), "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power."));
+	
+	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
+	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
 	RoomEntered();
 	
@@ -42,6 +45,7 @@ func PushResponseElement(element: ResponseElement) -> void:
 	if (_uiHistoryContainer.get_child_count() > MAX_HISTORY):
 		_uiHistoryContainer.get_child(0).queue_free();
 	
+## DEPRECATED : Used when this was text based
 func PushPlayerInput(playerText: String) -> void:
 	var res: ResponseElement = _playerText.instantiate();
 	res.SetText(playerText);
@@ -61,19 +65,35 @@ func ChangeArea(args: PackedStringArray) -> void:
 		return;
 	return;
 	
+func PushOption(option: GameRoomOption, index: int) -> void:
+	_uiOptionContainer.AddButton(option, index);
+	_narrator.AddOption(option);
+
 func FillRoomOptions() -> void:
 	_uiOptionContainer.ClearButtons();
 	var room: GameRoom = _areaControl.GetCurrentArea().GetCurrentRoom();
 	var index: int = 0;
 	for option: GameRoomOption in room.GetOptions():
-		_uiOptionContainer.AddButton(option, index);
+		PushOption(option, index);
+		index += 1;
+	for char: GameCharacter in room.GetCharacters().values():
+		PushGameResponse(TextFormat.CharacterDescriptor(char, "is passing through."));
+		PushOption(char.dialogueOption, index);
 		index += 1;
 	return;
 	
 func RoomEntered() -> void:
+	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
 	FillRoomOptions();
+	
+func DialogueStarted(args: PackedStringArray) -> void:
+	_narrator.ClearOptions();
+	_uiOptionContainer.ClearButtons();
+	for s: String in args:
+		print(s);
+	return;
 	
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
@@ -96,7 +116,8 @@ func _input(event: InputEvent) -> void:
 	return;
 
 func _onGameOptionActivated(index: int) -> void:
-	var option: GameRoomOption = _areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[index];
+	#var option: GameRoomOption = _areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[index];
+	var option: GameRoomOption = _narrator.GetOption(index);
 	if(option):
 		if(not option.callback.is_empty()):
 			_narrator.call(option.callback, option.callbackParams);
@@ -107,7 +128,8 @@ func _onGameOptionActivated(index: int) -> void:
 func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);
 	_optionHint.visible = true;
-	_optionHint.SetOption(_areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[_button.rawOptionIndex]);
+	#_optionHint.SetOption(_areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[_button.rawOptionIndex]);
+	_optionHint.SetOption(_narrator.GetOption(_button.rawOptionIndex));
 	
 func _onGameOptionExited(_button: GameOptionButton) -> void:
 	_optionHint.visible = false;

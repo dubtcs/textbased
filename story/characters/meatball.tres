@@ -6,3 +6,5 @@
 script = ExtResource("1_f3ejg")
 name = "Meatball"
 textColor = Color(0.27451, 0.603922, 0.886275, 1)
+descriptionShort = "meatball"
+description = "A literal ball of meat. Several times larger than the average food item. This one is around a foot and a half in diameter. "

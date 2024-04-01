@@ -17,6 +17,8 @@ class_name GameRoom;
 
 @onready var _highlight: Panel = $"Container/Panel2";
 
+var _characters: Dictionary = {};
+
 func GetDescription() -> String:
 	return _roomDescription;
 	
@@ -25,6 +27,19 @@ func GetName() -> String:
 	
 func GetOptions() -> Array[GameRoomOption]:
 	return _roomOptions;
+	
+func GetCharacter(charName: String) -> GameCharacter:
+	if(_characters.has(charName)):
+		return _characters.get(charName);
+	return null;
+	
+func GetCharacters() -> Dictionary:
+	return _characters;
+	
+func AddCharacter(char: GameCharacter) -> void:
+	if(not _characters.has(char.name)):
+		_characters[char.name] = char;
+	return;
 	
 func SetAsActive() -> void:
 	_highlight.visible = true;

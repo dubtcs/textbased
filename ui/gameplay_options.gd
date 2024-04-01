@@ -12,7 +12,9 @@ var _buttonScene: PackedScene = preload("res://ui/gameplay/OptionButton.tscn");
 const BUTTON_AMOUNT: int = 12;
 
 func AddButton(option: GameRoomOption, optionIndex: int) -> bool:
-	var b: GameOptionButton = _container.get_child(option.buttonIndex);
+	# This was used for control over position of the node, but removed so multiple buttons can be added randomly
+	#var b: GameOptionButton = _container.get_child(option.buttonIndex);
+	var b: GameOptionButton = _container.get_child(optionIndex);
 	if(b):
 		b.text = option.name;
 		b.disabled = false;
