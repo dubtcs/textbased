@@ -3,16 +3,18 @@ extends Control
 const MAX_HISTORY: int = 25;
 
 var _historyNode: PackedScene 	= preload("res://ui/gameplay/moment.tscn");
-var _gameResponse: PackedScene 	= preload("res://ui/gameplay/GameResponse.tscn");
+var _gameResponse: PackedScene 	= preload("res://ui/gameplay/game_response.tscn");
 var _playerText: PackedScene 	= preload("res://ui/gameplay/PlayerText.tscn");
 
 @onready var _areaControl: GameAreaController = $"AreaControl";
-@onready var _gameLogic: GameLogicController = $"GameControl";
+@onready var _narrator: GameNarrator = $"Narrator";
 @onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/RoomTitle";
 @onready var _uiHistoryContainer: VBoxContainer = $"Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer/HistoryContainer";
 @onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: CanvasLayer = $"OptionHint";
+
+var _canMove: bool = true;
 
 const MOVE_TIME_SEC: float = 0.15;
 
@@ -20,7 +22,16 @@ func _ready() -> void:
 	_optionHint.set_process(false);
 	_areaControl.ChangeArea("ship");
 	_areaControl.MoveToNamed("main_hallway");
+	
+	var t: GameCharacter = Game.Characters.get("test_character");
+	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get(t.index), "Inspector node ui tcsn refcounted hello.."));
+	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get("test_character2"), "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power."));
+	
 	RoomEntered();
+	
+func GameTick() -> void:
+	#_narrator.TickTime();
+	return;
 	
 func ClearResponseHistory() -> void:
 	for child in _uiHistoryContainer.get_children():
@@ -66,28 +77,31 @@ func RoomEntered() -> void:
 	
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
-	if(not _moveTimer.time_left):
-		if(event.is_action_pressed("moveNorth")):
-			didMove = _areaControl.AttemptMove(Enums.MoveDirection.north);
-		elif(event.is_action_pressed("moveEast")):
-			didMove = _areaControl.AttemptMove(Enums.MoveDirection.east);
-		elif(event.is_action_pressed("moveSouth")):
-			didMove = _areaControl.AttemptMove(Enums.MoveDirection.south);
-		elif(event.is_action_pressed("moveWest")):
-			didMove = _areaControl.AttemptMove(Enums.MoveDirection.west);
-		if(didMove):
-			_moveTimer.start(MOVE_TIME_SEC);
-			_onGameOptionExited(null); # what the fuck
-			ClearResponseHistory(); # This might be stupid
-			RoomEntered();
+	if(_canMove):
+		if(not _moveTimer.time_left):
+			if(event.is_action_pressed("moveNorth")):
+				didMove = _areaControl.AttemptMove(Enums.MoveDirection.north);
+			elif(event.is_action_pressed("moveEast")):
+				didMove = _areaControl.AttemptMove(Enums.MoveDirection.east);
+			elif(event.is_action_pressed("moveSouth")):
+				didMove = _areaControl.AttemptMove(Enums.MoveDirection.south);
+			elif(event.is_action_pressed("moveWest")):
+				didMove = _areaControl.AttemptMove(Enums.MoveDirection.west);
+			if(didMove):
+				_moveTimer.start(MOVE_TIME_SEC);
+				_onGameOptionExited(null); # what the fuck
+				ClearResponseHistory(); # This might be stupid
+				RoomEntered();
+				GameTick();
 	return;
 
 func _onGameOptionActivated(index: int) -> void:
 	var option: GameRoomOption = _areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[index];
 	if(option):
 		if(not option.callback.is_empty()):
-			var call: Callable = Callable(self, option.callback);
-			call.call(option.callbackParams);
+			_narrator.call(option.callback, option.callbackParams);
+			#var call: Callable = Callable(self, option.callback);
+			#call.call(option.callbackParams);
 	pass;
 
 func _onGameOptionHovered(_button: GameOptionButton) -> void:

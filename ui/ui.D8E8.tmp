@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://c1eovoj2f2iih"]
 
+[ext_resource type="Script" path="res://RoomControl.gd" id="1_gvlbr"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
 [ext_resource type="Theme" uid="uid://nswl1l5aumr" path="res://ui/ptheme/ptheme.tres" id="1_n7kpt"]
-[ext_resource type="Script" path="res://world/game_area_controller.gd" id="3_wnlu8"]
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
 [ext_resource type="Script" path="res://ui/Narrator.gd" id="4_wpoax"]
 [ext_resource type="PackedScene" uid="uid://ctohjgi0fgtvf" path="res://ui/gameplay/option_hint.tscn" id="5_6y3vo"]
@@ -29,7 +29,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_viewport")]
-script = ExtResource("3_wnlu8")
+script = ExtResource("1_gvlbr")
 _viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/MarginContainer/WorldViewport")
 
 [node name="Narrator" type="Node" parent="."]

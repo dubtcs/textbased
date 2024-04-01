@@ -1,14 +1,14 @@
 extends Node
 class_name GameNarrator;
 
+signal change_area(args: PackedStringArray);
+signal enter_dialogue();
+
 ## TODO: Use this as a sort of story controller that handles button input story events
 
-var _queue: Array[int] = [];
-
-func AddStory(v: int) -> void:
-	_queue.push_back(v);
-	return;
+func Dialogue(args: PackedStringArray) -> void:
+	enter_dialogue.emit();
+	print("We be speaking");
 	
-func RemoveStory() -> void:
-	_queue.pop_back();
-	return;
+func ChangeArea(args: PackedStringArray) -> void:
+	change_area.emit(args);

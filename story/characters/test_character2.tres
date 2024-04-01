@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameCharacter" load_steps=2 format=3 uid="uid://dh62bsatef5ng"]
+
+[ext_resource type="Script" path="res://story/characters/character.gd" id="1_f3ejg"]
+
+[resource]
+script = ExtResource("1_f3ejg")
+name = "Meatball"
+textColor = Color(0.27451, 0.603922, 0.886275, 1)

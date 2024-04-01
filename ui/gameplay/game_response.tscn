@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://onldrqkbrmqs"]
+
+[ext_resource type="Script" path="res://ui/gameplay/ResponseElement.gd" id="1_xsj12"]
+
+[node name="GameResponse" type="RichTextLabel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "This is a game response."
+fit_content = true
+autowrap_mode = 2
+script = ExtResource("1_xsj12")

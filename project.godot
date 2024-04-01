@@ -13,11 +13,12 @@ config_version=5
 config/name="TextBased"
 run/main_scene="res://ui/ui.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
 Enums="*res://Enums.gd"
+TextFormat="*res://text_format.gd"
+Game="*res://game.gd"
 
 [display]
 

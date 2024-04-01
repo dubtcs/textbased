@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_hxgrb"]
 [ext_resource type="Theme" uid="uid://nswl1l5aumr" path="res://ui/ptheme/ptheme.tres" id="1_n7kpt"]
-[ext_resource type="Script" path="res://world/game_area_controller.gd" id="3_wnlu8"]
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
 [ext_resource type="Script" path="res://ui/Narrator.gd" id="4_wpoax"]
 [ext_resource type="PackedScene" uid="uid://ctohjgi0fgtvf" path="res://ui/gameplay/option_hint.tscn" id="5_6y3vo"]
@@ -10,6 +9,81 @@
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
 [ext_resource type="PackedScene" uid="uid://chg33hrumapn2" path="res://ui/gameplay/viewport.tscn" id="6_nrxca"]
 [ext_resource type="PackedScene" uid="uid://bg65p2hnx1rod" path="res://ui/gameplay/game_option_grid.tscn" id="10_yt6tb"]
+
+[sub_resource type="GDScript" id="GDScript_vqddg"]
+script/source = "extends Node;
+class_name GameAreaController;
+
+@export var _viewport: GameWorldViewport = null;
+
+const areaFolder: String = \"res://world/areas/_use\";
+
+var _areaInfo: Dictionary = {};
+var _currentArea: GameArea = null;
+
+func AttemptMove(dir: Enums.MoveDirection) -> bool:
+	if(_currentArea.CanMove(dir)):
+		_currentArea.GetCurrentRoom().SetAsInactive();
+		if(_currentArea.MoveInDirection(dir)):
+			_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
+		_currentArea.GetCurrentRoom().SetAsActive();
+		return true;
+	return false;
+
+func MoveTo(x: int, y: int) -> void:
+	if(_currentArea.GetCurrentRoom()):
+		_currentArea.GetCurrentRoom().SetAsInactive();	
+	_currentArea.MoveTo(x,y);
+	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
+	_currentArea.GetCurrentRoom().SetAsActive();
+	
+func MoveToNamed(roomName: String) -> void:
+	if(_currentArea.GetCurrentRoom()):
+		_currentArea.GetCurrentRoom().SetAsInactive();
+	_currentArea.MoveToNamed(roomName);
+	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
+	_currentArea.GetCurrentRoom().SetAsActive();
+	
+func GetCurrentArea() -> GameArea:
+	return _currentArea;
+
+func GetArea(name: String) -> GameArea:
+	if(_areaInfo.has(name)):
+		return _areaInfo[name].instance;
+	return null;
+
+func ChangeArea(nam: String) -> bool:
+	if(_areaInfo.has(nam)):
+		_currentArea.visible = false;
+		_currentArea = _areaInfo[nam].instance;
+		_currentArea.visible = true;
+		return true;
+	return false;
+
+# PRIVATE
+
+func _ready() -> void:
+	_ProcessAreas();
+
+func _ProcessAreas() -> void:
+	var dir: DirAccess = DirAccess.open(areaFolder);
+	if (dir):
+		for filename: String in dir.get_files():
+			if(filename.get_extension() == \"tscn\"):
+				var id: String = filename.get_basename();
+				if(_areaInfo.has(id)):
+					printerr(\"Area ID already exists. \" + id);
+					continue;
+				var areaScene: PackedScene = load(areaFolder + \"/\" + filename);
+				var sceneInstance: Node = areaScene.instantiate();
+				_areaInfo[id] = {  };
+				_areaInfo[id].packedScene = areaScene;
+				_areaInfo[id].instance = sceneInstance;
+				_currentArea = sceneInstance;
+				sceneInstance.name = id;
+				_viewport.AddAreaInstance(sceneInstance);
+				_currentArea.visible = false; # hide it
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
 bg_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
@@ -29,7 +103,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_viewport")]
-script = ExtResource("3_wnlu8")
+script = SubResource("GDScript_vqddg")
 _viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/Panel/MarginContainer/WorldViewport")
 
 [node name="Narrator" type="Node" parent="."]
