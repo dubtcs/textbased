@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameCharacter" load_steps=2 format=3 uid="uid://h58wg05sjss6"]
+
+[ext_resource type="Script" path="res://story/characters/character.gd" id="1_vmfyq"]
+
+[resource]
+script = ExtResource("1_vmfyq")
+name = "Player"
+textColor = Color(0.921569, 0.898039, 1, 1)
+descriptionShort = ""
+description = ""

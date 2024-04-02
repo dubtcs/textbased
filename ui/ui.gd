@@ -88,11 +88,15 @@ func RoomEntered() -> void:
 	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
 	FillRoomOptions();
 	
-func DialogueStarted(args: PackedStringArray) -> void:
+func DialogueStarted(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
 	_narrator.ClearOptions();
 	_uiOptionContainer.ClearButtons();
-	for s: String in args:
-		print(s);
+	for response: String in responses:
+		PushGameResponse(response);
+	var i: int = 0;
+	for o: GameRoomOption in options:
+		PushOption(o, i);
+		i += 1;
 	return;
 	
 func _input(event: InputEvent) -> void:

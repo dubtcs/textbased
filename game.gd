@@ -2,7 +2,9 @@ extends Node
 
 const CHAR_FOLDER: String = "res://story/characters";
 
-var Characters: Dictionary = {};
+var Characters: Dictionary = {
+	player = preload("uid://h58wg05sjss6")
+};
 
 func FillCharacters() -> void:
 	var dir: DirAccess = DirAccess.open(CHAR_FOLDER);

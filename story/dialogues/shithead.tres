@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterDialogue" load_steps=5 format=3 uid="uid://cdoxrd6gfjfn4"]
+[gd_resource type="Resource" script_class="CharacterDialogue" load_steps=7 format=3 uid="uid://cdoxrd6gfjfn4"]
 
 [ext_resource type="Script" path="res://story/dialogues/dialogue.gd" id="1_4r7im"]
 [ext_resource type="Resource" uid="uid://upchsad81l41" path="res://story/characters/shithead.tres" id="1_kwf87"]
@@ -10,9 +10,25 @@ buttonText = "About them"
 buttonHint = "Ask them who they are"
 playerText = "Who are you?"
 characterResponse = "I LIVE IN BANGLADESH I LIVE IN BANGLADESH"
-responseOptions = Array[int]([1])
+responseOptions = Array[int]([1, 2])
+
+[sub_resource type="Resource" id="Resource_2jebu"]
+script = ExtResource("2_cxbps")
+buttonText = "Bangladesh"
+buttonHint = "Ask this jackass why he's saying that so often"
+playerText = "Why do you keep saying that? Are you stupid?"
+characterResponse = "I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH I LIVE IN BANGLADESH "
+responseOptions = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_yb02y"]
+script = ExtResource("2_cxbps")
+buttonText = "Me too"
+buttonHint = "Just go along with it"
+playerText = "I LIVE IN BANGLADESH"
+characterResponse = "The purple platypus waddled towards the horizon, its bill gliting in the rays of the moon."
+responseOptions = Array[int]([])
 
 [resource]
 script = ExtResource("1_4r7im")
 character = ExtResource("1_kwf87")
-dialogues = Array[ExtResource("2_cxbps")]([SubResource("Resource_s61mc")])
+dialogues = Array[ExtResource("2_cxbps")]([SubResource("Resource_s61mc"), SubResource("Resource_2jebu"), SubResource("Resource_yb02y")])
