@@ -55,11 +55,13 @@ _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_26m3f")])
 [node name="main_hallway" parent="." index="1" instance=ExtResource("2_w4wla")]
 position = Vector2(0, -128)
 _roomName = "Hallway"
+_roomDescription = "A standard hallway with some LED lighting running the full length."
 _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_5r80p")])
 
 [node name="GameRoom3" parent="." index="2" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -128)
 _roomName = "Hallway"
+_roomDescription = "A standard hallway with some LED lighting running the full length."
 
 [node name="GameRoom4" parent="." index="3" instance=ExtResource("2_w4wla")]
 position = Vector2(256, -128)
@@ -71,15 +73,17 @@ _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_6wrag"), Sub
 [node name="GameRoom5" parent="." index="4" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -128)
 _roomName = "Hallway"
+_roomDescription = "A standard hallway with some LED lighting running the full length."
 
 [node name="lounge" parent="." index="5" instance=ExtResource("2_w4wla")]
 position = Vector2(-256, -128)
 _roomName = "Lounge"
-_roomDescription = "The ships lounge. It's filled with chairs and benches to leisurely watch the tvs."
+_roomDescription = "You are in a cozy hub with seating, adjustable lights, and screens for entertainment or mission info. It’s a place for crew members to relax and socialize amidst the stars."
 
 [node name="GameRoom7" parent="." index="6" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -256)
 _roomName = "Hallway"
+_roomDescription = "A standard hallway with some LED lighting running the full length."
 
 [node name="GameRoom8" parent="." index="7" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -384)
@@ -91,8 +95,9 @@ _roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_g6o5h")])
 [node name="GameRoom9" parent="." index="8" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -384)
 _roomName = "Hallway"
-_roomDescription = "The see the emptiness of space through a large window."
+_roomDescription = "A standard hallway with some LED lighting running the full length. At the end, there is a large window to view the cast emptiness of space."
 
 [node name="GameRoom10" parent="." index="9" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -256)
 _roomName = "Hallway"
+_roomDescription = "A standard hallway with some LED lighting running the full length."

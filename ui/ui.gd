@@ -71,6 +71,7 @@ func PushOption(option: GameRoomOption, index: int) -> void:
 
 func FillRoomOptions() -> void:
 	_uiOptionContainer.ClearButtons();
+	_narrator.ClearOptions();
 	var room: GameRoom = _areaControl.GetCurrentArea().GetCurrentRoom();
 	var index: int = 0;
 	for option: GameRoomOption in room.GetOptions():
@@ -88,7 +89,14 @@ func RoomEntered() -> void:
 	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
 	FillRoomOptions();
 	
-func DialogueStarted(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
+func DialogueEnded() -> void:
+	ClearResponseHistory();
+	RoomEntered();
+	_canMove = true;
+	return;
+	
+# For mid dialogue options
+func DialogueSelected(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
 	_narrator.ClearOptions();
 	_uiOptionContainer.ClearButtons();
 	for response: String in responses:
@@ -96,6 +104,17 @@ func DialogueStarted(responses: PackedStringArray, options: Array[GameRoomOption
 	var i: int = 0;
 	for o: GameRoomOption in options:
 		PushOption(o, i);
+		i += 1;
+	return;
+	
+func DialogueStarted(entryText: String, options: Array[GameRoomOption]) -> void:
+	_canMove = false;
+	_narrator.ClearOptions();
+	_uiOptionContainer.ClearButtons();
+	var i: int = 0;
+	PushGameResponse(entryText);
+	for option: GameRoomOption in options:
+		PushOption(option, i);
 		i += 1;
 	return;
 	
@@ -120,19 +139,15 @@ func _input(event: InputEvent) -> void:
 	return;
 
 func _onGameOptionActivated(index: int) -> void:
-	#var option: GameRoomOption = _areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[index];
 	var option: GameRoomOption = _narrator.GetOption(index);
 	if(option):
 		if(not option.callback.is_empty()):
 			_narrator.call(option.callback, option.callbackParams);
-			#var call: Callable = Callable(self, option.callback);
-			#call.call(option.callbackParams);
 	pass;
 
 func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);
 	_optionHint.visible = true;
-	#_optionHint.SetOption(_areaControl.GetCurrentArea().GetCurrentRoom().GetOptions()[_button.rawOptionIndex]);
 	_optionHint.SetOption(_narrator.GetOption(_button.rawOptionIndex));
 	
 func _onGameOptionExited(_button: GameOptionButton) -> void:

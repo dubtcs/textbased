@@ -2,7 +2,9 @@ extends Node
 class_name GameNarrator;
 
 signal change_area(args: PackedStringArray);
-signal enter_dialogue(options: Array[CharacterDialogueOption]);
+signal enter_dialogue(entryText: String, options: Array[CharacterDialogueOption]);
+signal exit_dialogue();
+signal dialogue_step(responses: PackedStringArray, options: Array[GameRoomOption]);
 
 const DIALOGUE_DIR = "res://story/dialogues/{index}.tres";
 
@@ -29,43 +31,64 @@ func GetOptions() -> Array[GameRoomOption]:
 func ClearOptions() -> void:
 	_currentOptions.clear();
 
+## NOTE: This is used for the entrance to dialogue, not per step
 ## NOTE: args[0] is character id
 ## NOTE: args[1] is current dialogue index
 func Dialogue(args: PackedStringArray) -> void:
-	print(args);
-	if(args.size() >= 2):
-		var index: int = int(args[1]);
-		var options: Array[GameRoomOption] = [];
-		var responses: PackedStringArray = [];
-		## TODO: Fetch dialogue resrouces, fill with options of current index
-		var dia: CharacterDialogue = _LoadDialogue(args[0]);
-		if(dia):
-			var curdia: CharacterDialogueOption = dia.dialogues[index];
-			## TODO: Move this to game controller. This shouldn't be done here
-			responses.push_back(TextFormat.CharacterSpeech(Game.Characters.player, curdia.playerText));
-			responses.push_back(TextFormat.CharacterSpeech(Game.Characters.get(args[0]), curdia.characterResponse));
-			
-			if(curdia.responseOptions.size() > 0):
-				for optionIndex: int in dia.dialogues[index].responseOptions:
-					var opt: CharacterDialogueOption = dia.dialogues[optionIndex];
-					var rm: GameRoomOption = GameRoomOption.new();
-					#rm.buttonIndex = i;
-					rm.callback = "Dialogue";
-					rm.callbackParams = [args[0], optionIndex];
-					rm.name = opt.buttonText;
-					rm.description = opt.buttonHint;
-					options.push_back(rm);
-			else:
-				# send the player back to the "hub" dialogue option
+	if(args.size() < 2):
+		return;
+	var charId: String = args[0];
+	var options: Array[GameRoomOption] = [];
+	var responses: PackedStringArray = [];
+	var dia: CharacterDialogue = _LoadDialogue(charId);
+	if(dia):
+		for i: int in dia.startingOptions:
+			var opt: CharacterDialogueOption = dia.dialogues[i];
+			var rm: GameRoomOption = GameRoomOption.new();
+			rm.callback = "DialogueStep";
+			rm.callbackParams = [charId, i];
+			rm.name = opt.buttonText;
+			rm.description = opt.buttonHint;
+			options.push_back(rm);
+		# Add the goodbye button to the hub
+		var rm: GameRoomOption = GameRoomOption.new();
+		rm.callback = "DialogueEnd";
+		rm.callbackParams = [args[0], 0];
+		rm.name = "Goodbye";
+		rm.description = "Exit from conversation.";
+		options.push_back(rm);
+		enter_dialogue.emit(Game.Characters.get(charId).description, options);
+		
+func DialogueStep(args: PackedStringArray) -> void:
+	if(args.size() < 2):
+		return;
+	var charId: String = args[0];
+	var choiceIndex: int = int(args[1]);
+	var options: Array[GameRoomOption] = [];
+	var responses: PackedStringArray = [];
+	var dia: CharacterDialogue = _LoadDialogue(charId);
+	if(dia):
+		var curChoice: CharacterDialogueOption = dia.dialogues[choiceIndex];
+		
+		responses.push_back(TextFormat.CharacterSpeech(Game.Characters.player, curChoice.playerText));
+		responses.push_back(TextFormat.CharacterSpeech(Game.Characters.get(charId), curChoice.characterResponse));
+		
+		if(curChoice.responseOptions.is_empty()):
+			Dialogue(args); # Back to hub options
+		else:
+			for i: int in curChoice.responseOptions:
+				var option: CharacterDialogueOption = dia.dialogues[i];
 				var rm: GameRoomOption = GameRoomOption.new();
-				rm.callback = "Dialogue";
-				rm.callbackParams = [args[0], 0];
-				rm.name = dia.dialogues[0].buttonText;
-				rm.description = dia.dialogues[0].buttonHint;
-				options = [rm];
-				
-		enter_dialogue.emit(responses, options);
+				rm.callback = "DialogueStep";
+				rm.callbackParams = [charId, i];
+				rm.name = option.buttonText;
+				rm.description = option.buttonHint;
+				options.push_back(rm);
+			dialogue_step.emit(responses, options);
 	return;
+	
+func DialogueEnd(_args: PackedStringArray) -> void:
+	exit_dialogue.emit();
 	
 ## NOTE: args[0] is area name
 ## NOTE: args[1] is room name
