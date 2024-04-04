@@ -23,14 +23,12 @@ func _ready() -> void:
 	_areaControl.ChangeArea("ship");
 	_areaControl.MoveToNamed("main_hallway");
 	
-	var t: GameCharacter = Game.Characters.get("shithead");
-	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get(t.index), "Inspector node ui tcsn refcounted hello.."));
-	PushGameResponse(TextFormat.CharacterSpeech(Game.Characters.get("meatball"), "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power."));
-	
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
 	RoomEntered();
+	PushGameResponse(TextFormat.CharacterMulti("{shithead} is [b]screaming[/b]. {shithead_ref}s also running in circles."));
+	PushGameResponse(TextFormat.CharacterMulti("{shithead} is [b]screaming[/b]. {meatball} rolls around. {player} dies."));
 	
 func GameTick() -> void:
 	#_narrator.TickTime();
@@ -88,35 +86,6 @@ func RoomEntered() -> void:
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
 	FillRoomOptions();
-	
-func DialogueEnded() -> void:
-	ClearResponseHistory();
-	RoomEntered();
-	_canMove = true;
-	return;
-	
-# For mid dialogue options
-func DialogueSelected(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
-	_narrator.ClearOptions();
-	_uiOptionContainer.ClearButtons();
-	for response: String in responses:
-		PushGameResponse(response);
-	var i: int = 0;
-	for o: GameRoomOption in options:
-		PushOption(o, i);
-		i += 1;
-	return;
-	
-func DialogueStarted(entryText: String, options: Array[GameRoomOption]) -> void:
-	_canMove = false;
-	_narrator.ClearOptions();
-	_uiOptionContainer.ClearButtons();
-	var i: int = 0;
-	PushGameResponse(entryText);
-	for option: GameRoomOption in options:
-		PushOption(option, i);
-		i += 1;
-	return;
 	
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;

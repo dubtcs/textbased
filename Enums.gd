@@ -8,3 +8,6 @@ enum MoveDirection { north = 0, east = 1, south = 2, west = 3 };
 enum ExitType { open, closed, keyed };
 enum RoomIcon { empty, bed, kitchen, stairs, lock, door, cook, mouse, cpu, circuit, home };
 enum RoomColor { none, red, blue, yellow, green };
+
+# STORY
+enum CharacterGender { neutral, male, female };

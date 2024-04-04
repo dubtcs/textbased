@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_vmfyq")
 name = "Player"
-textColor = Color(0.921569, 0.898039, 1, 1)
+textColor = Color(0.921569, 0.627451, 0.698039, 1)
 descriptionShort = ""
 description = ""

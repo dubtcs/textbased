@@ -1,35 +1,27 @@
-[gd_resource type="Resource" script_class="CharacterDialogue" load_steps=7 format=3 uid="uid://cdoxrd6gfjfn4"]
+[gd_resource type="Resource" script_class="CharacterDialogue" load_steps=5 format=3 uid="uid://cdoxrd6gfjfn4"]
 
 [ext_resource type="Script" path="res://story/dialogues/dialogue.gd" id="1_4r7im"]
-[ext_resource type="Resource" uid="uid://upchsad81l41" path="res://story/characters/shithead.tres" id="1_kwf87"]
-[ext_resource type="Script" path="res://story/dialogues/dialogue_option.gd" id="2_cxbps"]
+[ext_resource type="Script" path="res://story/dialogues/dialogue_option.gd" id="2_uniye"]
 
-[sub_resource type="Resource" id="Resource_ia5o3"]
-script = ExtResource("2_cxbps")
-buttonText = "Punch"
-buttonHint = "Punc the character"
-playerText = "I am going to punch you."
-characterResponse = "Ouch"
+[sub_resource type="Resource" id="Resource_a1e3v"]
+script = ExtResource("2_uniye")
+buttonText = "Greet"
+buttonHint = "Say hi"
+responses = Array[String](["{player}: Hello
+{shithead}: Go away."])
+responseOptions = Array[int]([1])
+forceEndConvo = false
+
+[sub_resource type="Resource" id="Resource_rpafd"]
+script = ExtResource("2_uniye")
+buttonText = "What?"
+buttonHint = "Why would he say that"
+responses = Array[String](["{player}: What? Why?
+{shithead}: Begone."])
 responseOptions = Array[int]([])
-
-[sub_resource type="Resource" id="Resource_1h280"]
-script = ExtResource("2_cxbps")
-buttonText = "Kick"
-buttonHint = "Kick this character"
-playerText = "I kick you"
-characterResponse = "No"
-responseOptions = Array[int]([2])
-
-[sub_resource type="Resource" id="Resource_xm36t"]
-script = ExtResource("2_cxbps")
-buttonText = "No?"
-buttonHint = "What?"
-playerText = "What do you mean, \"No\"?"
-characterResponse = "No."
-responseOptions = Array[int]([])
+forceEndConvo = false
 
 [resource]
 script = ExtResource("1_4r7im")
-character = ExtResource("1_kwf87")
-startingOptions = Array[int]([0, 1])
-dialogues = Array[ExtResource("2_cxbps")]([SubResource("Resource_ia5o3"), SubResource("Resource_1h280"), SubResource("Resource_xm36t")])
+startingOptions = Array[int]([0])
+dialogues = Array[ExtResource("2_uniye")]([SubResource("Resource_a1e3v"), SubResource("Resource_rpafd")])

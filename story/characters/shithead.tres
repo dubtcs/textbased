@@ -6,5 +6,6 @@
 script = ExtResource("1_bl1vn")
 name = "Shithead"
 textColor = Color(0.635294, 0.266667, 0.505882, 1)
+gender = 1
 descriptionShort = "tall man with a red hat."
 description = "A tall man with a red hat. He has a wide build."

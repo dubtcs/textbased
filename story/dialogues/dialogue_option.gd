@@ -7,11 +7,10 @@ class_name CharacterDialogueOption;
 ## Subtext for the hover hint
 @export var buttonHint: String = "";
 
-## Displayed text the player will say in the narrator
-@export_multiline var playerText: String = "";
-
-## Displayed text the character will respond with
-@export_multiline var characterResponse: String = "";
+@export_multiline var responses: Array[String] = [];
 
 ## Follow up options
 @export var responseOptions: Array[int] = [];
+
+## Kick the player out after this option
+@export var forceEndConvo: bool = false;
