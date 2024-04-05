@@ -24,7 +24,6 @@ func FillCharacters() -> void:
 				opt.callback = "Dialogue";
 				opt.callbackParams = [id, "0"];
 				ch.dialogueOption = opt;
-	TextFormat.LoadCharacterPrefixes();
 
 func _ready() -> void:
 	FillCharacters();
