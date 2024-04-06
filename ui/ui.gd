@@ -27,11 +27,9 @@ func _ready() -> void:
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
 	RoomEntered();
-	PushGameResponse(TextFormat.CharacterMulti("{Shithead} walks around.")) # Shithead walks around
-	PushGameResponse(TextFormat.CharacterMulti("{meatball}: {@Shithead} won't like you.")); # He wont like you
-	PushGameResponse(TextFormat.CharacterMulti("Something is wrong with {#meatball}.")); # Something is wrong with him
-	PushGameResponse(TextFormat.CharacterMulti("{$Shithead} pockets are empty.")) # His pockets are empty
-	PushGameResponse(TextFormat.CharacterMulti("{%shithead} not gonna like this.")) # He's not gonna like this
+	PushGameResponse(GameText.FormatO("{shithead} walks around."));
+	PushGameResponse(GameText.FormatO("{Shithead,he/she/they} fell down and ate shit."));
+	PushGameResponse(GameText.FormatO("{Shithead,he walks/she walks/they walk} away."));
 	
 func GameTick() -> void:
 	#_narrator.TickTime();
@@ -79,7 +77,7 @@ func FillRoomOptions() -> void:
 		PushOption(option, index);
 		index += 1;
 	for char: GameCharacter in room.GetCharacters().values():
-		PushGameResponse(TextFormat.CharacterMulti("{{char}} is passing through".format({"char":char.index})));
+		PushGameResponse(GameText.Format("{{char}} is passing through".format({"char":char.index})));
 		PushOption(char.dialogueOption, index);
 		index += 1;
 	return;

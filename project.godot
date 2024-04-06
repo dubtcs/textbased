@@ -17,8 +17,8 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [autoload]
 
 Enums="*res://Enums.gd"
-TextFormat="*res://text_format.gd"
 Game="*res://game.gd"
+GameText="*res://game_text.gd"
 
 [display]
 
