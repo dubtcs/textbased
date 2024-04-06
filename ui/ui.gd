@@ -44,12 +44,6 @@ func PushResponseElement(element: ResponseElement) -> void:
 	if (_uiHistoryContainer.get_child_count() > MAX_HISTORY):
 		_uiHistoryContainer.get_child(0).queue_free();
 	
-## DEPRECATED : Used when this was text based
-func PushPlayerInput(playerText: String) -> void:
-	var res: ResponseElement = _playerText.instantiate();
-	res.SetText(playerText);
-	PushResponseElement(res);
-	
 func PushGameResponse(gameText: String) -> void:
 	var res: ResponseElement = _gameResponse.instantiate();
 	res.SetText(gameText);
@@ -64,6 +58,35 @@ func ChangeArea(args: PackedStringArray) -> void:
 		return;
 	return;
 	
+func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
+	_uiOptionContainer.ClearButtons();
+	_narrator.ClearOptions();
+	for res: String in responses:
+		PushGameResponse(GameText.FormatO(res));
+	var index: int = 0;
+	for opt: GameRoomOption in options:
+		PushOption(opt, index);
+		index += 1;
+	return;
+	
+func OnDialogueEnter(entry: PackedStringArray, options: Array[GameRoomOption]) -> void:
+	ClearResponseHistory();
+	_canMove = false;
+	_uiOptionContainer.ClearButtons();
+	_narrator.ClearOptions();
+	for s: String in entry:
+		PushGameResponse(GameText.FormatO(s));
+	var index: int = 0;
+	for opt: GameRoomOption in options:
+		PushOption(opt, index);
+		index += 1;
+	return;
+
+func OnDialogueExit() -> void:
+	ClearResponseHistory();
+	RoomEntered();
+	_canMove = true;
+	
 func PushOption(option: GameRoomOption, index: int) -> void:
 	_uiOptionContainer.AddButton(option, index);
 	_narrator.AddOption(option);
@@ -77,7 +100,7 @@ func FillRoomOptions() -> void:
 		PushOption(option, index);
 		index += 1;
 	for char: GameCharacter in room.GetCharacters().values():
-		PushGameResponse(GameText.Format("{{char}} is passing through".format({"char":char.index})));
+		PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
 		PushOption(char.dialogueOption, index);
 		index += 1;
 	return;
