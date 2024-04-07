@@ -26,10 +26,11 @@ func _ready() -> void:
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
+	var shithead: GameCharacterDialogue = load("res://story/dialogues/shithead_2.gd").new();
+	if(shithead):
+		shithead.options.get("opener").call();
+	
 	RoomEntered();
-	PushGameResponse(GameText.FormatO("{shithead} walks around."));
-	PushGameResponse(GameText.FormatO("{Shithead,he/she/they} fell down and ate shit."));
-	PushGameResponse(GameText.FormatO("{Shithead,he walks/she walks/they walk} away."));
 	
 func GameTick() -> void:
 	#_narrator.TickTime();
@@ -55,15 +56,14 @@ func ChangeArea(args: PackedStringArray) -> void:
 		var roomName: String = args[1];
 		_areaControl.MoveToNamed(roomName);
 		RoomEntered();
-		return;
 	return;
 	
 func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
-	_uiOptionContainer.ClearButtons();
-	_narrator.ClearOptions();
-	for res: String in responses:
-		PushGameResponse(GameText.FormatO(res));
 	var index: int = 0;
+	_narrator.ClearOptions();
+	_uiOptionContainer.ClearButtons();
+	for res: String in responses:
+		PushGameResponse(GameText.Format(res));
 	for opt: GameRoomOption in options:
 		PushOption(opt, index);
 		index += 1;
@@ -72,10 +72,10 @@ func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOptio
 func OnDialogueEnter(entry: PackedStringArray, options: Array[GameRoomOption]) -> void:
 	ClearResponseHistory();
 	_canMove = false;
-	_uiOptionContainer.ClearButtons();
 	_narrator.ClearOptions();
+	_uiOptionContainer.ClearButtons();
 	for s: String in entry:
-		PushGameResponse(GameText.FormatO(s));
+		PushGameResponse(GameText.Format(s));
 	var index: int = 0;
 	for opt: GameRoomOption in options:
 		PushOption(opt, index);
@@ -108,7 +108,7 @@ func FillRoomOptions() -> void:
 func RoomEntered() -> void:
 	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
-	PushGameResponse(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription());
+	PushGameResponse(GameText.Format(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription()));
 	FillRoomOptions();
 	
 func _input(event: InputEvent) -> void:

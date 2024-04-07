@@ -2,9 +2,14 @@ extends Node
 
 const CHAR_FOLDER: String = "res://story/characters";
 
-var Characters: Dictionary = {
+var Characters: Dictionary = {};
+var StateFlags: Dictionary = {};
 
-};
+func SetFlag(state: String) -> void:
+	StateFlags[state] = true;
+
+func CheckFlag(state: String) -> bool:
+	return StateFlags.has(state);
 
 func FillCharacters() -> void:
 	var dir: DirAccess = DirAccess.open(CHAR_FOLDER);
