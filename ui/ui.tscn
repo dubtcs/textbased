@@ -181,6 +181,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="change_area" from="Narrator" to="." method="ChangeArea"]
+[connection signal="dialogue_enter" from="Narrator" to="." method="OnDialogueEnter"]
 [connection signal="dialogue_exit" from="Narrator" to="." method="OnDialogueExit"]
 [connection signal="dialogue_options" from="Narrator" to="." method="OnDialogueOptions"]
 [connection signal="dialogue_text" from="Narrator" to="." method="OnDialogueText"]

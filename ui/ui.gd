@@ -65,17 +65,9 @@ func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOptio
 		index += 1;
 	return;
 	
-func OnDialogueEnter(entry: PackedStringArray, options: Array[GameRoomOption]) -> void:
-	ClearResponseHistory();
+func OnDialogueEnter() -> void:
 	_canMove = false;
-	_narrator.ClearOptions();
-	_uiOptionContainer.ClearButtons();
-	for s: String in entry:
-		PushGameResponse(GameText.Format(s));
-	var index: int = 0;
-	for opt: GameRoomOption in options:
-		PushOption(opt, index);
-		index += 1;
+	ClearResponseHistory();
 	return;
 
 func OnDialogueText(text: String) -> void:

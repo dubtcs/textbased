@@ -4,6 +4,7 @@ class_name GameNarrator;
 signal change_area(args: PackedStringArray);
 signal dialogue_text(text: String);
 signal dialogue_options(options: Array[GameRoomOption]);
+signal dialogue_enter();
 signal dialogue_exit();
 
 const DIALOGUE_DIR = "res://story/dialogues/{index}.gd";
@@ -34,7 +35,7 @@ func CreateGoodbyeOption() -> GameRoomOption:
 	return opt;
 	
 func DialogueExit(args: PackedStringArray) -> void:
-	#dialogue_exit.emit();
+	dialogue_exit.emit();
 	return;
 
 func Dialogue(args: PackedStringArray) -> void:
@@ -43,6 +44,8 @@ func Dialogue(args: PackedStringArray) -> void:
 			currentDialogue.disconnect("dialogue_text", EmitDialogueText);
 	var character: GameCharacter = Game.Characters.get(args[0]);
 	if(character):
+		if(args.size() == 1): ## This is to prevent clearing of history when coming back to this on convo end
+			dialogue_enter.emit();
 		currentDialogue = character.dialogue;
 		if(currentDialogue):
 			currentDialogue.connect("dialogue_text", EmitDialogueText);
@@ -55,47 +58,47 @@ func Dialogue(args: PackedStringArray) -> void:
 					var button: GameRoomOption = GameRoomOption.new();
 					button.name = option.text;
 					button.description = option.hint;
+					button.callback = "DialogueChoice";
+					button.callbackParams = [args[0], optionIndex];
 					retOptions.push_back(button); # why tf did I call this button?
 					
 			var gb: GameRoomOption = GameRoomOption.new();
 			gb.callback = "DialogueExit";
 			gb.name = "Leave";
 			gb.description = "Exit this interaction";
+			gb.callback = "DialogueExit";
 			retOptions.push_back(gb);
 			
 			dialogue_options.emit(retOptions);
 	return;
 	
 func DialogueChoice(args: PackedStringArray) -> void:
-	#if(args.size() < 2):
-		#printerr("Dialogue button supplied with insufficient args.");
-		#return;
-	#var charIndex: String = args[0];
-	#if(Game.Characters.has(charIndex)):
-		#var character: GameCharacter = Game.Characters.get(charIndex);
-		#if(currentDialogue):
-			#var curIndex: int = int(args[1]);
-			#var rOptions: Array[GameRoomOption] = [];
-			#if(currentDialogue.dialogues[curIndex].responseOptions.size()):
-				#for optionIndex: int in currentDialogue.dialogues[curIndex].responseOptions:
-					#var cur: CharacterDialogueOption = currentDialogue.dialogues[optionIndex];
-					#var opt: GameRoomOption = GameRoomOption.new();
-					#opt.name = cur.buttonText;
-					#opt.description = cur.buttonHint;
-					#opt.callback = "DialogueChoice";
-					#opt.callbackParams = [charIndex, optionIndex];
-					#rOptions.push_back(opt);
-			#else:
-				#for optionIndex: int in currentDialogue.startingOptions:
-					#var cur: CharacterDialogueOption = currentDialogue.dialogues[optionIndex];
-					#var opt: GameRoomOption = GameRoomOption.new();
-					#opt.name = cur.buttonText;
-					#opt.description = cur.buttonHint;
-					#opt.callback = "DialogueChoice";
-					#opt.callbackParams = [charIndex, optionIndex];
-					#rOptions.push_back(opt);
-				#rOptions.push_back(CreateGoodbyeOption());
-			#dialogue_choice.emit(currentDialogue.dialogues[curIndex].responses, rOptions);			
+	if(args.size() < 2):
+		printerr("Dialogue button supplied with insufficient args.");
+		return;
+	var charIndex: String = args[0];
+	if(Game.Characters.has(charIndex)):
+		var character: GameCharacter = Game.Characters.get(charIndex);
+		var retOptions: Array[GameRoomOption] = [];
+		if(currentDialogue):
+			var curIndex: String = args[1];
+			var options: PackedStringArray = currentDialogue.CallOption(curIndex);
+			if(options):
+				for optionIndex: String in options:
+					var option: GameCharacterDialogueOption = currentDialogue.options.get(optionIndex);
+					if(option):
+						var button: GameRoomOption = GameRoomOption.new();
+						button.name = option.text;
+						button.description = option.hint;
+						button.callback = "DialogueChoice";
+						button.callbackParams = [args[0], optionIndex];
+						retOptions.push_back(button); # why tf did I call this button?
+				dialogue_options.emit(retOptions);
+				return;
+		
+		# Either there was no option, or the option had no responses, so we're going back to the hub
+		Dialogue(args);
+		
 	return;
 	
 ## NOTE: args[0] is area name
