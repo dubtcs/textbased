@@ -1,6 +1,7 @@
 extends Node
 
 const CHAR_FOLDER: String = "res://story/characters";
+const DIALOGUE_FOLDER: String = "res://story/dialogues";
 
 var Characters: Dictionary = {};
 var StateFlags: Dictionary = {};
@@ -23,12 +24,18 @@ func FillCharacters() -> void:
 				var ch: GameCharacter = load(CHAR_FOLDER + "/" + filename);
 				ch.index = id;
 				Characters[id] = ch;
+				
 				var opt: GameRoomOption = GameRoomOption.new();
 				opt.name = ch.name;
 				opt.description = "Approach the " + ch.descriptionShort;
 				opt.callback = "Dialogue";
 				opt.callbackParams = [id, "0"];
-				ch.dialogueOption = opt;
+				ch.interactOption = opt;
+				
+				var acstr: String = DIALOGUE_FOLDER + "/" + filename.get_basename() + ".gd";
+				if(FileAccess.file_exists(acstr)):
+					var dia: GDScript = load(acstr);
+					ch.dialogue = dia.new();
 
 func _ready() -> void:
 	FillCharacters();

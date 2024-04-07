@@ -6,7 +6,7 @@ class_name GameOptionHint;
 
 func SetOption(option: GameRoomOption) -> void:
 	_title.text = option.name;
-	_desc.text = option.description;
+	_desc.text = GameText.Format(option.description);
 
 func _process(_dt: float) -> void:
 	offset = get_viewport().get_mouse_position();

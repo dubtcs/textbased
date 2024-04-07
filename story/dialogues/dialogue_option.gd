@@ -1,16 +1,11 @@
 extends Resource
-class_name CharacterDialogueOption;
+class_name GameCharacterDialogueOption;
 
-## Text displayed for the option button
-@export var buttonText: String = "";
+var text: String = "";
+var hint: String = "";
+var fn: Callable = Callable();
 
-## Subtext for the hover hint
-@export var buttonHint: String = "";
-
-@export_multiline var responses: Array[String] = [];
-
-## Follow up options
-@export var responseOptions: Array[int] = [];
-
-## Kick the player out after this option
-@export var forceEndConvo: bool = false;
+func _init(callback: Callable, text_: String = "", hint_: String = "") -> void:
+	text = text_;
+	hint = hint_;
+	fn = callback;

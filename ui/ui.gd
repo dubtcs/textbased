@@ -12,7 +12,7 @@ var _playerText: PackedScene 	= preload("res://ui/gameplay/PlayerText.tscn");
 @onready var _uiHistoryContainer: VBoxContainer = $"Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer/HistoryContainer";
 @onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
 @onready var _moveTimer: Timer = $"MoveTimer";
-@onready var _optionHint: CanvasLayer = $"OptionHint";
+@onready var _optionHint: GameOptionHint = $"OptionHint";
 
 var _canMove: bool = true;
 
@@ -25,10 +25,6 @@ func _ready() -> void:
 	
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
-	
-	var shithead: GameCharacterDialogue = load("res://story/dialogues/shithead_2.gd").new();
-	if(shithead):
-		shithead.options.get("opener").call();
 	
 	RoomEntered();
 	
@@ -82,6 +78,18 @@ func OnDialogueEnter(entry: PackedStringArray, options: Array[GameRoomOption]) -
 		index += 1;
 	return;
 
+func OnDialogueText(text: String) -> void:
+	PushGameResponse(GameText.Format(text));
+
+func OnDialogueOptions(options: Array[GameRoomOption]) -> void:
+	_narrator.ClearOptions();
+	_uiOptionContainer.ClearButtons();
+	var index: int = 0;
+	for option: GameRoomOption in options:
+		PushOption(option, index);
+		index += 1;
+	return;
+	
 func OnDialogueExit() -> void:
 	ClearResponseHistory();
 	RoomEntered();
@@ -101,7 +109,7 @@ func FillRoomOptions() -> void:
 		index += 1;
 	for char: GameCharacter in room.GetCharacters().values():
 		PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
-		PushOption(char.dialogueOption, index);
+		PushOption(char.interactOption, index);
 		index += 1;
 	return;
 	

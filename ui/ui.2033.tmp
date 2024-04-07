@@ -181,9 +181,9 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="change_area" from="Narrator" to="." method="ChangeArea"]
+[connection signal="dialogue_choice" from="Narrator" to="." method="OnDialogueChoice"]
+[connection signal="dialogue_enter" from="Narrator" to="." method="OnDialogueEnter"]
 [connection signal="dialogue_exit" from="Narrator" to="." method="OnDialogueExit"]
-[connection signal="dialogue_options" from="Narrator" to="." method="OnDialogueOptions"]
-[connection signal="dialogue_text" from="Narrator" to="." method="OnDialogueText"]
 [connection signal="button_activated" from="Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid" to="." method="_onGameOptionActivated"]
 [connection signal="button_entered" from="Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid" to="." method="_onGameOptionHovered"]
 [connection signal="button_exited" from="Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid" to="." method="_onGameOptionExited"]
