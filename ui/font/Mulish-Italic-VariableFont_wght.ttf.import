@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://5r6yrca4odck"
-path="res://.godot/imported/RobotoMono-Regular.ttf-425682dd7dd29cb7b08007d28bb99977.fontdata"
+uid="uid://cj5ncayfd8vpt"
+path="res://.godot/imported/Mulish-Italic-VariableFont_wght.ttf-5e1642943146d31c0fb75285ea7baf70.fontdata"
 
 [deps]
 
-source_file="res://ui/font/RobotoMono-Regular.ttf"
-dest_files=["res://.godot/imported/RobotoMono-Regular.ttf-425682dd7dd29cb7b08007d28bb99977.fontdata"]
+source_file="res://ui/font/Mulish-Italic-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/Mulish-Italic-VariableFont_wght.ttf-5e1642943146d31c0fb75285ea7baf70.fontdata"]
 
 [params]
 

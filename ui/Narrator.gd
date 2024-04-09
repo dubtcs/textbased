@@ -44,13 +44,12 @@ func Dialogue(args: PackedStringArray) -> void:
 			currentDialogue.disconnect("dialogue_text", EmitDialogueText);
 	var character: GameCharacter = Game.Characters.get(args[0]);
 	if(character):
-		if(args.size() == 1): ## This is to prevent clearing of history when coming back to this on convo end
-			dialogue_enter.emit();
+		dialogue_enter.emit();		
 		currentDialogue = character.dialogue;
+		var retOptions: Array[GameRoomOption] = [];
 		if(currentDialogue):
 			currentDialogue.connect("dialogue_text", EmitDialogueText);
 			var options: PackedStringArray = currentDialogue.Opener();
-			var retOptions: Array[GameRoomOption] = [];
 			
 			for optionIndex: String in options:
 				var option: GameCharacterDialogueOption = currentDialogue.options.get(optionIndex);
@@ -62,14 +61,14 @@ func Dialogue(args: PackedStringArray) -> void:
 					button.callbackParams = [args[0], optionIndex];
 					retOptions.push_back(button); # why tf did I call this button?
 					
-			var gb: GameRoomOption = GameRoomOption.new();
-			gb.callback = "DialogueExit";
-			gb.name = "Leave";
-			gb.description = "Exit this interaction";
-			gb.callback = "DialogueExit";
-			retOptions.push_back(gb);
-			
-			dialogue_options.emit(retOptions);
+		var gb: GameRoomOption = GameRoomOption.new();
+		gb.callback = "DialogueExit";
+		gb.name = "Leave";
+		gb.description = "Exit this interaction";
+		gb.callback = "DialogueExit";
+		retOptions.push_back(gb);
+		
+		dialogue_options.emit(retOptions);
 	return;
 	
 func DialogueChoice(args: PackedStringArray) -> void:
@@ -97,7 +96,13 @@ func DialogueChoice(args: PackedStringArray) -> void:
 				return;
 		
 		# Either there was no option, or the option had no responses, so we're going back to the hub
-		Dialogue(args);
+		var gb: GameRoomOption = GameRoomOption.new();
+		gb.callback = "Dialogue";
+		gb.name = "Back";
+		gb.description = "Talk about something else";
+		gb.callbackParams = args;
+		retOptions.push_back(gb);
+		dialogue_options.emit(retOptions);
 		
 	return;
 	

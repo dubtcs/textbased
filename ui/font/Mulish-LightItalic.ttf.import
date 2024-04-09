@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://daoi4splu3roi"
-path="res://.godot/imported/RobotoMono-Bold.ttf-f318200b3be3d768eef5b5e22e92a21a.fontdata"
+uid="uid://df0ral4vdrxkw"
+path="res://.godot/imported/Mulish-LightItalic.ttf-314da4a85b962c4f03b79d003dbd7179.fontdata"
 
 [deps]
 
-source_file="res://ui/font/RobotoMono-Bold.ttf"
-dest_files=["res://.godot/imported/RobotoMono-Bold.ttf-f318200b3be3d768eef5b5e22e92a21a.fontdata"]
+source_file="res://ui/font/Mulish-LightItalic.ttf"
+dest_files=["res://.godot/imported/Mulish-LightItalic.ttf-314da4a85b962c4f03b79d003dbd7179.fontdata"]
 
 [params]
 

@@ -1,11 +1,11 @@
 extends Node
 
 ## Format()
-## Use {} for referencing characters. Use [] for character dialogue.
+## Use {} for referencing characters. Use <> for character dialogue.
 ## {} Will follow capitalization of the supplied name for pronouns. Useful for start of sentences.
 
 ## {character_name,(male/female/neutral)}
-## [character_name]dialogue[/character_name]
+## <character_name>dialogue</character_name>
 
 ## EXAMPLE
 ## Person: Male
@@ -14,7 +14,7 @@ extends Node
 ## INPUT: {Person} waves goodbye. {person,he walks/she walks/they walk} away.
 ## OUTPUT: Person waves goodbye. he walks away. <- NOTE: Capitalization of character_name effects pronoun replacement
 
-## INPUT: [person]WHAT! {Meatball,he's/she's/they're} gonna be mad.[/person]
+## INPUT: <person>WHAT! {Meatball,he's/she's/they're} gonna be mad.</person>
 ## OUTPUT: Person: "WHAT! He's gonna be mad."
 
 const CHAR_HEADER: String = "[color={char_color}]{char_name}[/color]";
@@ -25,8 +25,8 @@ const FORMAT_ENTRY: String = "{";
 const FORMAT_EXIT: String = "}";
 const FORMAT_SEP: String = ",";
 const FORMAT_OPTION_SEP: String = "/";
-const FORMAT_COL_ENTRY: String = "[";
-const FORMAT_COL_EXIT: String = "]";
+const FORMAT_COL_ENTRY: String = "<";
+const FORMAT_COL_EXIT: String = ">";
 
 func Format(msg: String) -> String:
 	var i: int = 0;

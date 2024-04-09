@@ -12,6 +12,10 @@ func SetFlag(state: String) -> void:
 func CheckFlag(state: String) -> bool:
 	return StateFlags.has(state);
 
+func AdjustCharacterVal(charIndex: String, valIndex: String, val) -> void:
+	print(charIndex, valIndex, val);
+	return;
+
 func FillCharacters() -> void:
 	var dir: DirAccess = DirAccess.open(CHAR_FOLDER);
 	if (dir):

@@ -44,6 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_n7kpt")
 theme_override_styles/panel = SubResource("StyleBoxFlat_s8bl2")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]

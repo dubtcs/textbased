@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameCharacter" load_steps=2 format=3 uid="uid://hx2id3iqu5ed"]
+
+[ext_resource type="Script" path="res://story/characters/character.gd" id="1_yiueo"]
+
+[resource]
+script = ExtResource("1_yiueo")
+name = "Maker"
+textColor = Color(0.921569, 0.898039, 0.568627, 1)
+gender = 0
+descriptionShort = "The creator of all things."
+description = ""
