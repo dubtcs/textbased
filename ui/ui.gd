@@ -5,7 +5,7 @@ const MAX_HISTORY: int = 25;
 @onready var _areaControl: GameAreaController = $"AreaControl";
 @onready var _narrator: GameNarrator = $"Narrator";
 @onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/RoomTitle";
-@onready var _uiHistory: GameResponseHistoryContainer = $"Panel/MarginContainer/HBoxContainer/Middle/Middle/MarginContainer/ResponseHistory";
+@onready var _uiContent: GameContentContainer = $"Panel/MarginContainer/HBoxContainer/Middle/GameContent";
 @onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: GameOptionHint = $"OptionHint";
@@ -22,6 +22,7 @@ func _ready() -> void:
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
+	_uiContent.UpdateQuests(_narrator.GetPlayer().Quests());
 	RoomEntered();
 	
 func GameTick() -> void:
@@ -30,7 +31,7 @@ func GameTick() -> void:
 	return;
 	
 func PushGameResponse(gameText: String) -> void:
-	_uiHistory.PushResponse(gameText);
+	_uiContent.PushResponse(gameText);
 	
 func ChangeArea(args: PackedStringArray) -> void:
 	var nextName: String = args[0];
@@ -53,7 +54,7 @@ func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOptio
 	
 func OnDialogueEnter() -> void:
 	_canMove = false;
-	_uiHistory.Clear();
+	_uiContent.ClearHistory();
 	return;
 
 func OnDialogueText(text: String) -> void:
@@ -91,7 +92,7 @@ func FillRoomOptions() -> void:
 	return;
 	
 func RoomEntered() -> void:
-	_uiHistory.Clear();
+	_uiContent.ClearHistory();
 	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(GameText.Format(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription()));

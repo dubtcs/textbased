@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ctohjgi0fgtvf" path="res://ui/gameplay/option_hint.tscn" id="5_6y3vo"]
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
 [ext_resource type="PackedScene" uid="uid://chg33hrumapn2" path="res://ui/gameplay/viewport.tscn" id="6_nrxca"]
-[ext_resource type="PackedScene" uid="uid://cm5giospfb3fa" path="res://ui/response_history.tscn" id="9_vtbiu"]
+[ext_resource type="PackedScene" uid="uid://dx13dnkevirjh" path="res://ui/content_container.tscn" id="9_ncr8x"]
 [ext_resource type="PackedScene" uid="uid://bg65p2hnx1rod" path="res://ui/gameplay/game_option_grid.tscn" id="10_yt6tb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
@@ -122,44 +122,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 10
 
-[node name="Options" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.06
-theme_override_styles/panel = ExtResource("3_yjsi6")
-
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Options"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 4
-
-[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Options/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = " Quests "
-
-[node name="Middle" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Middle"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ResponseHistory" parent="Panel/MarginContainer/HBoxContainer/Middle/Middle/MarginContainer" instance=ExtResource("9_vtbiu")]
+[node name="GameContent" parent="Panel/MarginContainer/HBoxContainer/Middle" instance=ExtResource("9_ncr8x")]
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
