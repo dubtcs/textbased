@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm5giospfb3fa"]
+
+[ext_resource type="Script" path="res://ui/response_history.gd" id="1_dxlmy"]
+
+[node name="ResponseHistory" type="ScrollContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_dxlmy")
+
+[node name="HistoryContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15

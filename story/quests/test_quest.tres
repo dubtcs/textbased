@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="GameQuest" load_steps=5 format=3 uid="uid://cki1b7ed3wno4"]
+
+[ext_resource type="Script" path="res://story/quests/base/game_quest.gd" id="1_lqmtg"]
+[ext_resource type="Script" path="res://story/quests/base/game_quest_step_flag.gd" id="2_jdvn6"]
+
+[sub_resource type="Resource" id="Resource_6x46l"]
+script = ExtResource("2_jdvn6")
+flag = "bg_shithead_tq1"
+title = "Talk to {Shithead}"
+description = "I should ask {shithead} about something."
+
+[sub_resource type="Resource" id="Resource_yypwh"]
+script = ExtResource("2_jdvn6")
+flag = "bg_meatball_tq1"
+title = "Talk to {Meatball}"
+description = "I should talk to {meatball}, now."
+
+[resource]
+script = ExtResource("1_lqmtg")
+name = "TestQuest"
+description = "TEST!!!!"
+steps = Array[Resource("res://story/quests/base/game_quest_step.gd")]([SubResource("Resource_6x46l"), SubResource("Resource_yypwh")])
+rewards = Array[Resource("res://story/quests/base/game_quest_reward.gd")]([])
+xp = 0

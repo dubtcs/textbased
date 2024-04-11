@@ -1,22 +1,18 @@
 extends Node
+class_name GameGlobalDirectory;
+
+## Used for misc access to universal variables
 
 const CHAR_FOLDER: String = "res://story/characters";
 const DIALOGUE_FOLDER: String = "res://story/dialogues";
+const DIALOGUE_FOLDER_FORMAT: String = "res://story/dialogues/{name}.gd";
+const QUEST_FOLDER: String = "res://story/quests";
+const QUEST_FOLDER_FORMAT: String = "res://story/quests/{name}.tres";
 
 var Characters: Dictionary = {};
-var StateFlags: Dictionary = {};
+var Quests: Dictionary = {};
 
-func SetFlag(state: String) -> void:
-	StateFlags[state] = true;
-
-func CheckFlag(state: String) -> bool:
-	return StateFlags.has(state);
-
-func AdjustCharacterVal(charIndex: String, valIndex: String, val) -> void:
-	print(charIndex, valIndex, val);
-	return;
-
-func FillCharacters() -> void:
+func _FillCharacters() -> void:
 	var dir: DirAccess = DirAccess.open(CHAR_FOLDER);
 	if (dir):
 		for filename: String in dir.get_files():
@@ -36,10 +32,24 @@ func FillCharacters() -> void:
 				opt.callbackParams = [id, "0"];
 				ch.interactOption = opt;
 				
-				var acstr: String = DIALOGUE_FOLDER + "/" + filename.get_basename() + ".gd";
+				var acstr: String = DIALOGUE_FOLDER_FORMAT.format({"name":id});
 				if(FileAccess.file_exists(acstr)):
 					var dia: GDScript = load(acstr);
 					ch.dialogue = dia.new();
 
+func _FillQuests() -> void:
+	var dir: DirAccess = DirAccess.open(QUEST_FOLDER);
+	if (dir):
+		for filename: String in dir.get_files():
+			if(filename.get_extension() == "tres"):
+				var id: String = filename.get_basename()
+				if(Quests.has(id)):
+					printerr("Quest already registered: " + id);
+					continue;
+				var q: GameQuest = load(QUEST_FOLDER_FORMAT.format({"name":id}));
+				Quests[id] = q;
+	return;
+
 func _ready() -> void:
-	FillCharacters();
+	_FillCharacters();
+	_FillQuests();

@@ -35,6 +35,7 @@ func Format(msg: String) -> String:
 	var startIndex: int = 0;
 	var formatting: bool = false;
 	var coloring: int = 0;
+	var diaKey: String = "";
 	for ch: String in msg:
 		if(formatting):
 			if(ch == FORMAT_SEP):
@@ -59,6 +60,7 @@ func Format(msg: String) -> String:
 			if(ch == FORMAT_COL_EXIT):
 				if(coloring == 1):
 					var key: String = msg.substr(startIndex, i - startIndex);
+					diaKey = key;
 					if(Game.Characters.has(key.to_lower())):
 						var character: GameCharacter = Game.Characters.get(key.to_lower());
 						s += "[b]{char_name}[/b]: ".format({"char_name":character.name});
@@ -67,7 +69,11 @@ func Format(msg: String) -> String:
 						printerr("No character found: " + key);
 						s += msg.substr(startIndex - 1, (i - startIndex) + 2);
 				else:
+					var key: String = msg.substr(startIndex + 1, (i - startIndex) - 1);
+					if(key != diaKey):
+						printerr("Dialogue breaker not using the current key. Expected: " + diaKey + ", Got: " + key);
 					s += "\"[/color]";
+					diaKey = "";
 				coloring = 0;
 		else:
 			if(ch == FORMAT_ENTRY):
@@ -82,5 +88,7 @@ func Format(msg: String) -> String:
 		i += 1;
 	if(formatting):
 		printerr("Incomplete format entry: " + msg);
-		s += msg.substr(startIndex - 1, msg.length() - 3);		
+		s += msg.substr(startIndex - 1, msg.length() - 3);
+	if(not diaKey.is_empty()):
+		printerr("Forgot to close dialogue brackets for: " + diaKey + "\n\t" + msg);
 	return s;

@@ -9,8 +9,13 @@ signal dialogue_exit();
 
 const DIALOGUE_DIR = "res://story/dialogues/{index}.gd";
 
+var player: GamePlayer = GamePlayer.new();
+
 var _currentOptions: Array[GameRoomOption] = [];
 var currentDialogue: GameCharacterDialogue = null;
+
+func GetPlayer() -> GamePlayer:
+	return player;
 
 func AddOption(option: GameRoomOption) -> void:
 	_currentOptions.push_back(option);
@@ -36,6 +41,8 @@ func CreateGoodbyeOption() -> GameRoomOption:
 	
 func DialogueExit(args: PackedStringArray) -> void:
 	dialogue_exit.emit();
+	if(currentDialogue):
+		currentDialogue.Exit();
 	return;
 
 func Dialogue(args: PackedStringArray) -> void:
@@ -49,7 +56,7 @@ func Dialogue(args: PackedStringArray) -> void:
 		var retOptions: Array[GameRoomOption] = [];
 		if(currentDialogue):
 			currentDialogue.connect("dialogue_text", EmitDialogueText);
-			var options: PackedStringArray = currentDialogue.Opener();
+			var options: PackedStringArray = currentDialogue.Opener(player);
 			
 			for optionIndex: String in options:
 				var option: GameCharacterDialogueOption = currentDialogue.options.get(optionIndex);
@@ -113,3 +120,6 @@ func ChangeArea(args: PackedStringArray) -> void:
 
 func EmitDialogueText(text: String) -> void:
 	dialogue_text.emit(text);
+
+func _ready() -> void:
+	player.Quests().Start("test_quest");

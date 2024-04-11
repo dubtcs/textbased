@@ -6,9 +6,9 @@
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="3_yjsi6"]
 [ext_resource type="Script" path="res://ui/Narrator.gd" id="4_wpoax"]
 [ext_resource type="PackedScene" uid="uid://ctohjgi0fgtvf" path="res://ui/gameplay/option_hint.tscn" id="5_6y3vo"]
+[ext_resource type="Script" path="res://ui/gameplay/ScrollContainer.gd" id="5_v15us"]
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="6_cgwi5"]
 [ext_resource type="PackedScene" uid="uid://chg33hrumapn2" path="res://ui/gameplay/viewport.tscn" id="6_nrxca"]
-[ext_resource type="PackedScene" uid="uid://cm5giospfb3fa" path="res://ui/response_history.tscn" id="9_vtbiu"]
 [ext_resource type="PackedScene" uid="uid://bg65p2hnx1rod" path="res://ui/gameplay/game_option_grid.tscn" id="10_yt6tb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8bl2"]
@@ -122,32 +122,11 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 10
 
-[node name="Options" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.06
-theme_override_styles/panel = ExtResource("3_yjsi6")
-
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Options"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 4
-
-[node name="Button" type="Button" parent="Panel/MarginContainer/HBoxContainer/Middle/Options/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = " Quests "
-
-[node name="Middle" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
+[node name="History" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/Middle"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -159,8 +138,16 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ResponseHistory" parent="Panel/MarginContainer/HBoxContainer/Middle/Middle/MarginContainer" instance=ExtResource("9_vtbiu")]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("5_v15us")
+
+[node name="HistoryContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
 
 [node name="Panel" type="Panel" parent="Panel/MarginContainer/HBoxContainer/Middle"]
 layout_mode = 2

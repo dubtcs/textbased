@@ -2,14 +2,10 @@ extends Control
 
 const MAX_HISTORY: int = 25;
 
-var _historyNode: PackedScene 	= preload("res://ui/gameplay/moment.tscn");
-var _gameResponse: PackedScene 	= preload("res://ui/gameplay/game_response.tscn");
-var _playerText: PackedScene 	= preload("res://ui/gameplay/PlayerText.tscn");
-
 @onready var _areaControl: GameAreaController = $"AreaControl";
 @onready var _narrator: GameNarrator = $"Narrator";
-@onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/VBoxContainer/Panel/VBoxContainer/RoomTitle";
-@onready var _uiHistoryContainer: VBoxContainer = $"Panel/MarginContainer/HBoxContainer/Middle/History/MarginContainer/ScrollContainer/HistoryContainer";
+@onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/RoomTitle";
+@onready var _uiHistory: GameResponseHistoryContainer = $"Panel/MarginContainer/HBoxContainer/Middle/Middle/MarginContainer/ResponseHistory";
 @onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: GameOptionHint = $"OptionHint";
@@ -30,21 +26,11 @@ func _ready() -> void:
 	
 func GameTick() -> void:
 	#_narrator.TickTime();
+	PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
 	return;
 	
-func ClearResponseHistory() -> void:
-	for child in _uiHistoryContainer.get_children():
-		child.queue_free();
-	
-func PushResponseElement(element: ResponseElement) -> void:
-	_uiHistoryContainer.add_child(element);
-	if (_uiHistoryContainer.get_child_count() > MAX_HISTORY):
-		_uiHistoryContainer.get_child(0).queue_free();
-	
 func PushGameResponse(gameText: String) -> void:
-	var res: ResponseElement = _gameResponse.instantiate();
-	res.SetText(gameText);
-	PushResponseElement(res);
+	_uiHistory.PushResponse(gameText);
 	
 func ChangeArea(args: PackedStringArray) -> void:
 	var nextName: String = args[0];
@@ -67,7 +53,7 @@ func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOptio
 	
 func OnDialogueEnter() -> void:
 	_canMove = false;
-	ClearResponseHistory();
+	_uiHistory.Clear();
 	return;
 
 func OnDialogueText(text: String) -> void:
@@ -83,7 +69,6 @@ func OnDialogueOptions(options: Array[GameRoomOption]) -> void:
 	return;
 	
 func OnDialogueExit() -> void:
-	ClearResponseHistory();
 	RoomEntered();
 	_canMove = true;
 	
@@ -106,6 +91,7 @@ func FillRoomOptions() -> void:
 	return;
 	
 func RoomEntered() -> void:
+	_uiHistory.Clear();
 	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(GameText.Format(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription()));
@@ -126,7 +112,6 @@ func _input(event: InputEvent) -> void:
 			if(didMove):
 				_moveTimer.start(MOVE_TIME_SEC);
 				_onGameOptionExited(null); # what the fuck
-				ClearResponseHistory(); # This might be stupid
 				RoomEntered();
 				GameTick();
 	return;
