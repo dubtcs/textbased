@@ -32,7 +32,7 @@ func CheckFlag(index: String) -> bool:
 	
 func SetFlag(index: String) -> void:
 	_flags.Set(index);
-	_quests.UpdateFlagQuests(index);
+	_quests.UpdateFlagQuests(_flags);
 	return _flags.Set(index);
 	
 func RemoveFlag(index: String) -> void:

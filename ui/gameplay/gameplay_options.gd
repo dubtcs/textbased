@@ -19,6 +19,8 @@ func AddButton(option: GameRoomOption, optionIndex: int) -> bool:
 		b.text = option.name;
 		b.disabled = false;
 		b.rawOptionIndex = optionIndex;
+		if(b.get_rect().has_point(get_local_mouse_position())): # Update the hint if needed
+			button_entered.emit(b);
 	return false;
 
 func RemoveButton(index: int) -> void:
@@ -30,6 +32,7 @@ func ClearButtons() -> void:
 	for b in _container.get_children():
 		if(b is GameOptionButton):
 			b.disabled = true;
+	button_exited.emit(null); ## Used to hide the hint after selecting an option
 
 func _onButtonActivated(but: GameOptionButton) -> void:
 	button_activated.emit(but.rawOptionIndex);

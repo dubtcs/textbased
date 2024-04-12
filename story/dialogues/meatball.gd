@@ -27,4 +27,5 @@ func _Eat() -> PackedStringArray:
 	PushText("You are hungry. [i]Very[/i] hungry. The ball of meat looks too good and you dive forward to consume it.");
 	PushText("<player>I am going to eat you.</player>");
 	PushText("<meatball>Damn.</meatball>");
+	_player.SetFlag("bg_meatball_eat");
 	return [];

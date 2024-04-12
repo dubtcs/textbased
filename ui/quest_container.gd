@@ -27,7 +27,8 @@ func OnQuestSelected(quest: GamePlayerQuest) -> void:
 	var ref: GameQuest = quest.instance;
 	titleLabel.text = ref.name;
 	descriptionLabel.text = ref.description;
-	for i in range((quest.step) + 1): # Argument is exclusive, so need to add 1 to get the current step
+	var bound: int = quest.step + int(quest.status != Enums.QuestStatus.complete);
+	for i in range(bound): # range argument is exclusive
 		var step: GameQuestStep = quest.instance.steps[i];
 		var l: RichTextLabel = stepLabel.instantiate();
 		if(i < quest.step):

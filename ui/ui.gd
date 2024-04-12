@@ -73,8 +73,8 @@ func OnDialogueExit() -> void:
 	_canMove = true;
 	
 func PushOption(option: GameRoomOption, index: int) -> void:
-	_uiOptionContainer.AddButton(option, index);
 	_narrator.AddOption(option);
+	_uiOptionContainer.AddButton(option, index);
 
 func FillRoomOptions() -> void:
 	_uiOptionContainer.ClearButtons();
@@ -121,7 +121,6 @@ func _onGameOptionActivated(index: int) -> void:
 	if(option):
 		if(not option.callback.is_empty()):
 			_narrator.call(option.callback, option.callbackParams);
-	pass;
 
 func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);

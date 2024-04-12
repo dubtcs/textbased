@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bg65p2hnx1rod"]
 
-[ext_resource type="Script" path="res://ui/gameplay_options.gd" id="1_dil75"]
+[ext_resource type="Script" path="res://ui/gameplay/gameplay_options.gd" id="1_dil75"]
 
 [node name="GameOptionGrid" type="Control"]
 layout_mode = 3

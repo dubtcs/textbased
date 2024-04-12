@@ -24,7 +24,7 @@ func RemoveQuestFromContainer(playerQuest: GamePlayerQuest) -> void:
 			_flagSteps.erase(playerQuest.index);
 	elif(step is GameQuestStepItem):
 		print(22);
-	
+
 func AddQuestToContainer(playerQuest: GamePlayerQuest) -> void:
 	var q: GameQuest = playerQuest.instance;
 	var step: GameQuestStep = q.steps[playerQuest.step];
@@ -33,22 +33,25 @@ func AddQuestToContainer(playerQuest: GamePlayerQuest) -> void:
 	elif(step is GameQuestStepItem):
 		print(22);
 
-func UpdateFlagQuests(flag: String) -> void:
+func UpdateFlagQuests(flags: PlayerFlagManager) -> void:
 	for index: String in _flagSteps.keys():
 		var pq: GamePlayerQuest = _quests.get(index);
-		var step: GameQuestStep = pq.instance.steps[pq.step];
-		if(step is GameQuestStepFlag):
-			print(flag);
-			print(step.flag);
-			if(flag == step.flag):
-				RemoveQuestFromContainer(pq);
-				pq.step += 1;
-				if(pq.step >= pq.instance.steps.size()):
-					pq.status = Enums.QuestStatus.complete;
-				else:
-					AddQuestToContainer(pq);
-		else:
-			printerr("Quest step is no expected type.");
+		UpdateFlagSingleQuest(pq, flags);
+	return;
+	
+func UpdateFlagSingleQuest(quest: GamePlayerQuest, flags: PlayerFlagManager) -> void:
+	if(quest.status != Enums.QuestStatus.complete):
+		var step: GameQuestStep = quest.instance.steps[quest.step];
+		if(flags.Check(step.flag)):
+			RemoveQuestFromContainer(quest);
+			quest.step += 1;
+			if(quest.step >= quest.instance.steps.size()):
+				quest.status = Enums.QuestStatus.complete;
+			else:
+				AddQuestToContainer(quest);
+				UpdateFlagSingleQuest(quest, flags); ## Next flag might already be done
+	else:
+		printerr("Quest already complete: " + quest.instance.name);
 	return;
 	
 func GetStatus(index: String) -> Enums.QuestStatus:
