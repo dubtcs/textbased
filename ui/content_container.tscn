@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx13dnkevirjh"]
+[gd_scene load_steps=10 format=3 uid="uid://dx13dnkevirjh"]
 
 [ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="1_2bia5"]
 [ext_resource type="Script" path="res://ui/content_container.gd" id="2_2lrc2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://ui/content_visibility.gd" id="3_f7ead"]
 [ext_resource type="StyleBox" uid="uid://cqrw08827dwbg" path="res://ui/ptheme/stylebox/button_options/focus.tres" id="4_mda04"]
 [ext_resource type="Script" path="res://ui/quest_container.gd" id="8_tmj6b"]
+[ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="9_1hpf6"]
 
 [node name="ContentContainer" type="Panel"]
 anchors_preset = 15
@@ -88,7 +89,6 @@ visible = false
 layout_mode = 2
 
 [node name="Quests" type="Panel" parent="VBoxContainer/Middle/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = ExtResource("1_2bia5")
 script = ExtResource("8_tmj6b")
@@ -117,3 +117,91 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleName" type="Label" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("9_1hpf6")
+theme_override_font_sizes/font_size = 50
+text = "QUEST NAME"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Desc" type="Control" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Desc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Desc/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+text = "DESCRIPTION"
+
+[node name="Description" type="Label" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Desc/VBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "This is a quest description."
+autowrap_mode = 2
+
+[node name="Rew" type="Control" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Rew"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Rew/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "REWARDS"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Rew/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Rew/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Title" type="Label" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "STEPS"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Middle/MarginContainer/Quests/HBoxContainer/Panel/VBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

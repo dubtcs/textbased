@@ -100,3 +100,4 @@ RichTextLabel/fonts/mono_font = ExtResource("1_2k7i5")
 RichTextLabel/fonts/normal_font = ExtResource("1_2k7i5")
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
+VBoxContainer/constants/separation = 10

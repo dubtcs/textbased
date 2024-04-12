@@ -31,6 +31,8 @@ func CheckFlag(index: String) -> bool:
 	return _flags.Check(index);
 	
 func SetFlag(index: String) -> void:
+	_flags.Set(index);
+	_quests.UpdateFlagQuests(index);
 	return _flags.Set(index);
 	
 func RemoveFlag(index: String) -> void:

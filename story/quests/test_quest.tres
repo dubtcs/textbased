@@ -5,20 +5,20 @@
 
 [sub_resource type="Resource" id="Resource_6x46l"]
 script = ExtResource("2_jdvn6")
-flag = "bg_shithead_tq1"
+flag = "bg_shithead_hasmet"
 title = "Talk to {Shithead}"
-description = "I should ask {shithead} about something."
+description = "Meet {Shithead}."
 
 [sub_resource type="Resource" id="Resource_yypwh"]
 script = ExtResource("2_jdvn6")
-flag = "bg_meatball_tq1"
+flag = "bg_meatball_hasmet"
 title = "Talk to {Meatball}"
-description = "I should talk to {meatball}, now."
+description = "Meet {Meatball}."
 
 [resource]
 script = ExtResource("1_lqmtg")
 name = "TestQuest"
-description = "TEST!!!!"
+description = "Get to know the beings on the ship."
 steps = Array[Resource("res://story/quests/base/game_quest_step.gd")]([SubResource("Resource_6x46l"), SubResource("Resource_yypwh")])
 rewards = Array[Resource("res://story/quests/base/game_quest_reward.gd")]([])
 xp = 0

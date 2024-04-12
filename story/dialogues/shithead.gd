@@ -56,7 +56,7 @@ func _PunchStop() -> PackedStringArray:
 	PushText("You hesitate. {Shithead,his/her/their} voice was sharp and filled with intent. If you continue the attack, you will surely meet God. You decide to stop while you can.");
 	PushText("<player>Sorry.</player>");
 	PushText("{Shithead} raises an eyebrow and gives you an unamused look.");
-	PushText("<shithead>Yeah. Sure.</shitead>");
+	PushText("<shithead>Yeah. Sure.</shithead>");
 	return [];
 	
 func _PunchContinue() -> PackedStringArray:

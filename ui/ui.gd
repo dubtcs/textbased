@@ -22,11 +22,10 @@ func _ready() -> void:
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	
-	_uiContent.UpdateQuests(_narrator.GetPlayer().Quests());
+	_uiContent.FillQuests(_narrator.GetPlayer().Quests());
 	RoomEntered();
 	
 func GameTick() -> void:
-	#_narrator.TickTime();
 	PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
 	return;
 	
