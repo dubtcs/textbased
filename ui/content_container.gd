@@ -2,6 +2,7 @@ extends Panel
 class_name GameContentContainer;
 
 signal requesting_player();
+signal page_changed(controls: bool);
 
 @onready var _history: GameResponseHistoryContainer = $"VBoxContainer/Middle/MarginContainer/History";
 @onready var _quests: GameQuestContainer = $"VBoxContainer/Middle/MarginContainer/Quests";
@@ -18,3 +19,6 @@ func FillQuests(quests: PlayerQuestManager) -> void:
 
 func UpdateQuests(quests: Array[GamePlayerQuest]) -> void:
 	_quests.UpdateQuests(quests);
+
+func _UpdateControls(b: bool) -> void:
+	page_changed.emit(b);

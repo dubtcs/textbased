@@ -3,6 +3,8 @@ extends VBoxContainer
 @onready var container: MarginContainer = $"Middle/MarginContainer";
 @onready var options: GridContainer = $"Options/GridContainer";
 
+signal page_changed(controlsEnabled: bool);
+
 var styleSelected: StyleBoxFlat = preload("res://ui/ptheme/stylebox/button_options/focus.tres");
 var styleNone: StyleBoxFlat = preload("res://ui/ptheme/stylebox/button_options/normal.tres");
 
@@ -13,6 +15,7 @@ func SwitchToPage(index: String) -> void:
 	var button: Button = options.get_node(current);
 	if(page):
 		page.visible = false;
+		page_changed.emit(index == "History");
 	if(button):
 		button.add_theme_stylebox_override("normal", styleNone);
 	

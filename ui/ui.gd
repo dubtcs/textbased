@@ -5,8 +5,8 @@ const MAX_HISTORY: int = 25;
 @onready var _areaControl: GameAreaController = $"AreaControl";
 @onready var _narrator: GameNarrator = $"Narrator";
 @onready var _uiRoomName: Label = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/RoomTitle";
-@onready var _uiContent: GameContentContainer = $"Panel/MarginContainer/HBoxContainer/Middle/GameContent";
 @onready var _uiOptionContainer: GameOptionGrid = $"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid";
+@onready var _uiContent: GameContentContainer = $"Panel/MarginContainer/HBoxContainer/Middle/GameContent";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: GameOptionHint = $"OptionHint";
 
@@ -132,3 +132,8 @@ func _onGameOptionHovered(_button: GameOptionButton) -> void:
 func _onGameOptionExited(_button: GameOptionButton) -> void:
 	_optionHint.visible = false;
 	_optionHint.set_process(false);
+
+func _onPageChanged(controls: bool) -> void:
+	_canMove = controls;
+	$"Panel/MarginContainer/HBoxContainer/Middle/Panel/GameOptionGrid".visible = controls;
+	return;
