@@ -47,6 +47,7 @@ func _FillQuests() -> void:
 					printerr("Quest already registered: " + id);
 					continue;
 				var q: GameQuest = load(QUEST_FOLDER_FORMAT.format({"name":id}));
+				q.index = id;
 				Quests[id] = q;
 	return;
 

@@ -1,6 +1,8 @@
 extends Resource
 class_name GamePlayer;
 
+signal quest_progress(index: String);
+
 var _inventory: PlayerInventory = PlayerInventory.new();
 var _quests: PlayerQuestManager = PlayerQuestManager.new();
 var _flags: PlayerFlagManager = PlayerFlagManager.new();
@@ -32,8 +34,10 @@ func CheckFlag(index: String) -> bool:
 	
 func SetFlag(index: String) -> void:
 	_flags.Set(index);
-	_quests.UpdateFlagQuests(_flags);
-	return _flags.Set(index);
+	var rv: Array[GamePlayerQuest] = _quests.UpdateFlagQuests(_flags);
+	if(not rv.is_empty()):
+		quest_progress.emit(rv);
+	return;
 	
 func RemoveFlag(index: String) -> void:
 	return _flags.Remove(index);

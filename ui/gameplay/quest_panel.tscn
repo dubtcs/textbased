@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmcua7p0kaar0"]
+
+[ext_resource type="StyleBox" uid="uid://b7eyq6r2vq3hp" path="res://ui/ptheme/stylebox/empty_stylebox.tres" id="1_ix5u3"]
+[ext_resource type="Script" path="res://ui/gameplay/quest_panel.gd" id="2_hrki5"]
+
+[node name="QuestPanel" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 98.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("1_ix5u3")
+script = ExtResource("2_hrki5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 35
+text = "QUEST NAME"
+alignment = 0
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "This is a description of this quest!"
+fit_content = true
+
+[node name="StepsLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_OnButtonPressed"]

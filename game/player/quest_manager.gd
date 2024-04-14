@@ -33,11 +33,13 @@ func AddQuestToContainer(playerQuest: GamePlayerQuest) -> void:
 	elif(step is GameQuestStepItem):
 		print(22);
 
-func UpdateFlagQuests(flags: PlayerFlagManager) -> void:
+func UpdateFlagQuests(flags: PlayerFlagManager) -> Array[GamePlayerQuest]:
+	var rv: Array[GamePlayerQuest] = [];
 	for index: String in _flagSteps.keys():
 		var pq: GamePlayerQuest = _quests.get(index);
 		UpdateFlagSingleQuest(pq, flags);
-	return;
+		rv.push_back(pq);
+	return rv;
 	
 func UpdateFlagSingleQuest(quest: GamePlayerQuest, flags: PlayerFlagManager) -> void:
 	if(quest.status != Enums.QuestStatus.complete):

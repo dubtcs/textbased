@@ -9,7 +9,8 @@ func _init() -> void:
 		"punchStop" : GameCharacterDialogueOption.new(_PunchStop, "Stop", "Do not attack."),
 		"punchContinue" : GameCharacterDialogueOption.new(_PunchContinue, "Continue", "Assault {shithead,him/her/them}."),
 		
-		"meatball" : GameCharacterDialogueOption.new(_Meatball, "Meatball", "Inquire about meatball.")		
+		"intro1_meatball" : GameCharacterDialogueOption.new(_MeatballIntro1, "Meatball", "Inquire about meatball."),
+		"intro1_meatball_asked" : GameCharacterDialogueOption.new(_Intro1MeatballAsked, "Meatball", "Mentioned you asked {Meatball}")
 	};
 	flags = {
 		"hasMet" = "bg_shithead_hasmet"
@@ -21,8 +22,10 @@ func Opener(player: GamePlayer) -> PackedStringArray:
 	if(_player.CheckFlag(flags.hasMet)):
 		var options: PackedStringArray = ["greet", "punch"];
 		PushText("{Shithead} is standing in the corner, screaming, as usual. {Shithead,he sees/she sees/they see} you approaching and waves.");
-		if(_player.CheckFlag("bg_meatball_hasmet")):
-			options.push_back("meatball");
+		if(_player.CheckFlag("bg_intro1_ready")):
+			options.push_back("intro1_meatball");
+		if(_player.CheckFlag("bg_intro1_meatball")):
+			options.push_back("intro1_meatball_asked");
 		return options;
 	else:
 		PushText("There is a {shithead,man/woman/person} standing in the corner of the room screaming. The sound is deafening but you can make out the words \"I LIVE IN BANGLADESH\"");
@@ -40,12 +43,32 @@ func _Greet() -> PackedStringArray:
 	PushText("<shithead>Hello, you jackass.</shithead>");
 	return [];
 	
-	
-func _Meatball() -> PackedStringArray:
+## INTRO QUEST
+func _MeatballIntro1() -> PackedStringArray:
 	PushText("<player>Have you seen meatball?</player>");
-	PushText("<shithead>Yes, I have. I don't know how the FUCK that thing got on this ship.</shithead>");
+	PushText("<shithead>Yes, I have. Ask that thing what smells like SHIT.</shithead>");
+	_player.RemoveFlag("bg_intro1_ready");
+	_player.SetFlag("bg_intro1_shithead");
 	return [];
-
+	
+func _Intro1MeatballAsked() -> PackedStringArray:
+	PushText("<player>I talked to {Meatball}</player>");
+	PushText("<shithead>And? What'd {meatball,he/she/they} say?</shithead>");
+	if(_player.CheckFlag("bg_intro1_meatball_ok")):
+		PushText("<player>Unsure of what it is.</player>");
+		PushText("<shithead>And there was no sus?</shithead>");
+		PushText("<player>Nah</player>");
+	else:
+		PushText("<player>Says {meatball,he's/she's/they're} not sure what it is, but full of shit.</player>");
+		PushText("<shithead>I don't know how the FUCK that thing got on this ship.</shithead>");
+		PushText("<shithead>Thing just appears out of nowhere and pretends to not know what smells like SHIT. When {meatball,HE'S/SHE'S/THEY'RE} the reason it does!</shithead>");
+	_player.RemoveFlag("bg_intro1_meatball");
+	_player.RemoveFlag("bg_intro1_meatball_ok");
+	_player.RemoveFlag("bg_intro1_meatball_doubt");
+	return [];
+	
+	
+	
 	
 func _Punch() -> PackedStringArray:
 	PushText("You decide you want to use violence. You take a deep breath and cock back your right arm. {Shithead} looks at you in confusion, unsure of what is happening. You scream as you send your fist flying through the air");	

@@ -19,6 +19,8 @@ func _ready() -> void:
 	_areaControl.ChangeArea("ship");
 	_areaControl.MoveToNamed("main_hallway");
 	
+	_narrator.quest_progress.connect(_uiContent.UpdateQuests);
+	
 	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
 	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
 	

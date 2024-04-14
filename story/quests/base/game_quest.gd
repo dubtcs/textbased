@@ -7,3 +7,4 @@ class_name GameQuest;
 
 @export var rewards: Array[GameQuestReward] = [];
 @export var xp: int = 0;
+var index: String = "";

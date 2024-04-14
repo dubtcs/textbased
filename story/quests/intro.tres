@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="GameQuest" load_steps=6 format=3 uid="uid://cki1b7ed3wno4"]
+
+[ext_resource type="Script" path="res://story/quests/base/game_quest.gd" id="1_l4jtx"]
+[ext_resource type="Script" path="res://story/quests/base/game_quest_step_flag.gd" id="2_xr6qe"]
+
+[sub_resource type="Resource" id="Resource_6x46l"]
+script = ExtResource("2_xr6qe")
+flag = "bg_intro1_shithead"
+title = "Talk to {Shithead}"
+description = "Ask {Shithead} about the smell."
+
+[sub_resource type="Resource" id="Resource_yypwh"]
+script = ExtResource("2_xr6qe")
+flag = "bg_intro1_meatball"
+title = "Talk to {Meatball}"
+description = "{Shithead} knows about the smell. {Shithead,he/she/they} mentioned {Meatball} could know something about it."
+
+[sub_resource type="Resource" id="Resource_x5m7y"]
+script = ExtResource("2_xr6qe")
+flag = "bg_intro1_meatball"
+title = ""
+description = "I've talked to {Meatball}. {Shithead} would probably like to know about it."
+
+[resource]
+script = ExtResource("1_l4jtx")
+name = "Intro"
+description = "What is that smell?"
+steps = Array[Resource("res://story/quests/base/game_quest_step.gd")]([SubResource("Resource_6x46l"), SubResource("Resource_yypwh"), SubResource("Resource_x5m7y")])
+rewards = Array[Resource("res://story/quests/base/game_quest_reward.gd")]([])
+xp = 0

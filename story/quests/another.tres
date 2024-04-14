@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="GameQuest" load_steps=4 format=3 uid="uid://ti5go3m46k3r"]
+
+[ext_resource type="Script" path="res://story/quests/base/game_quest.gd" id="1_75g5h"]
+[ext_resource type="Script" path="res://story/quests/base/game_quest_step_flag.gd" id="2_vw224"]
+
+[sub_resource type="Resource" id="Resource_cww6v"]
+script = ExtResource("2_vw224")
+flag = "bg_meatball_hasmet"
+title = ""
+description = "Talk to {Meatball}."
+
+[resource]
+script = ExtResource("1_75g5h")
+name = "Aother Test Quest"
+description = "Speak to life forms"
+steps = Array[Resource("res://story/quests/base/game_quest_step.gd")]([SubResource("Resource_cww6v")])
+rewards = Array[Resource("res://story/quests/base/game_quest_reward.gd")]([])
+xp = 0

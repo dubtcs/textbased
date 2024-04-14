@@ -15,3 +15,6 @@ func ClearHistory() -> void:
 ## This just keeps adding them every time but its a visual thing for now
 func FillQuests(quests: PlayerQuestManager) -> void:
 	_quests.FillQuests(quests);
+
+func UpdateQuests(quests: Array[GamePlayerQuest]) -> void:
+	_quests.UpdateQuests(quests);

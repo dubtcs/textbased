@@ -7,6 +7,8 @@ signal dialogue_options(options: Array[GameRoomOption]);
 signal dialogue_enter();
 signal dialogue_exit();
 
+signal quest_progress(quests: Array[GamePlayerQuest]);
+
 const DIALOGUE_DIR = "res://story/dialogues/{index}.gd";
 
 var player: GamePlayer = GamePlayer.new();
@@ -27,7 +29,7 @@ func GetOption(index: int) -> GameRoomOption:
 	return null;
 
 func GetOptions() -> Array[GameRoomOption]:
-	return _currentOptions;	
+	return _currentOptions;
 
 func ClearOptions() -> void:
 	_currentOptions.clear();
@@ -121,5 +123,12 @@ func ChangeArea(args: PackedStringArray) -> void:
 func EmitDialogueText(text: String) -> void:
 	dialogue_text.emit(text);
 
+func _OnPlayerQuestProgress(q: Array[GamePlayerQuest]) -> void:
+	quest_progress.emit(q);
+	
 func _ready() -> void:
-	player.Quests().Start("test_quest");
+	print_debug("Adding test quests");
+	player.quest_progress.connect(_OnPlayerQuestProgress);
+	player.Quests().Start("intro");
+	player.Quests().Start("another");
+	player.SetFlag("bg_intro1_ready");
