@@ -1,10 +1,11 @@
-extends Node
+extends Resource
 class_name GameScene;
 
 ## TODO: Used for more control over GameDialogue
 ## Used to lock player controls, move the player, change area, adjust time, etc...
 
 signal push_text(msg: String);
+signal push_option();
 
 var _options: Dictionary = {};
 var _player: GamePlayer = null;

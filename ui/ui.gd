@@ -97,8 +97,11 @@ func RoomEntered() -> void:
 	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(GameText.Format(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription()));
+	for s: GameScene in _areaControl.GetCurrentArea().GetCurrentRoom().GetScenes().values():
+		s.Enter(null);
 	FillRoomOptions();
 	
+## TODO: This ignores narrator!!!
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
 	if(_canMove):

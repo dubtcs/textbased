@@ -10,6 +10,9 @@ class_name GameRoom;
 
 @export var _roomOptions: Array[GameRoomOption] = [];
 
+## Successor to GameRoomOption, more control
+@export var _sceneScripts: Array[GDScript] = [];
+
 @export var _exitNorth: RoomExit = null;
 @export var _exitEast: RoomExit = null;
 @export var _exitSouth: RoomExit = null;
@@ -18,6 +21,7 @@ class_name GameRoom;
 @onready var _highlight: Panel = $"Container/Panel2";
 
 var _characters: Dictionary = {};
+var _scenes: Dictionary = {};
 
 func GetDescription() -> String:
 	return _roomDescription;
@@ -27,6 +31,9 @@ func GetName() -> String:
 	
 func GetOptions() -> Array[GameRoomOption]:
 	return _roomOptions;
+	
+func GetScenes() -> Dictionary:
+	return _scenes;
 	
 func GetCharacter(charName: String) -> GameCharacter:
 	if(_characters.has(charName)):
@@ -99,3 +106,9 @@ func _SetRoomColor(newColor: Enums.RoomColor) -> void:
 	_roomColor = newColor;
 	var colorPanel: Panel = $"Container/Panel/MarginContainer/Panel";
 	colorPanel.add_theme_stylebox_override("panel", _FetchStylebox(_roomColor));
+
+func _ready() -> void:
+	for scr: GDScript in _sceneScripts:
+		var scene: GameScene = scr.new();
+		var key: String = scr.get_path().get_file().get_basename();
+		_scenes[key] = scene;
