@@ -9,4 +9,4 @@ class_name GameCharacter;
 var index: String = ""; # Used by Game.Characters as a raw index via filename, incase name has spaces
 
 var interactOption: GameRoomOption = null;
-var dialogue: GameCharacterDialogue = null;
+var dialogue: GameScene = null;

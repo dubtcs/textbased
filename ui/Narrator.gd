@@ -16,6 +16,7 @@ var player: GamePlayer = GamePlayer.new();
 var currentScene: GameScene = null;
 var currentSceneOptions: Array[GameUIOption] = [];
 var exitOption: GameUIOption = GameUIOption.new(ExitScene, "Exit", "Exit this interaction");
+#var spoofOption: GameUIOption = GameUIOption.new(Callable());
 
 func GetPlayer() -> GamePlayer:
 	return player;
@@ -51,7 +52,8 @@ func EnterScene(scene: GameScene) -> Array[GameUIOption]:
 	
 func ExitScene() -> Array[GameUIOption]:
 	scene_exit.emit();
-	return [];
+	return [exitOption]; ## Marks array as useless so RoomEntered() can actually fill the options in ui.gd
+	## Really fucking stupid btw
 	
 func CallOption(index: int) -> void:
 	if(index < currentSceneOptions.size()):
@@ -59,7 +61,8 @@ func CallOption(index: int) -> void:
 		var options: Array[GameUIOption] = option.callback.call();
 		if(options.is_empty()):
 			options.push_back(ConstructBackOption(currentScene));
-		EmitOptions(options);
+		if(options[0] != exitOption): ## REALLY fucking stupid way to get around this
+			EmitOptions(options);
 	return;
 
 func EmitText(text: String) -> void:
@@ -67,3 +70,13 @@ func EmitText(text: String) -> void:
 
 func EmitOptions(options: Array[GameUIOption]) -> void:
 	emit_options.emit(options);
+
+func _OnPlayerQuestProgress(q: Array[GamePlayerQuest]) -> void:
+	quest_progress.emit(q);
+
+func _ready() -> void:
+	print_debug("Adding test quests");
+	player.quest_progress.connect(_OnPlayerQuestProgress);
+	player.Quests().Start("intro");
+	player.Quests().Start("another");
+	player.SetFlag("bg_intro1_ready");

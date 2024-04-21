@@ -4,8 +4,8 @@ class_name GameGlobalDirectory;
 ## Used for misc access to universal variables
 
 const CHAR_FOLDER: String = "res://story/characters";
-const DIALOGUE_FOLDER: String = "res://story/dialogues";
-const DIALOGUE_FOLDER_FORMAT: String = "res://story/dialogues/{name}.gd";
+const DIALOGUE_FOLDER: String = "res://story/scenes/characters";
+const DIALOGUE_FOLDER_FORMAT: String = "res://story/scenes/characters/{name}.gd";
 const QUEST_FOLDER: String = "res://story/quests";
 const QUEST_FOLDER_FORMAT: String = "res://story/quests/{name}.tres";
 

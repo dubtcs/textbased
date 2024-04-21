@@ -68,8 +68,7 @@ func OnSceneExit() -> void:
 	_canMove = true;
 	
 func ConstructCharacterOption(character: GameCharacter) -> GameUIOption:
-	#return GameUIOption.new(character.name, "Approach " + character.name);
-	return null;
+	return GameUIOption.new(_narrator.EnterScene.bind(character.dialogue), character.name, "Approach " + character.name);
 	
 func ConstructStaticOption(container: GameRoomSceneContainer) -> GameUIOption:
 	return GameUIOption.new(_narrator.EnterScene.bind(container.scene), container.name, container.description);
@@ -82,10 +81,10 @@ func FillRoomOptions() -> void:
 	for scene: GameRoomSceneContainer in room.GetScenes().values():
 		PushOption(ConstructStaticOption(scene), index);
 		index += 1;
-	#for char: GameCharacter in room.GetCharacters().values():
-		#PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
-		#PushOption(char.interactOption, index);
-		#index += 1;
+	for char: GameCharacter in room.GetCharacters().values():
+		PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
+		PushOption(ConstructCharacterOption(char), index);
+		index += 1;
 	return;
 	
 func RoomEntered() -> void:
