@@ -1,41 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmk0qh8agjblg"]
+[gd_scene load_steps=6 format=3 uid="uid://dmk0qh8agjblg"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_dxgjq"]
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_w4wla"]
-[ext_resource type="Script" path="res://world/resources/rooms/game_room_option.gd" id="3_p4uyo"]
 [ext_resource type="Script" path="res://story/scenes/areas/ship/computer_scene.gd" id="4_7fwu3"]
+[ext_resource type="Script" path="res://world/areas/game_room_scene_container.gd" id="5_jokhs"]
 
-[sub_resource type="Resource" id="Resource_26m3f"]
-script = ExtResource("3_p4uyo")
-name = "Exit"
-description = "Exit your ship"
-buttonIndex = 0
-callback = "ChangeArea"
-callbackParams = ["test_room", "mainroom"]
-
-[sub_resource type="Resource" id="Resource_6wrag"]
-script = ExtResource("3_p4uyo")
-name = "Bed"
-description = "Go to sleep"
-buttonIndex = 0
-callback = ""
-callbackParams = []
-
-[sub_resource type="Resource" id="Resource_7sbbx"]
-script = ExtResource("3_p4uyo")
-name = "Locker"
-description = "Access your personal storage"
-buttonIndex = 1
-callback = ""
-callbackParams = []
-
-[sub_resource type="Resource" id="Resource_g6o5h"]
-script = ExtResource("3_p4uyo")
-name = "Warnings"
-description = "Check for any warnings"
-buttonIndex = 0
-callback = ""
-callbackParams = []
+[sub_resource type="Resource" id="Resource_hk7tw"]
+script = ExtResource("5_jokhs")
+name = "Computer"
+description = "USE THE COMPUTER EEEEE"
+sceneScript = ExtResource("4_7fwu3")
 
 [node name="GameArea" instance=ExtResource("1_dxgjq")]
 
@@ -43,63 +17,51 @@ callbackParams = []
 _roomName = "Airlock"
 _roomDescription = "Your ships airlock. You can exit the vehicle through this."
 _roomIcon = 5
-_roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_26m3f")])
-_sceneScripts = null
 
 [node name="main_hallway" parent="." index="1" instance=ExtResource("2_w4wla")]
 position = Vector2(0, -128)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length."
-_sceneScripts = null
 
 [node name="GameRoom3" parent="." index="2" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -128)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length."
-_sceneScripts = null
 
 [node name="GameRoom4" parent="." index="3" instance=ExtResource("2_w4wla")]
 position = Vector2(256, -128)
 _roomName = "Bedroom"
 _roomDescription = "Your bedroom"
 _roomIcon = 1
-_roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_6wrag"), SubResource("Resource_7sbbx")])
-_sceneScripts = null
 
 [node name="GameRoom5" parent="." index="4" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -128)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length."
-_sceneScripts = null
 
 [node name="lounge" parent="." index="5" instance=ExtResource("2_w4wla")]
 position = Vector2(-256, -128)
 _roomName = "Lounge"
 _roomDescription = "You are in a cozy hub with seating, adjustable lights, and screens for entertainment or mission info. It’s a place for crew members to relax and socialize amidst the stars."
-_sceneScripts = null
 
 [node name="GameRoom7" parent="." index="6" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -256)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length."
-_sceneScripts = null
 
 [node name="GameRoom8" parent="." index="7" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -384)
 _roomName = "Computer"
 _roomDescription = "The computer that monitors all of the ships internals."
 _roomIcon = 7
-_roomOptions = Array[ExtResource("3_p4uyo")]([SubResource("Resource_g6o5h")])
-_sceneScripts = Array[GDScript]([ExtResource("4_7fwu3")])
+_sceneScripts = Array[ExtResource("5_jokhs")]([SubResource("Resource_hk7tw")])
 
 [node name="GameRoom9" parent="." index="8" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -384)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length. At the end, there is a large window to view the cast emptiness of space."
-_sceneScripts = null
 
 [node name="GameRoom10" parent="." index="9" instance=ExtResource("2_w4wla")]
 position = Vector2(128, -256)
 _roomName = "Hallway"
 _roomDescription = "A standard hallway with some LED lighting running the full length."
-_sceneScripts = null

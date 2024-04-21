@@ -5,21 +5,29 @@ class_name GameScene;
 ## Used to lock player controls, move the player, change area, adjust time, etc...
 
 signal push_text(msg: String);
-signal push_option();
+signal push_event(); # Adding an option, teleporting, locking movement, etc...
 
-var _options: Dictionary = {};
-var _player: GamePlayer = null;
+var options: Dictionary = {};
+var player: GamePlayer = null;
 
-func Pushtext(msg: String) -> void:
+## MUST IMPLEMENT THIS IN EVERY SCENE
+func Opener() -> Array[GameUIOption]:
+	return [];
+# GameDialogue previously passed string arrays, but objects are passed by reference, so this is better
+
+
+
+# @msg: Unformatted text
+func PushText(msg: String) -> void:
 	push_text.emit(msg);
 
-func Enter(player: GamePlayer) -> void:
-	_player = player;
+func Enter(playern: GamePlayer) -> Array[GameUIOption]:
+	player = playern;
+	return Opener();
 	
 func Exit() -> void:
-	_player = null;
+	player = null;
 
-func CallOption(index: String) -> PackedStringArray:
-	if(_options.has(index)):
-		return _options.get(index).fn.call();
+## TODO: Need a way to show a game button without it being tied to a character or GameRoomOption
+func GetButtonContent() -> PackedStringArray:
 	return [];

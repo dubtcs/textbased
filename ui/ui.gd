@@ -34,6 +34,11 @@ func GameTick() -> void:
 func PushGameResponse(gameText: String) -> void:
 	_uiContent.PushResponse(gameText);
 	
+func PushOption(option: GameUIOption, index: int) -> void:
+	_narrator.AddOption(option);
+	_uiOptionContainer.AddUIButton(option, index);
+	return;
+	
 func ChangeArea(args: PackedStringArray) -> void:
 	var nextName: String = args[0];
 	if(_areaControl.ChangeArea(nextName)):
@@ -41,55 +46,46 @@ func ChangeArea(args: PackedStringArray) -> void:
 		_areaControl.MoveToNamed(roomName);
 		RoomEntered();
 	return;
-	
-func OnDialogueChoice(responses: PackedStringArray, options: Array[GameRoomOption]) -> void:
-	var index: int = 0;
-	_narrator.ClearOptions();
-	_uiOptionContainer.ClearButtons();
-	for res: String in responses:
-		PushGameResponse(GameText.Format(res));
-	for opt: GameRoomOption in options:
-		PushOption(opt, index);
-		index += 1;
-	return;
-	
-func OnDialogueEnter() -> void:
-	_canMove = false;
-	_uiContent.ClearHistory();
-	return;
 
-func OnDialogueText(text: String) -> void:
+func OnSceneText(text: String) -> void:
 	PushGameResponse(GameText.Format(text));
 
-func OnDialogueOptions(options: Array[GameRoomOption]) -> void:
+func OnSceneOptions(options: Array[GameUIOption]) -> void:
 	_narrator.ClearOptions();
 	_uiOptionContainer.ClearButtons();
 	var index: int = 0;
-	for option: GameRoomOption in options:
+	for option: GameUIOption in options:
 		PushOption(option, index);
 		index += 1;
 	return;
-	
-func OnDialogueExit() -> void:
+
+func OnSceneEnter() -> void:
+	_canMove = false;
+	_uiContent.ClearHistory();
+
+func OnSceneExit() -> void:
 	RoomEntered();
 	_canMove = true;
 	
-func PushOption(option: GameRoomOption, index: int) -> void:
-	_narrator.AddOption(option);
-	_uiOptionContainer.AddButton(option, index);
+func ConstructCharacterOption(character: GameCharacter) -> GameUIOption:
+	#return GameUIOption.new(character.name, "Approach " + character.name);
+	return null;
+	
+func ConstructStaticOption(container: GameRoomSceneContainer) -> GameUIOption:
+	return GameUIOption.new(_narrator.EnterScene.bind(container.scene), container.name, container.description);
 
 func FillRoomOptions() -> void:
 	_uiOptionContainer.ClearButtons();
 	_narrator.ClearOptions();
 	var room: GameRoom = _areaControl.GetCurrentArea().GetCurrentRoom();
 	var index: int = 0;
-	for option: GameRoomOption in room.GetOptions():
-		PushOption(option, index);
+	for scene: GameRoomSceneContainer in room.GetScenes().values():
+		PushOption(ConstructStaticOption(scene), index);
 		index += 1;
-	for char: GameCharacter in room.GetCharacters().values():
-		PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
-		PushOption(char.interactOption, index);
-		index += 1;
+	#for char: GameCharacter in room.GetCharacters().values():
+		#PushGameResponse(GameText.Format("{{char}} is in the area.".format({"char":char.index})));
+		#PushOption(char.interactOption, index);
+		#index += 1;
 	return;
 	
 func RoomEntered() -> void:
@@ -97,8 +93,6 @@ func RoomEntered() -> void:
 	_narrator.ClearOptions();
 	_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 	PushGameResponse(GameText.Format(_areaControl.GetCurrentArea().GetCurrentRoom().GetDescription()));
-	for s: GameScene in _areaControl.GetCurrentArea().GetCurrentRoom().GetScenes().values():
-		s.Enter(null);
 	FillRoomOptions();
 	
 ## TODO: This ignores narrator!!!
@@ -121,12 +115,9 @@ func _input(event: InputEvent) -> void:
 				GameTick();
 	return;
 
-func _onGameOptionActivated(index: int) -> void:
-	var option: GameRoomOption = _narrator.GetOption(index);
-	if(option):
-		if(not option.callback.is_empty()):
-			_narrator.call(option.callback, option.callbackParams);
-
+func _onUIOptionActivated(index: int) -> void:
+	_narrator.CallOption(index);
+		
 func _onGameOptionHovered(_button: GameOptionButton) -> void:
 	_optionHint.set_process(true);
 	_optionHint.visible = true;
