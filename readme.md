@@ -18,6 +18,29 @@ Scenes can be used for character dialogues, item interaction such as picking up 
 
 When a scene path ends, the player is brought back to the "hub" of options where they can choose more to interact with or exit.
 
+**Characters and speech**
+
+Text is the primary form of player feedback, so a custom text parser has been created to handle character referall and dialogue. It has easy to understand syntax and is very powerful.
+
+Character dialogues are done with html-esque tags containg the characters name before and after the spoken lines. Wrapping a character name followed by gender specific referalls allows generic formatting for all genders.
+
+```
+{character_name,(male/female/neutral)}
+<character_name>dialogue</character_name>
+
+EXAMPLE
+Person: Male
+Meatball: Male
+
+INPUT: {Person} waves goodbye. {person,he walks/she walks/they walk} away.
+OUTPUT: Person waves goodbye. he walks away. <- NOTE: Capitalization of character_name above effects pronoun replacement
+
+INPUT: <person>WHAT! {Meatball,he's/she's/they're} gonna be mad.</person>
+OUTPUT: Person: "WHAT! He's gonna be mad."
+```
+
+The full code can be found [here](game_text.gd)
+
 **Map and movement**
 
 This is a text based "hybrid" in that the player moves in 2D spaces using WASD, but most of the game info is shown via text display. Rooms are designated by "cells" and are automatically linked by the game to create walkable pathways. The game supports bidirectional, one way, and keyed room connections.
