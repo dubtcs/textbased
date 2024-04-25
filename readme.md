@@ -2,7 +2,7 @@
 
 This is a text based/2D hybrid RPG built in godot. I want to eventually develop this into a complete game, but for now, I'm just building and designing the tools to make the game work.
 
-**Dialogue and scenes**
+## Dialogue and scenes
 
 The game uses dialogues, or scenes, as the main form of player input. These provide the player with options for what they want to do. When the player enters a room, they are given multiple options for each interactable person or object. These then begin their own scenes for the player to interact with such as dialogue.
 
@@ -18,7 +18,7 @@ Scenes can be used for character dialogues, item interaction such as picking up 
 
 When a scene path ends, the player is brought back to the "hub" of options where they can choose more to interact with or exit.
 
-**Characters and speech**
+## Characters and speech
 
 Text is the primary form of player feedback, so a custom text parser has been created to handle character referall and dialogue. It has easy to understand syntax and is very powerful.
 
@@ -41,7 +41,7 @@ OUTPUT: Person: "WHAT! He's gonna be mad."
 
 The full code can be found [here](game_text.gd)
 
-**Map and movement**
+## Map and movement
 
 This is a text based "hybrid" in that the player moves in 2D spaces using WASD, but most of the game info is shown via text display. Rooms are designated by "cells" and are automatically linked by the game to create walkable pathways. The game supports bidirectional, one way, and keyed room connections.
 
@@ -49,7 +49,7 @@ This is a text based "hybrid" in that the player moves in 2D spaces using WASD, 
 
 Floors can lead to other floors through the use of scenes. A player can access an elevator and choose to go up or down, same with stairs or any other form of transport. The system is limitless.
 
-**Quests**
+## Quests
 
 The game has a quest system with branching storylines that work with the dialogue/scene system to change with the player's decisions. The game utilizes state flags for player quest progress, world event, and item tracking. In the game scenes/dialogues, a player scene can request info about the player and give context specific dialogue options or responses.
 
