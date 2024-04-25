@@ -8,6 +8,8 @@ The game uses dialogues, or scenes, as the main form of player input. These prov
 
 Scenes can be used for character dialogues, item interaction such as picking up an item off the ground, environment interactions like a staircase or elevator, and even as time skips such as flashbacks. The system is very flexible.
 
+| | |
+|-|-|
 |![options](gitmedia/options.png)|![dialogue](gitmedia/dialogue.png)|
 |![dialogue](gitmedia/dialogue2.png)|![dialogue](gitmedia/dialogue3.png)|
 
