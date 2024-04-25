@@ -16,7 +16,7 @@ var player: GamePlayer = GamePlayer.new();
 var currentScene: GameScene = null;
 var currentSceneOptions: Array[GameUIOption] = [];
 var exitOption: GameUIOption = GameUIOption.new(ExitScene, "Exit", "Exit this interaction");
-#var spoofOption: GameUIOption = GameUIOption.new(Callable());
+#var spoofOption: GameUIOption = GameUIOption.new(GetPlayer, "__SPOOF");
 
 func GetPlayer() -> GamePlayer:
 	return player;
@@ -44,11 +44,15 @@ func EnterScene(scene: GameScene) -> Array[GameUIOption]:
 	if(currentScene):
 		if(currentScene.is_connected("push_text", EmitText)):
 			currentScene.disconnect("push_text", EmitText);
-	currentScene = scene;
-	currentScene.push_text.connect(EmitText);
-	var options: Array[GameUIOption] = currentScene.Enter(player);
-	options.push_back(exitOption);
-	return options;
+	if(scene):
+		currentScene = scene;
+		currentScene.push_text.connect(EmitText);
+		var options: Array[GameUIOption] = currentScene.Enter(player);
+		options.push_back(exitOption);
+		return options;
+	else:
+		currentScene = null;
+		return [exitOption];
 	
 func ExitScene() -> Array[GameUIOption]:
 	scene_exit.emit();

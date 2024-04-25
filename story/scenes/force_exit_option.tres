@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GameUIOption" load_steps=2 format=3 uid="uid://ctv56t3fl2co2"]
+
+[ext_resource type="Script" path="res://ui/game_ui_option.gd" id="1_72dye"]
+
+[resource]
+script = ExtResource("1_72dye")

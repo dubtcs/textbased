@@ -5,7 +5,7 @@ class_name GameScene;
 ## Used to lock player controls, move the player, change area, adjust time, etc...
 
 signal push_text(msg: String);
-signal push_event(); # Adding an option, teleporting, locking movement, etc...
+signal push_event(type: Enums.SceneEvent); # Adding an option, teleporting, locking movement, etc...
 
 var options: Dictionary = {};
 var player: GamePlayer = null;
@@ -13,8 +13,6 @@ var player: GamePlayer = null;
 ## MUST IMPLEMENT THIS IN EVERY SCENE
 func Opener() -> Array[GameUIOption]:
 	return [];
-# GameDialogue previously passed string arrays, but objects are passed by reference, so this is better
-
 
 
 # @msg: Unformatted text

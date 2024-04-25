@@ -3,16 +3,19 @@ extends GameScene
 func _init() -> void:
 	options = {
 		"approach" = GameUIOption.new(Approach, "Approach", "Approach the figure."),
-		"attack" = GameUIOption.new(Attack, "Attack", "Attack this mf.")
+		"attack" = GameUIOption.new(Attack, "Attack", "Attack this person."),
+		"talk" = GameUIOption.new(Talk, "Talk", "Chat about anything"),
+		"howgo" = GameUIOption.new(HowGoes, "Ship", "Ask about what there is to do."),
+		"whoyou" = GameUIOption.new(WhoAreYou, "Employment", "Ask why this was their career.")
 	};
 	return;
 
 func Opener() -> Array[GameUIOption]:
 	if(player.CheckFlag("bg_shithead_hasmet")):
 		PushText("{Shithead} gives you a familiar smile.");
-		return [options.attack];
+		return [options.talk, options.attack];
 	else:
-		PushText("A figure sits in the corner screaming.");
+		PushText("A figure sits in the corner screaming. Genuinely tweaking.");
 		return [options.approach];
 
 func Approach() -> Array[GameUIOption]:
@@ -25,4 +28,20 @@ func Approach() -> Array[GameUIOption]:
 func Attack() -> Array[GameUIOption]:
 	PushText("You decide you want to use violence. You take a deep breath and cock back your right arm. {Shithead} looks at you in confusion, unsure of what is happening. You scream as you send your fist flying through the air");	
 	PushText("<shithead>I will not hesitate to kill you.</shithead>");
+	return [];
+
+func Talk() -> Array[GameUIOption]:
+	PushText("You shift your weight and decide to take a seat next to {shithead}. You both wait a moment before you speak up.");
+	PushText("<shithead>What's up?</shithead>");
+	return [options.howgo, options.whoyou];
+
+func HowGoes() -> Array[GameUIOption]:
+	PushText("<player>About this ship. Is there anything on here at all interesting? I've only been here for a few minutes and I can already feel the boredom coming on.</player>");
+	PushText("{Shithead} chuckles before taking a breath.");
+	PushText("<shithead>No, but we might get something soon. A new... [i]thing[/i] arrived just before you did. Got no idea what it is. It's like this giant ball of meat. Like a literal meatball.</shithead>");
+	return [];
+
+func WhoAreYou() -> Array[GameUIOption]:
+	PushText("<player>Who are you? Like, what made you decide to do this?</player>");
+	PushText("<shithead>idk I'm just a temp character while tools are workflow are made.</shithead>");
 	return [];

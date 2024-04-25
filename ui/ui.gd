@@ -28,7 +28,7 @@ func _ready() -> void:
 	RoomEntered();
 	
 func GameTick() -> void:
-	PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
+	## PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
 	return;
 	
 func PushGameResponse(gameText: String) -> void:

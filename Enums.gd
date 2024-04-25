@@ -13,5 +13,8 @@ enum ExitType { open, closed, keyed };
 enum RoomIcon { empty, bed, kitchen, stairs, lock, door, cook, mouse, cpu, circuit, home };
 enum RoomColor { none, red, blue, yellow, green };
 
+# SCENES
+enum SceneEvent { transport };
+
 # STORY
 enum CharacterGender { male = 0, female = 1, neutral = 2 };

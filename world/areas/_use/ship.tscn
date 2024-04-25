@@ -1,9 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmk0qh8agjblg"]
+[gd_scene load_steps=8 format=3 uid="uid://dmk0qh8agjblg"]
 
 [ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_dxgjq"]
 [ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_w4wla"]
+[ext_resource type="Script" path="res://story/scenes/areas/ship/tv_scene.gd" id="3_ws6nu"]
 [ext_resource type="Script" path="res://story/scenes/areas/ship/computer_scene.gd" id="4_7fwu3"]
 [ext_resource type="Script" path="res://world/areas/game_room_scene_container.gd" id="5_jokhs"]
+
+[sub_resource type="Resource" id="Resource_mx8ak"]
+script = ExtResource("5_jokhs")
+name = "TV"
+description = "See what's on the TV"
+sceneScript = ExtResource("3_ws6nu")
 
 [sub_resource type="Resource" id="Resource_hk7tw"]
 script = ExtResource("5_jokhs")
@@ -43,6 +50,7 @@ _roomDescription = "A standard hallway with some LED lighting running the full l
 position = Vector2(-256, -128)
 _roomName = "Lounge"
 _roomDescription = "You are in a cozy hub with seating, adjustable lights, and screens for entertainment or mission info. It’s a place for crew members to relax and socialize amidst the stars."
+_sceneScripts = Array[ExtResource("5_jokhs")]([SubResource("Resource_mx8ak")])
 
 [node name="GameRoom7" parent="." index="6" instance=ExtResource("2_w4wla")]
 position = Vector2(-128, -256)
