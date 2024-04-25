@@ -67,6 +67,20 @@ func OnSceneExit() -> void:
 	RoomEntered();
 	_canMove = true;
 	
+func OnSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
+	match(type):
+		Enums.SceneEvent.transport:
+			if(args.size() == 2):
+				if(not _areaControl.ChangeArea(args[0])):
+					printerr("No area named: " + args[0]);
+				if(not _areaControl.MoveToNamed(args[1])):
+					printerr("No room in area named: " + args[1]);
+			else:
+				printerr("Transport call requires 2 arguments. [area_name,room_name]");
+		_:
+			print("WHAT");
+	return;
+	
 func ConstructCharacterOption(character: GameCharacter) -> GameUIOption:
 	return GameUIOption.new(_narrator.EnterScene.bind(character.dialogue), character.name, "Approach " + character.name);
 	

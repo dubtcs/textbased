@@ -4,6 +4,7 @@ class_name GameNarrator;
 signal change_area(args: PackedStringArray);
 signal emit_text(text: String);
 signal emit_options(options: Array[GameUIOption]);
+signal emit_event(type: Enums.SceneEvent, args: PackedStringArray);
 signal scene_exit();
 signal scene_enter();
 
@@ -44,9 +45,12 @@ func EnterScene(scene: GameScene) -> Array[GameUIOption]:
 	if(currentScene):
 		if(currentScene.is_connected("push_text", EmitText)):
 			currentScene.disconnect("push_text", EmitText);
+		if(currentScene.is_connected("push_event", EmitSceneEvent)):
+			currentScene.disconnect("push_event", EmitSceneEvent);
 	if(scene):
 		currentScene = scene;
 		currentScene.push_text.connect(EmitText);
+		currentScene.push_event.connect(EmitSceneEvent);
 		var options: Array[GameUIOption] = currentScene.Enter(player);
 		options.push_back(exitOption);
 		return options;
@@ -71,6 +75,9 @@ func CallOption(index: int) -> void:
 
 func EmitText(text: String) -> void:
 	emit_text.emit(text);
+	
+func EmitSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
+	emit_event.emit(type, args);
 
 func EmitOptions(options: Array[GameUIOption]) -> void:
 	emit_options.emit(options);

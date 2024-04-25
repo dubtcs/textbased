@@ -143,6 +143,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="change_area" from="Narrator" to="." method="ChangeArea"]
+[connection signal="emit_event" from="Narrator" to="." method="OnSceneEvent"]
 [connection signal="emit_options" from="Narrator" to="." method="OnSceneOptions"]
 [connection signal="emit_text" from="Narrator" to="." method="OnSceneText"]
 [connection signal="scene_enter" from="Narrator" to="." method="OnSceneEnter"]

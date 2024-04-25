@@ -31,7 +31,7 @@ func GetRoomNamed(str: String) -> GameRoom:
 
 func GetRoomVec(pos: Vector2) -> GameRoom:
 	if(_mapInfo.has(pos)):
-		return _mapInfo[pos].instance;	
+		return _mapInfo[pos].instance;
 	return null;
 
 func CanMove(dir: Enums.MoveDirection) -> bool:

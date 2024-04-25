@@ -104,7 +104,9 @@ func _SetRoomColor(newColor: Enums.RoomColor) -> void:
 
 func _ready() -> void:
 	for scr: GameRoomSceneContainer in _sceneScripts:
-		var scene: GameScene = scr.sceneScript.new();
-		scr.scene = scene;
+		# Prevent duplication of scripts
+		if(scr.scene == null):
+			var scene: GameScene = scr.sceneScript.new();
+			scr.scene = scene;
 		var key: String = scr.sceneScript.get_path().get_file().get_basename();
 		_scenes[key] = scr;

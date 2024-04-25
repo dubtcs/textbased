@@ -24,12 +24,13 @@ func MoveTo(x: int, y: int) -> void:
 	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
 	_currentArea.GetCurrentRoom().SetAsActive();
 	
-func MoveToNamed(roomName: String) -> void:
+func MoveToNamed(roomName: String) -> bool:
 	if(_currentArea.GetCurrentRoom()):
 		_currentArea.GetCurrentRoom().SetAsInactive();
-	_currentArea.MoveToNamed(roomName);
+	var moved: bool = _currentArea.MoveToNamed(roomName);
 	_viewport.MoveCameraTo(_currentArea.GetCurrentRoom().position);
 	_currentArea.GetCurrentRoom().SetAsActive();
+	return moved;
 	
 func GetCurrentArea() -> GameArea:
 	return _currentArea;

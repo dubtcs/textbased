@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameRoomSceneContainer" load_steps=3 format=3 uid="uid://cji7qd8krk0a0"]
+
+[ext_resource type="Script" path="res://story/scenes/areas/ship/airlock.gd" id="1_ois35"]
+[ext_resource type="Script" path="res://world/areas/game_room_scene_container.gd" id="2_d6c6m"]
+
+[resource]
+script = ExtResource("2_d6c6m")
+name = "Airlock"
+description = "Enter or exit the ship"
+sceneScript = ExtResource("1_ois35")
