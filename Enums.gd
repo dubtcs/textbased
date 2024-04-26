@@ -14,7 +14,7 @@ enum RoomIcon { empty, bed, kitchen, stairs, lock, door, cook, mouse, cpu, circu
 enum RoomColor { none, red, blue, yellow, green };
 
 # SCENES
-enum SceneEvent { transport };
+enum SceneEvent { transport, movement, uiclear };
 
 # STORY
 enum CharacterGender { male = 0, female = 1, neutral = 2 };

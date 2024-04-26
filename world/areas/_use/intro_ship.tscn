@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://b544pbpwhi506"]
+
+[ext_resource type="PackedScene" uid="uid://cgcjyf4ixt74n" path="res://world/areas/game_area.tscn" id="1_eiqk4"]
+[ext_resource type="PackedScene" uid="uid://dnmjg2onrur4u" path="res://world/areas/GameRoom.tscn" id="2_7j2ow"]
+[ext_resource type="Resource" uid="uid://jmf410cd84j" path="res://world/resources/rooms/roomexit/Closed.tres" id="3_kluwx"]
+
+[node name="GameArea" instance=ExtResource("1_eiqk4")]
+
+[node name="room" parent="." index="0" instance=ExtResource("2_7j2ow")]
+_roomName = "Block Cell"
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="GameRoom" parent="." index="1" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, 0)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom2" parent="." index="2" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, 128)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom3" parent="." index="3" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, 256)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom4" parent="." index="4" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, -128)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom5" parent="." index="5" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, -256)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom11" parent="." index="6" instance=ExtResource("2_7j2ow")]
+position = Vector2(128, -384)
+_roomName = "Hallway"
+_roomDescription = "Dim lighting and grey walls surround you. Nothing but the bare minimum has been put into this environment."
+
+[node name="GameRoom6" parent="." index="7" instance=ExtResource("2_7j2ow")]
+position = Vector2(256, 0)
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="GameRoom7" parent="." index="8" instance=ExtResource("2_7j2ow")]
+position = Vector2(0, 128)
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="GameRoom8" parent="." index="9" instance=ExtResource("2_7j2ow")]
+position = Vector2(256, 128)
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="GameRoom9" parent="." index="10" instance=ExtResource("2_7j2ow")]
+position = Vector2(0, 256)
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="GameRoom10" parent="." index="11" instance=ExtResource("2_7j2ow")]
+position = Vector2(256, 256)
+_roomIcon = 4
+_roomColor = 1
+_exitNorth = ExtResource("3_kluwx")
+_exitSouth = ExtResource("3_kluwx")
+
+[node name="intero" parent="." index="12" instance=ExtResource("2_7j2ow")]
+position = Vector2(256, -256)
+_roomName = "Interrogation"
+
+[node name="GameRoom12" parent="." index="13" instance=ExtResource("2_7j2ow")]
+position = Vector2(0, -256)

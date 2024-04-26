@@ -19,6 +19,15 @@ func Opener() -> Array[GameUIOption]:
 func PushText(msg: String) -> void:
 	push_text.emit(msg);
 	
+#func PushEvent(type: Enums.SceneEvent, args: PackedStringArray = []) -> void:
+	#return;
+	
+func MoveToArea(areaName: String, roomName: String) -> void:
+	push_event.emit(Enums.SceneEvent.transport, [areaName,roomName]);
+	
+func MoveToRoom(roomName: String) -> void:
+	push_event.emit(Enums.SceneEvent.movement, [roomName]);
+	
 func Enter(playern: GamePlayer) -> Array[GameUIOption]:
 	player = playern;
 	return Opener();

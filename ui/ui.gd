@@ -61,6 +61,7 @@ func OnSceneOptions(options: Array[GameUIOption]) -> void:
 
 func OnSceneEnter() -> void:
 	_canMove = false;
+	_uiOptionContainer.ClearButtons();
 	_uiContent.ClearHistory();
 
 func OnSceneExit() -> void:
@@ -75,8 +76,20 @@ func OnSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
 					printerr("No area named: " + args[0]);
 				if(not _areaControl.MoveToNamed(args[1])):
 					printerr("No room in area named: " + args[1]);
+				_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 			else:
 				printerr("Transport call requires 2 arguments. [area_name,room_name]");
+		Enums.SceneEvent.movement:
+			if(args.size() == 1):
+				if(not _areaControl.MoveToNamed(args[0])):
+					printerr("No room found in area: " + args[0]);
+				_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();				
+			else:
+				printerr("movement event requires 1 argument. [room_name]");
+			
+		Enums.SceneEvent.uiclear:
+			_uiContent.ClearHistory();
+			
 		_:
 			print("WHAT");
 	return;
@@ -126,6 +139,8 @@ func _input(event: InputEvent) -> void:
 				_onGameOptionExited(null); # what the fuck
 				RoomEntered();
 				GameTick();
+	if(event.is_action_pressed("jump")):
+		_narrator.StartScene(_narrator.INTRO_SCENE, false);
 	return;
 
 func _onUIOptionActivated(index: int) -> void:

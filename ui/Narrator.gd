@@ -19,6 +19,11 @@ var currentSceneOptions: Array[GameUIOption] = [];
 var exitOption: GameUIOption = GameUIOption.new(ExitScene, "Exit", "Exit this interaction");
 #var spoofOption: GameUIOption = GameUIOption.new(GetPlayer, "__SPOOF");
 
+var INTRO_SCENE: GameScene = preload("res://story/scenes/intro_scene.gd").new();
+
+func DELETETHIS() -> void:
+	EnterScene(INTRO_SCENE);
+
 func GetPlayer() -> GamePlayer:
 	return player;
 	
@@ -40,7 +45,7 @@ func ClearOptions() -> void:
 func ConstructBackOption(scene: GameScene) -> GameUIOption:
 	return GameUIOption.new(EnterScene.bind(scene), "Back", "Go back");
 	
-func EnterScene(scene: GameScene) -> Array[GameUIOption]:
+func EnterScene(scene: GameScene, showExitOption: bool = true) -> Array[GameUIOption]:
 	scene_enter.emit();
 	if(currentScene):
 		if(currentScene.is_connected("push_text", EmitText)):
@@ -52,7 +57,8 @@ func EnterScene(scene: GameScene) -> Array[GameUIOption]:
 		currentScene.push_text.connect(EmitText);
 		currentScene.push_event.connect(EmitSceneEvent);
 		var options: Array[GameUIOption] = currentScene.Enter(player);
-		options.push_back(exitOption);
+		if(showExitOption):
+			options.push_back(exitOption);
 		return options;
 	else:
 		currentScene = null;
@@ -71,6 +77,15 @@ func CallOption(index: int) -> void:
 			options.push_back(ConstructBackOption(currentScene));
 		if(options[0] != exitOption): ## REALLY fucking stupid way to get around this
 			EmitOptions(options);
+	return;
+	
+# Manually begin a scene
+func StartScene(scene: GameScene, showExitOption: bool = true) -> void:
+	var options: Array[GameUIOption] = EnterScene(scene, showExitOption);
+	if(options.is_empty()):
+		options.push_back(ConstructBackOption(currentScene));
+	if(options[0] != exitOption): ## REALLY fucking stupid way to get around this
+		EmitOptions(options);
 	return;
 
 func EmitText(text: String) -> void:

@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("2_d6c6m")
-name = "Airlock"
-description = "Enter or exit the ship"
+name = "Computer"
+description = "USE THE COMPUTER EEEEE"
 sceneScript = ExtResource("1_ois35")
