@@ -45,43 +45,56 @@ func ClearOptions() -> void:
 func ConstructBackOption(scene: GameScene) -> GameUIOption:
 	return GameUIOption.new(EnterScene.bind(scene), "Back", "Go back");
 	
-func EnterScene(scene: GameScene, showExitOption: bool = true) -> Array[GameUIOption]:
+func EnterScene(scene: GameScene) -> Array[GameUIOption]:
 	scene_enter.emit();
 	if(currentScene):
 		if(currentScene.is_connected("push_text", EmitText)):
 			currentScene.disconnect("push_text", EmitText);
 		if(currentScene.is_connected("push_event", EmitSceneEvent)):
 			currentScene.disconnect("push_event", EmitSceneEvent);
+		if(currentScene.is_connected("exit_scene", EmitSceneEvent)):
+			currentScene.disconnect("exit_scene", ExitScene);
 	if(scene):
 		currentScene = scene;
 		currentScene.push_text.connect(EmitText);
 		currentScene.push_event.connect(EmitSceneEvent);
+		currentScene.exit_scene.connect(ExitScene);
 		var options: Array[GameUIOption] = currentScene.Enter(player);
-		if(showExitOption):
-			options.push_back(exitOption);
 		return options;
 	else:
 		currentScene = null;
 		return [exitOption];
 	
-func ExitScene() -> Array[GameUIOption]:
+func ExitScene() -> void:
 	scene_exit.emit();
-	return [exitOption]; ## Marks array as useless so RoomEntered() can actually fill the options in ui.gd
-	## Really fucking stupid btw
+
+func CallScene(option: GameUIOption) -> void:
+	var options: Array[GameUIOption] = option.callback.call();
+	if(options.is_empty()):
+		options.push_back(ConstructBackOption(currentScene));
+	if(options[0] != exitOption): ## REALLY fucking stupid way to get around this
+		EmitOptions(options);
+	return;
+	
+func CallAction(option: GameUIOption) -> void:
+	option.callback.call();
+	return;
 	
 func CallOption(index: int) -> void:
 	if(index < currentSceneOptions.size()):
 		var option: GameUIOption = currentSceneOptions[index];
-		var options: Array[GameUIOption] = option.callback.call();
-		if(options.is_empty()):
-			options.push_back(ConstructBackOption(currentScene));
-		if(options[0] != exitOption): ## REALLY fucking stupid way to get around this
-			EmitOptions(options);
+		match(option.type):
+			Enums.OptionType.scene:
+				CallScene(option);
+			Enums.OptionType.action:
+				CallAction(option);
+	else:
+		printerr("No option of index: " + str(index));
 	return;
 	
 # Manually begin a scene
-func StartScene(scene: GameScene, showExitOption: bool = true) -> void:
-	var options: Array[GameUIOption] = EnterScene(scene, showExitOption);
+func StartScene(scene: GameScene) -> void:
+	var options: Array[GameUIOption] = EnterScene(scene);
 	if(options.is_empty()):
 		options.push_back(ConstructBackOption(currentScene));
 	if(options[0] != exitOption): ## REALLY fucking stupid way to get around this

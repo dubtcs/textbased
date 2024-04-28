@@ -140,7 +140,8 @@ func _input(event: InputEvent) -> void:
 				RoomEntered();
 				GameTick();
 	if(event.is_action_pressed("jump")):
-		_narrator.StartScene(_narrator.INTRO_SCENE, false);
+		_narrator.StartScene(_narrator.INTRO_SCENE);
+		_narrator.CallScene(_narrator.INTRO_SCENE.options.opento);
 	return;
 
 func _onUIOptionActivated(index: int) -> void:

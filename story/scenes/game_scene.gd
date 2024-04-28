@@ -6,21 +6,18 @@ class_name GameScene;
 
 signal push_text(msg: String);
 signal push_event(type: Enums.SceneEvent, args: PackedStringArray); # Adding an option, teleporting, locking movement, etc...
+signal exit_scene();
 
 var options: Dictionary = {};
 var player: GamePlayer = null;
 
-## MUST IMPLEMENT THIS IN EVERY SCENE
-func Opener() -> Array[GameUIOption]:
+# Abstract
+func OnEnter() -> Array[GameUIOption]:
 	return [];
 
-
-# @msg: Unformatted text
+# msg: Unformatted text
 func PushText(msg: String) -> void:
 	push_text.emit(msg);
-	
-#func PushEvent(type: Enums.SceneEvent, args: PackedStringArray = []) -> void:
-	#return;
 	
 func MoveToArea(areaName: String, roomName: String) -> void:
 	push_event.emit(Enums.SceneEvent.transport, [areaName,roomName]);
@@ -30,10 +27,12 @@ func MoveToRoom(roomName: String) -> void:
 	
 func Enter(playern: GamePlayer) -> Array[GameUIOption]:
 	player = playern;
-	return Opener();
+	return OnEnter();
 	
 func Exit() -> void:
 	player = null;
+	exit_scene.emit();
+	return;
 
 ## TODO: Need a way to show a game button without it being tied to a character or GameRoomOption
 func GetButtonContent() -> PackedStringArray:

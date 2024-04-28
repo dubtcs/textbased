@@ -2,21 +2,23 @@ extends GameScene
 
 func _init() -> void:
 	options = {
-		"approach" = GameUIOption.new(Approach, "Approach", "Approach the figure."),
-		"attack" = GameUIOption.new(Attack, "Attack", "Attack this person."),
-		"talk" = GameUIOption.new(Talk, "Talk", "Chat about anything"),
-		"howgo" = GameUIOption.new(HowGoes, "Ship", "Ask about what there is to do."),
-		"whoyou" = GameUIOption.new(WhoAreYou, "Employment", "Ask why this was their career.")
+		approach = GameUIOption.new(Approach, "Approach", "Approach the figure."),
+		attack = GameUIOption.new(Attack, "Attack", "Attack this person."),
+		talk = GameUIOption.new(Talk, "Talk", "Chat about anything"),
+		howgo = GameUIOption.new(HowGoes, "Ship", "Ask about what there is to do."),
+		whoyou = GameUIOption.new(WhoAreYou, "Employment", "Ask why this was their career."),
+		
+		exit = GameUIOption.new(Exit, "Goodbye", "Say goodbye", Enums.OptionType.action)
 	};
 	return;
 
-func Opener() -> Array[GameUIOption]:
+func OnEnter() -> Array[GameUIOption]:
 	if(player.CheckFlag("bg_shithead_hasmet")):
 		PushText("{Shithead} gives you a familiar smile.");
-		return [options.talk, options.attack];
+		return [ options.talk, options.attack, options.exit ];
 	else:
 		PushText("A figure sits in the corner screaming. Genuinely tweaking.");
-		return [options.approach];
+		return [ options.approach, options.exit ];
 
 func Approach() -> Array[GameUIOption]:
 	PushText("You approach the screaming man slowly. Eventually, {shithead,he realizes/she realizes/they realize} you're near {shithead,him/her/them} and turns to face you.");
@@ -33,7 +35,7 @@ func Attack() -> Array[GameUIOption]:
 func Talk() -> Array[GameUIOption]:
 	PushText("You shift your weight and decide to take a seat next to {shithead}. You both wait a moment before you speak up.");
 	PushText("<shithead>What's up?</shithead>");
-	return [options.howgo, options.whoyou];
+	return [ options.howgo, options.whoyou ];
 
 func HowGoes() -> Array[GameUIOption]:
 	PushText("<player>About this ship. Is there anything on here at all interesting? I've only been here for a few minutes and I can already feel the boredom coming on.</player>");

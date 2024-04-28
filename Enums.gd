@@ -15,6 +15,7 @@ enum RoomColor { none, red, blue, yellow, green };
 
 # SCENES
 enum SceneEvent { transport, movement, uiclear };
+enum OptionType { none, action, scene };
 
 # STORY
 enum CharacterGender { male = 0, female = 1, neutral = 2 };
