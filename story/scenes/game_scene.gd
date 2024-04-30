@@ -33,6 +33,9 @@ func StartInput(title: String = "INPUT") -> void:
 func FinishInput() -> void:
 	push_event.emit(Enums.SceneEvent.inputhandled, []);
 	
+func GetInput() -> String:
+	return Game.UI_INPUT_BUFFER;
+	
 func ClearHistory() -> void:
 	push_event.emit(Enums.SceneEvent.uiclear, []);
 	

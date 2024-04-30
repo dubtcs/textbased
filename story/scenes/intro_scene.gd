@@ -63,21 +63,19 @@ func DoName() -> Array[GameUIOption]:
 	if(player.CheckFlag(Game.UI_INPUT_FLAG)):
 		player.RemoveFlag(Game.UI_INPUT_FLAG);
 		FinishInput();
-		Game.Characters.get("player").name = Game.UI_INPUT_BUFFER;
+		Game.Characters.get("player").name = GetInput();
 		if(player.CheckFlag("quest_intro_doresist")):
 			if(player.CheckFlag("quest_intro1_emptysubmit")):
 				PushText("{Guard1,He gives/She gives/They give} you a look of disgust as {guard1,he tries/she tries/they try} try to comprehend your struggle of such a simple task.");
-			PushText("{guard1,He rips/She rips/They rip} the mask off your face. It [i]stings.[/i]");
-			PushText("<guard1>At least you did that easily. See? It's not hard.</guard1>");
+			PushText("<guard1>See... {Player}? It's not hard.</guard1>");
 			PushText("{Guard1,he takes/she takes/they take} the tablet from you and begin cycling through menus.");
 		else:
 			if(player.CheckFlag("quest_intro1_emptysubmit")):
 				PushText("{Guard1,He rolls his/She rolls her/They roll their} eyes when you finally make up your mind.");
 			PushText("Once you've completed the form, {guard1,he grabs/she grabs/they grab} the tablet from you and begin cycling through menus.");
-		PushText("<guard1>Now, we just need general info about yourself. Should be self explanatory.</guard1>");
-		PushText("{guard1,He hands/She hands/They hand} returns the tablet to you, this time containing multiple field and forms.");
+		PushText("<guard1>So, {Player}, now we just need some general info about yourself. Should be self explanatory.</guard1>");
+		PushText("{guard1,He returns/She returns/They return} the tablet to you, this time containing multiple field and forms.");
 		player.RemoveFlag("quest_intro1_emptysubmit");
-		PushText("<player>I am speaking.</player>");
 		return [ options.exit ];
 		
 	elif(not player.CheckFlag("quest_intro1_emptysubmit")):

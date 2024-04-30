@@ -35,15 +35,26 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]GAME[/b]"
+fit_content = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 2
 size_flags_stretch_ratio = 2.0
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "NEW GAME"
+
+[node name="EXIT" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "EXIT (NO CONFIRMATION)"
 
 [node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -54,3 +65,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer/Button" to="." method="OnNewPressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer/EXIT" to="." method="OnExitPressed"]
