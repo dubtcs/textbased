@@ -5,12 +5,14 @@ func _init() -> void:
 		"news" = GameUIOption.new(News, "News", "Watch news"),
 		"sport" = GameUIOption.new(Sports, "Sports", "Watch sports"),
 		"fruit" = GameUIOption.new(FruitSensory, "Fruit", "Watch fruit sensory"),
-		"watch" = GameUIOption.new(Watch, "Watch", "Watch this.")
+		"watch" = GameUIOption.new(Watch, "Watch", "Watch this."),
+		
+		exit = GameUIOption.new(Exit, "Leave", "Finish what you're doing.", Enums.OptionType.action)
 	};
 
-func Opener() -> Array[GameUIOption]:
+func OnEnter() -> Array[GameUIOption]:
 	PushText("You take a seat on the bench and gaze towards the TV.");
-	return [ options.news, options.sport, options.fruit ];
+	return [ options.news, options.sport, options.fruit, options.exit ];
 
 func Watch() -> Array[GameUIOption]:
 	PushText("Time goes by as you watch your content.");

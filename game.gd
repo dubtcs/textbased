@@ -9,6 +9,9 @@ const DIALOGUE_FOLDER_FORMAT: String = "res://story/scenes/characters/{name}.gd"
 const QUEST_FOLDER: String = "res://story/quests";
 const QUEST_FOLDER_FORMAT: String = "res://story/quests/{name}.tres";
 
+const UI_INPUT_FLAG: String = "ui_input_nonempty";
+var UI_INPUT_BUFFER: String = "";
+
 var Characters: Dictionary = {};
 var Quests: Dictionary = {};
 

@@ -14,7 +14,9 @@ var player: GamePlayer = null;
 # Abstract
 func OnEnter() -> Array[GameUIOption]:
 	return [];
-
+func OnExit() -> void:
+	return;
+	
 # msg: Unformatted text
 func PushText(msg: String) -> void:
 	push_text.emit(msg);
@@ -24,12 +26,22 @@ func MoveToArea(areaName: String, roomName: String) -> void:
 	
 func MoveToRoom(roomName: String) -> void:
 	push_event.emit(Enums.SceneEvent.movement, [roomName]);
+
+func StartInput(title: String = "INPUT") -> void:
+	push_event.emit(Enums.SceneEvent.input, [title]);
+	
+func FinishInput() -> void:
+	push_event.emit(Enums.SceneEvent.inputhandled, []);
+	
+func ClearHistory() -> void:
+	push_event.emit(Enums.SceneEvent.uiclear, []);
 	
 func Enter(playern: GamePlayer) -> Array[GameUIOption]:
 	player = playern;
 	return OnEnter();
 	
 func Exit() -> void:
+	OnExit();
 	player = null;
 	exit_scene.emit();
 	return;

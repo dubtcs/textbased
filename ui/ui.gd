@@ -1,4 +1,5 @@
 extends Control
+class_name GameCoreControl;
 
 const MAX_HISTORY: int = 25;
 
@@ -11,6 +12,7 @@ const MAX_HISTORY: int = 25;
 @onready var _optionHint: GameOptionHint = $"OptionHint";
 
 var _canMove: bool = true;
+var userInput: GameInputResponse = null;
 
 const MOVE_TIME_SEC: float = 0.15;
 
@@ -68,6 +70,30 @@ func OnSceneExit() -> void:
 	RoomEntered();
 	_canMove = true;
 	
+func HookInput(input: GameInputResponse) -> void:
+	if(UnhookInput()):
+		printerr("Warning: Previous input field dropped without handling.");
+	_narrator.GetPlayer().RemoveFlag(Game.UI_INPUT_FLAG);		
+	userInput = input;
+	userInput.input.text_changed.connect(OnUserInputTextChanged);
+	return;
+	
+func UnhookInput() -> bool:
+	if(userInput):
+		userInput.Disable();
+		Game.UI_INPUT_BUFFER = userInput.input.text;
+		if(userInput.input.text_changed.is_connected(OnUserInputTextChanged)):
+			userInput.input.text_changed.disconnect(OnUserInputTextChanged);
+			return _narrator.GetPlayer().CheckFlag(Game.UI_INPUT_FLAG);
+	return false;
+
+func OnUserInputTextChanged(_newmsg: String) -> void:
+	if(_newmsg.is_empty()):
+		_narrator.player.RemoveFlag(Game.UI_INPUT_FLAG);
+	else:
+		_narrator.player.SetFlag(Game.UI_INPUT_FLAG);
+	return;
+	
 func OnSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
 	match(type):
 		Enums.SceneEvent.transport:
@@ -86,7 +112,10 @@ func OnSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
 				_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();				
 			else:
 				printerr("movement event requires 1 argument. [room_name]");
-			
+		Enums.SceneEvent.input:
+			HookInput(_uiContent.PushInput(args[0]));
+		Enums.SceneEvent.inputhandled:
+			UnhookInput();
 		Enums.SceneEvent.uiclear:
 			_uiContent.ClearHistory();
 			
@@ -139,9 +168,6 @@ func _input(event: InputEvent) -> void:
 				_onGameOptionExited(null); # what the fuck
 				RoomEntered();
 				GameTick();
-	if(event.is_action_pressed("jump")):
-		_narrator.StartScene(_narrator.INTRO_SCENE);
-		_narrator.CallScene(_narrator.INTRO_SCENE.options.opento);
 	return;
 
 func _onUIOptionActivated(index: int) -> void:

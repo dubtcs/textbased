@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://nswl1l5aumr"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://nswl1l5aumr"]
 
 [ext_resource type="FontFile" uid="uid://b03ci11nix572" path="res://ui/font/Mulish-Regular.ttf" id="1_2k7i5"]
 [ext_resource type="StyleBox" uid="uid://b35di6bufnp40" path="res://ui/ptheme/stylebox/700.tres" id="1_jvbu6"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://me8na30diav6" path="res://ui/font/Mulish-Bold.ttf" id="2_2nl4d"]
 [ext_resource type="StyleBox" uid="uid://heeuauuj41ki" path="res://ui/ptheme/stylebox/500.tres" id="3_ppjfk"]
 [ext_resource type="FontFile" uid="uid://cvy345jpfjwoo" path="res://ui/font/Mulish-BoldItalic.ttf" id="6_1wg5g"]
+[ext_resource type="StyleBox" uid="uid://brg6ehjm7atfj" path="res://ui/ptheme/stylebox/lineedit.tres" id="6_5ll6t"]
 [ext_resource type="FontFile" uid="uid://4kxkdqbp0x7h" path="res://ui/font/Mulish-Italic.ttf" id="7_che87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3mcw"]
@@ -66,6 +67,24 @@ Label/constants/shadow_offset_y = 0
 Label/constants/shadow_outline_size = 0
 Label/fonts/font = ExtResource("1_2k7i5")
 Label/styles/normal = null
+LineEdit/colors/caret_color = Color(0.756863, 0.533333, 0.972549, 1)
+LineEdit/colors/clear_button_color = Color(0, 0, 0, 1)
+LineEdit/colors/clear_button_color_pressed = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(0.980392, 0.960784, 1, 1)
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0.980392, 0.960784, 1, 0.490196)
+LineEdit/colors/font_selected_color = Color(0.168627, 0.168627, 0.168627, 1)
+LineEdit/colors/font_uneditable_color = Color(0.913725, 0.839216, 0.996078, 0.254902)
+LineEdit/colors/selection_color = Color(0.913725, 0.839216, 0.996078, 1)
+LineEdit/constants/caret_width = 2
+LineEdit/constants/minimum_character_width = 0
+LineEdit/constants/outline_size = 0
+LineEdit/font_sizes/font_size = 25
+LineEdit/fonts/font = ExtResource("1_2k7i5")
+LineEdit/icons/clear = null
+LineEdit/styles/focus = ExtResource("6_5ll6t")
+LineEdit/styles/normal = ExtResource("6_5ll6t")
+LineEdit/styles/read_only = ExtResource("6_5ll6t")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10

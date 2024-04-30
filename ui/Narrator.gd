@@ -21,9 +21,6 @@ var exitOption: GameUIOption = GameUIOption.new(ExitScene, "Exit", "Exit this in
 
 var INTRO_SCENE: GameScene = preload("res://story/scenes/intro_scene.gd").new();
 
-func DELETETHIS() -> void:
-	EnterScene(INTRO_SCENE);
-
 func GetPlayer() -> GamePlayer:
 	return player;
 	
