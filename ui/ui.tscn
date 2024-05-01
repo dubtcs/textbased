@@ -28,9 +28,8 @@ script = ExtResource("1_hxgrb")
 wait_time = 0.5
 one_shot = true
 
-[node name="AreaControl" type="Node" parent="." node_paths=PackedStringArray("_viewport")]
+[node name="AreaControl" type="Node" parent="."]
 script = ExtResource("3_wnlu8")
-_viewport = NodePath("../Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/Panel/MarginContainer/WorldViewport")
 
 [node name="Narrator" type="Node" parent="."]
 script = ExtResource("4_wpoax")

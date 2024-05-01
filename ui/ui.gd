@@ -10,6 +10,7 @@ const MAX_HISTORY: int = 25;
 @onready var _uiContent: GameContentContainer = $"Panel/MarginContainer/HBoxContainer/Middle/GameContent";
 @onready var _moveTimer: Timer = $"MoveTimer";
 @onready var _optionHint: GameOptionHint = $"OptionHint";
+@onready var worldViewport: GameWorldViewport = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/Panel/MarginContainer/WorldViewport";
 
 var _canMove: bool = true;
 var userInput: GameInputResponse = null;
@@ -18,21 +19,40 @@ const MOVE_TIME_SEC: float = 0.15;
 
 func _ready() -> void:
 	_optionHint.set_process(false);
-	_areaControl.ChangeArea("ship");
-	_areaControl.MoveToNamed("main_hallway");
+	#ChangeGameArea("ship");
+	#MoveToNamed("main_hallway");
 	
 	_narrator.quest_progress.connect(_uiContent.UpdateQuests);
-	
-	_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
-	_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
-	
 	_uiContent.FillQuests(_narrator.GetPlayer().Quests());
-	RoomEntered();
+	
+	#_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
+	#_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
+	
+	#RoomEntered();
 	
 func GameTick() -> void:
 	## PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
 	return;
 	
+func MoveTo(x: int, y: int) -> void:
+	_areaControl.MoveTo(x,y)
+	TranslateCameraToPlayerPosition();		
+	return;
+
+func MoveToNamed(index: String) -> bool:
+	if(_areaControl.MoveToNamed(index)):
+		TranslateCameraToPlayerPosition();
+		return true;
+	return false;
+
+func ChangeGameArea(index: String) -> void:
+	worldViewport.AddAreaInstance(_areaControl.ChangeArea(index))
+	return;
+
+func TranslateCameraToPlayerPosition() -> void:
+	worldViewport.MoveCameraTo(_areaControl.GetCurrentArea().GetCurrentRoom().position);
+	return;
+
 func PushGameResponse(gameText: String) -> void:
 	_uiContent.PushResponse(gameText);
 	
@@ -45,7 +65,7 @@ func ChangeArea(args: PackedStringArray) -> void:
 	var nextName: String = args[0];
 	if(_areaControl.ChangeArea(nextName)):
 		var roomName: String = args[1];
-		_areaControl.MoveToNamed(roomName);
+		MoveToNamed(roomName);
 		RoomEntered();
 	return;
 
@@ -98,16 +118,17 @@ func OnSceneEvent(type: Enums.SceneEvent, args: PackedStringArray) -> void:
 	match(type):
 		Enums.SceneEvent.transport:
 			if(args.size() == 2):
-				if(not _areaControl.ChangeArea(args[0])):
-					printerr("No area named: " + args[0]);
-				if(not _areaControl.MoveToNamed(args[1])):
+				ChangeGameArea(args[0]);
+				#if(not _areaControl.ChangeArea(args[0])):
+					#printerr("No area named: " + args[0]);
+				if(not MoveToNamed(args[1])):
 					printerr("No room in area named: " + args[1]);
 				_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();
 			else:
 				printerr("Transport call requires 2 arguments. [area_name,room_name]");
 		Enums.SceneEvent.movement:
 			if(args.size() == 1):
-				if(not _areaControl.MoveToNamed(args[0])):
+				if(not MoveToNamed(args[0])):
 					printerr("No room found in area: " + args[0]);
 				_uiRoomName.text = _areaControl.GetCurrentArea().GetCurrentRoom().GetName();				
 			else:
@@ -166,6 +187,7 @@ func _input(event: InputEvent) -> void:
 			if(didMove):
 				_moveTimer.start(MOVE_TIME_SEC);
 				_onGameOptionExited(null); # what the fuck
+				TranslateCameraToPlayerPosition();
 				RoomEntered();
 				GameTick();
 	return;
