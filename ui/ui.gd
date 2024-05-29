@@ -13,22 +13,16 @@ const MAX_HISTORY: int = 25;
 @onready var worldViewport: GameWorldViewport = $"Panel/MarginContainer/HBoxContainer/Left/GameInfo/MarginContainer/VBoxContainer/Panel/MarginContainer/WorldViewport";
 
 var _canMove: bool = true;
+var inScene: bool = false;
 var userInput: GameInputResponse = null;
 
 const MOVE_TIME_SEC: float = 0.15;
 
 func _ready() -> void:
 	_optionHint.set_process(false);
-	#ChangeGameArea("ship");
-	#MoveToNamed("main_hallway");
 	
 	_narrator.quest_progress.connect(_uiContent.UpdateQuests);
 	_uiContent.FillQuests(_narrator.GetPlayer().Quests());
-	
-	#_areaControl.GetCurrentArea().GetCurrentRoom().AddCharacter(Game.Characters.get("meatball"));
-	#_areaControl.GetCurrentArea().GetRoomNamed("lounge").AddCharacter(Game.Characters.get("shithead"));
-	
-	#RoomEntered();
 	
 func GameTick() -> void:
 	## PushGameResponse(str(_narrator.GetPlayer().Quests().GetStatus("test_quest")));
@@ -82,13 +76,15 @@ func OnSceneOptions(options: Array[GameUIOption]) -> void:
 	return;
 
 func OnSceneEnter() -> void:
-	_canMove = false;
+	#_canMove = false;
+	inScene = true;
 	_uiOptionContainer.ClearButtons();
 	_uiContent.ClearHistory();
 
 func OnSceneExit() -> void:
 	RoomEntered();
-	_canMove = true;
+	#_canMove = true;
+	inScene = false;
 	
 func HookInput(input: GameInputResponse) -> void:
 	if(UnhookInput()):
@@ -174,7 +170,7 @@ func RoomEntered() -> void:
 ## TODO: This ignores narrator!!!
 func _input(event: InputEvent) -> void:
 	var didMove: bool = false;
-	if(_canMove):
+	if(_canMove and (not inScene)):
 		if(not _moveTimer.time_left):
 			if(event.is_action_pressed("moveNorth")):
 				didMove = _areaControl.AttemptMove(Enums.MoveDirection.north);

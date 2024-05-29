@@ -62,7 +62,8 @@ func ChangeArea(index: String) -> GameArea:
 # PRIVATE
 
 func _ready() -> void:
-	_ProcessAreas();
+	return;
+	#_ProcessAreas();
 
 func _ProcessAreas() -> void:
 	var dir: DirAccess = DirAccess.open(areaFolder);
